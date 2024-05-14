@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane id="AnchorPane" prefHeight="558.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rammiromorales.controller.CargoEmpleadoViewController">
+   <children>
+      <ImageView fitHeight="655.0" fitWidth="1177.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/CargoEmpleado.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnAgregar" layoutX="58.0" layoutY="266.0" mnemonicParsing="false" onAction="#agregarCargoEmpleado" prefHeight="82.0" prefWidth="180.0" style="-fx-border-radius: 20; -fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Agregar" textFill="#c8d2d1">
+         <graphic>
+            <ImageView fitHeight="109.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/agregar.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="btnEliminar" layoutX="58.0" layoutY="361.0" mnemonicParsing="false" onAction="#eliminarCargoEmpleado" prefHeight="82.0" prefWidth="180.0" style="-fx-border-radius: 20; -fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Eliminar" textFill="#c8d2d1">
+         <graphic>
+            <ImageView fitHeight="117.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/eliminar.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="btnEditar" layoutX="58.0" layoutY="454.0" mnemonicParsing="false" onAction="#editar" prefHeight="82.0" prefWidth="180.0" style="-fx-border-color: #c8d2d1; -fx-border-radius: 20; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Editar" textFill="#c8d2d1">
+         <graphic>
+            <ImageView fitHeight="116.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/editar.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="btnListar" layoutX="58.0" layoutY="552.0" mnemonicParsing="false" onAction="#reportes" prefHeight="82.0" prefWidth="180.0" style="-fx-border-radius: 20; -fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Listar" textFill="#c8d2d1">
+         <graphic>
+            <ImageView fitHeight="107.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/listar.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <GridPane layoutX="317.0" layoutY="128.0" prefHeight="126.0" prefWidth="307.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="137.3333740234375" minWidth="10.0" prefWidth="112.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.66666666666669" minWidth="10.0" prefWidth="120.66666666666669" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="17.0" prefWidth="108.0" text="Id Cargo Empleado" />
+            <TextField fx:id="txtIdCargoEmpleado" prefHeight="25.0" prefWidth="128.0" GridPane.columnIndex="1" />
+            <TextField fx:id="txtNombreCargo" prefHeight="25.0" prefWidth="109.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtDescripcionCargo" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Nombre Cargo" GridPane.rowIndex="1" />
+            <Label text="Descripcion Cargo" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <SplitMenuButton layoutX="874.0" layoutY="46.0" mnemonicParsing="false">
+        <items>
+            <Menu mnemonicParsing="false" text="Modulos">
+              <items>
+                <MenuItem fx:id="btnPrincipal" mnemonicParsing="false" onAction="#handleButtonAction" text="Menu Principal " />
+                  <MenuItem fx:id="btnClientes" mnemonicParsing="false" onAction="#handleButtonAction" text="Clientes " />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Acerca de ">
+              <items>
+                <MenuItem fx:id="btnProgramador" mnemonicParsing="false" onAction="#handleButtonAction" text="Programador" />
+              </items>
+            </Menu>
+        </items>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/inicio%202.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </SplitMenuButton>
+      <TableView fx:id="tvlCargoEmpleado" layoutX="315.0" layoutY="281.0" prefHeight="242.0" prefWidth="423.0">
+        <columns>
+          <TableColumn fx:id="colCodigoEmpleado" prefWidth="158.66664123535156" text="Codigo Cargo Empleado " />
+          <TableColumn fx:id="colNombreCargo" minWidth="0.0" prefWidth="125.99993896484375" text="Nombre Cargo" />
+            <TableColumn fx:id="colDescripcionCargo" minWidth="3.3333740234375" prefWidth="127.99996948242188" text="Descripcion Cargo" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

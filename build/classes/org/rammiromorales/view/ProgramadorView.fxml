@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="438.0" prefWidth="746.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rammiromorales.controller.ProgramadorController">
+   <children>
+      <ImageView fitHeight="571.0" fitWidth="744.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/programador.png" />
+         </image>
+      </ImageView>
+      <SplitMenuButton layoutX="676.0" layoutY="25.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="37.0" styleClass="menubar" stylesheets="@../resource/KinalExpres.css" textFill="#021d54">
+        <items>
+          <MenuItem fx:id="btnPrincipal" mnemonicParsing="false" onAction="#handleButtonAction" text="Menu Principal " />
+          <MenuItem fx:id="btnCliente" mnemonicParsing="false" onAction="#handleButtonAction" text="Clientes " />
+        </items>
+         <graphic>
+            <ImageView fitHeight="18.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/Inicio%20.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </SplitMenuButton>
+   </children>
+</AnchorPane>
