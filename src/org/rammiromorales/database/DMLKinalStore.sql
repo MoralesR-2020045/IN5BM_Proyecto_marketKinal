@@ -295,5 +295,65 @@ Delimiter ;
 
 
 
+-- -----------------------------------------Procedimiento Agregar Producto -------------------------------------------------
+Delimiter $$
+create procedure sp_agregarProductos(in spCodigoProducto varchar(15),in spDescripcionProducto varchar(45), in spPrecioUnitario decimal(10,2), in spPrecioDocena decimal(10,2), in spPrecioMayor decimal(10,2), in spImagenProducto varchar(45), in spExistencia int(11), in spCodigoTipoProducto int(11), in spCodigoProveedor int)
+begin
+	insert into Productos(codigoProducto,descripcionProducto,precioUnitario,precioDocena,precioMayor,imagenProducto,existencia,codigoTipoProducto,codigoProveedor)
+    values (spCodigoProducto,spDescripcionProducto,spPrecioUnitario,spPrecioDocena,spPrecioMayor,spImagenProducto,spExistencia,spCodigoTipoProducto,spCodigoProveedor);
+end $$
+Delimiter ;
+ 
+call sp_agregarProductos('ewda','Alta Calidad',12.00,13.00,54.00,'PNG',11,1,1);
+-- call sp_agregarProductos('jjjj','Alta Calidad',12.00,13.00,54.00,'PNG',11,1,1);
+ 
+delimiter $$
+create procedure sp_listarProductos()
+begin 
+	select * from Productos; 
+end $$
+delimiter ;
+ 
+call sp_listarProductos();
+ 
+delimiter $$
+create procedure sp_buscarProductos(in codigoProducto varchar(15))
+begin
+	select * from Productos where productos.codigoProducto = codigoProducto;
+end $$
+delimiter ;
+ 
+call sp_buscarProductos('ewda');
+ 
+delimiter $$
+create procedure sp_actualizarProductos(in codigoProducto varchar(15),in descripcionProducto varchar(45), in precioUnitario decimal(10,2), in precioDocena decimal(10,2), in precioMayor decimal(10,2), in imagenProducto varchar(45), in existencia int(11), in codigoTipoProducto int(11), in codigoProveedor int)
+begin
+	update Productos
+    set
+		productos.descripcionProducto = descripcionProducto,
+		productos.precioUnitario = precioUnitario,
+        productos.precioDocena = precioDocena,
+        productos.precioMayor = precioMayor,
+        productos.imagenProducto = imagenProducto,
+        productos.existencia = existencia,
+        productos.codigoTipoProducto = codigoTipoProducto,
+        productos.codigoProveedor = codigoProveedor
+	where
+		productos.codigoProducto = codigoProducto;
+end $$
+delimiter ;
+ 
+call sp_actualizarProductos('ewda','Alta',14.00,15.00,50.00,'JPG',10,1,1);
+ 
+delimiter $$
+create procedure sp_eliminarProductos(in codigoProducto varchar(45))
+begin 
+	delete from Productos where productos.codigoProducto = codigoProducto;
+end $$
+delimiter ;
+ 
+call sp_eliminarProductos('ewda');
+
+
 
 

@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.rammiromorales.controller.ProductoViewController">
+<AnchorPane id="AnchorPane" prefHeight="482.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rammiromorales.controller.ProductoViewController">
    <children>
-      <Button layoutX="35.0" layoutY="32.0" mnemonicParsing="false" text="Agregar" />
-      <Button layoutX="39.0" layoutY="80.0" mnemonicParsing="false" text="Eliminar" />
-      <Button layoutX="39.0" layoutY="129.0" mnemonicParsing="false" text="Editar" />
-      <Button layoutX="39.0" layoutY="169.0" mnemonicParsing="false" text="Button" />
-      <SplitMenuButton layoutX="400.0" layoutY="57.0" mnemonicParsing="false" text="SplitMenuButton">
+      <Button fx:id="btnAgregar" layoutX="35.0" layoutY="32.0" mnemonicParsing="false" onAction="#agregar" text="Agregar" />
+      <Button fx:id="btnEliminar" layoutX="39.0" layoutY="80.0" mnemonicParsing="false" text="Eliminar" />
+      <Button fx:id="btnEditar" layoutX="39.0" layoutY="129.0" mnemonicParsing="false" text="Editar" />
+      <Button fx:id="btnListar" layoutX="39.0" layoutY="169.0" mnemonicParsing="false" text="Listar" />
+      <SplitMenuButton layoutX="447.0" layoutY="23.0" mnemonicParsing="false" text="SplitMenuButton">
         <items>
             <Menu mnemonicParsing="false" text="Modulo ">
               <items>
@@ -28,5 +35,64 @@
             </Menu>
         </items>
       </SplitMenuButton>
+      <GridPane layoutX="112.0" layoutY="64.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Codigo Producto" />
+            <Label text="Descripcion Producto " GridPane.rowIndex="1" />
+            <Label text="Precio Unitario" GridPane.rowIndex="2" />
+            <TextField fx:id="txtCodigoProducto" GridPane.columnIndex="1" />
+            <TextField fx:id="txtDescripcionProducto" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtPrecioDocena" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Precio Docena" GridPane.rowIndex="3" />
+            <Label text="Precio Mayor" GridPane.rowIndex="4" />
+            <TextField fx:id="txtPrecioMayor" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtPrecioUnitario" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <GridPane layoutX="335.0" layoutY="60.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label text="Imagen Producto" />
+            <Label text="Existencia" GridPane.rowIndex="1" />
+            <Label text="Tipo Producto" GridPane.rowIndex="2" />
+            <TextField fx:id="txtImage" GridPane.columnIndex="1" />
+            <TextField fx:id="txtExistencia" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Proveedores  codig" GridPane.rowIndex="3" />
+            <ComboBox fx:id="cmbProducto" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="cmbProveedor" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <TableView fx:id="tblProductos" layoutX="56.0" layoutY="241.0" prefHeight="200.0" prefWidth="737.0">
+        <columns>
+          <TableColumn fx:id="colCodigoProducto" prefWidth="75.0" text="ID Producto" />
+          <TableColumn fx:id="coldescripcionProducto" prefWidth="75.0" text="Descripcion" />
+            <TableColumn fx:id="colPrecioDocena" prefWidth="75.0" text="Precio Docena" />
+            <TableColumn fx:id="colPrecioUnitario" prefWidth="75.0" text="Precio Unitario" />
+            <TableColumn fx:id="colPrecioMayor" prefWidth="75.0" text="Precio Mayor" />
+            <TableColumn fx:id="colExistencia" prefWidth="75.0" text="Existencia" />
+            <TableColumn fx:id="colCodigoTipoProducto" prefWidth="75.0" text="Tipo Producto" />
+            <TableColumn fx:id="colCodigoProveedor" prefWidth="75.0" text="Proveedores" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

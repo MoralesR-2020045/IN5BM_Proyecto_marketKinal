@@ -61,10 +61,10 @@ create table Productos(
 	precioMayor decimal(10,2),
 	imagenProducto varchar(45),
 	existencia int,
-    codigoProveedor int,
     codigoTipoProducto int,
-    foreign key (codigoProveedor) references Proveedores (codigoProveedor),
-    foreign key (codigoTipoProducto) references TipoProducto (codigoTipoProducto),
-    primary key PK_codigoProducto (codigoProducto)
+    codigoProveedor int,
+    primary key PK_codigoProducto (codigoProducto),
+    constraint FK_Productos_TipoProducto foreign key Productos(codigoTipoProducto) references TipoProducto(codigoTipoProducto) on delete cascade,
+    constraint FK_Productos_Proveedores foreign key Productos(codigoProveedor) references Proveedores(codigoProveedor) on delete cascade
 );
 

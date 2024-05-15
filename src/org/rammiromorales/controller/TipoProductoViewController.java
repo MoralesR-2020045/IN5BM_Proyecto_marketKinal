@@ -88,12 +88,12 @@ public class TipoProductoViewController implements Initializable {
     }
 
     public void cargarDatosTable() {
-        tvlTipoProducto.setItems(listaDeCargoEmpleado());
+        tvlTipoProducto.setItems(listaDeTipoProducto());
         colCodigoTipoProducto.setCellValueFactory(new PropertyValueFactory<TipoProducto, Integer>("codigoTipoProducto"));
         colDescripcion.setCellValueFactory(new PropertyValueFactory<TipoProducto, String>("descripcion"));
     }
 
-    public ObservableList<TipoProducto> listaDeCargoEmpleado() {
+    public ObservableList<TipoProducto> listaDeTipoProducto() {
         ArrayList<TipoProducto> listador = new ArrayList<>();
         try {
             PreparedStatement consulta = Conexion.getInstancia().getConexion().prepareCall("{call sp_ListarTipoProducto()}");
