@@ -10,7 +10,6 @@ package org.rammiromorales.bean;
  * @author Donovan Morales
  */
 public class Proveedores {
-    
     private int codigoProveedor;
     private String NITProveedor;
     private String nombresProveedor;

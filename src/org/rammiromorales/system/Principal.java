@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 import javafx.stage.Stage;
+import org.rammiromorales.controller.CantidadDeProdutoProveedorController;
 import org.rammiromorales.controller.CargoEmpleadoViewController;
 import org.rammiromorales.controller.ClienteController;
 import org.rammiromorales.controller.ComprasViewController;
@@ -120,26 +121,37 @@ public class Principal extends Application {
             e.printStackTrace();
         }
     }
-    
-        public void ventanaProducto() {
+
+    public void ventanaProducto() {
         try {
-            ProductoViewController  producto  = (ProductoViewController) cambiarEscena("ProductoView.fxml", 1163, 654);
+            ProductoViewController producto = (ProductoViewController) cambiarEscena("ProductoView.fxml", 1163, 654);
             producto.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
-        
-        public void ventanaCompras() {
+
+    public void ventanaCompras() {
         try {
-            ComprasViewController  compra  = (ComprasViewController) cambiarEscena("ComprasView.fxml", 1163, 654);
+            ComprasViewController compra = (ComprasViewController) cambiarEscena("ComprasView.fxml", 1163, 654);
             compra.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
+
+    public void cantidadProductoProveedor() {
+        try {
+             CantidadDeProdutoProveedorController cantidad = (CantidadDeProdutoProveedorController) cambiarEscena("CantidadDeProdutoProveedor.fxml", 1163, 654);
+            cantidad.setEscenarioPrincipal(this);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

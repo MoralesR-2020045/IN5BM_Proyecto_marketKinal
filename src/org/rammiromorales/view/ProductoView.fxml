@@ -17,9 +17,9 @@
 <AnchorPane id="AnchorPane" prefHeight="482.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rammiromorales.controller.ProductoViewController">
    <children>
       <Button fx:id="btnAgregar" layoutX="35.0" layoutY="32.0" mnemonicParsing="false" onAction="#agregar" text="Agregar" />
-      <Button fx:id="btnEliminar" layoutX="39.0" layoutY="80.0" mnemonicParsing="false" text="Eliminar" />
-      <Button fx:id="btnEditar" layoutX="39.0" layoutY="129.0" mnemonicParsing="false" text="Editar" />
-      <Button fx:id="btnListar" layoutX="39.0" layoutY="169.0" mnemonicParsing="false" text="Listar" />
+      <Button fx:id="btnEliminar" layoutX="39.0" layoutY="80.0" mnemonicParsing="false" onAction="#eliminarProveedores" text="Eliminar" />
+      <Button fx:id="btnEditar" layoutX="39.0" layoutY="129.0" mnemonicParsing="false" onAction="#editar" text="Editar" />
+      <Button fx:id="btnListar" layoutX="39.0" layoutY="169.0" mnemonicParsing="false" onAction="#reportes" text="Listar" />
       <SplitMenuButton layoutX="447.0" layoutY="23.0" mnemonicParsing="false" text="SplitMenuButton">
         <items>
             <Menu mnemonicParsing="false" text="Modulo ">
@@ -82,7 +82,7 @@
             <ComboBox fx:id="cmbProveedor" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <TableView fx:id="tblProductos" layoutX="56.0" layoutY="241.0" prefHeight="200.0" prefWidth="737.0">
+      <TableView fx:id="tblProductos" layoutX="56.0" layoutY="241.0" onMouseClicked="#selecionarElementos" prefHeight="200.0" prefWidth="737.0">
         <columns>
           <TableColumn fx:id="colCodigoProducto" prefWidth="75.0" text="ID Producto" />
           <TableColumn fx:id="coldescripcionProducto" prefWidth="75.0" text="Descripcion" />

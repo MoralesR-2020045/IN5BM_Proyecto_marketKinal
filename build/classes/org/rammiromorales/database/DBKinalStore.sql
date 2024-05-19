@@ -9,10 +9,10 @@ create database DBKinalStore;
 
 use DBKinalStore;
 
-create table TipoProducto(
-	codigoTipoProducto int auto_increment,
-    descripcion varchar (45),
-    primary key PK_TipoProducto(codigoTipoProducto)
+create table CantidadDeProdutoProveedor(
+	codigoCantidadProveedor int auto_increment, 
+    cantidadProductoProveedor varchar(45),
+    primary key PK_CantidadDeProductoProveedor(codigoCantidadProveedor)
 );
 
 create table Compras(
@@ -35,6 +35,27 @@ create table Proveedores (
     primary key PK_CodigoProveedor(codigoProveedor)
 );
 
+create table EmailProveedor(
+	codigoEmailProveedor int not null,
+    emailProveedor varchar(50),
+    descripcion varchar(100),
+    codigoProveedor int,
+    primary key PK_EmailProveedor(codigoEmailProveedor),
+    constraint FK_EmailProveedor_Proveedores foreign key EmailProveedor(codigoProveedor)
+	references Proveedores(codigoProveedor) on delete cascade
+);
+
+create table TelefonoProveedor(
+	codigoTelefonoProveedor int not null,
+    numeroPrincipal varchar(8),
+    numeroSecundario varchar(8),
+    observaciones varchar(45),
+    codigoProveedor int,
+    primary key PK_TelefonoProveedor(codigoTelefonoProveedor),
+    constraint FK_TelefonoProveedor_Proveedores foreign key TelefonoProveedor(codigoProveedor)
+	references Proveedores(codigoProveedor) on delete cascade
+);
+
 create table Clientes (
 	codigoCliente int auto_increment,
     NITCliente varchar (10),
@@ -53,6 +74,17 @@ create table CargoEmpleado (
     primary key PK_codigoCargoEmpleado (codigoCargoEmpleado)
 );
 
+create table TipoProducto(
+	codigoTipoProducto int auto_increment,
+    -- precioProductoDeProveedor int , 
+	-- unidadesDeProducto int,
+    -- codigoCantidadProveedor int,
+    descripcion varchar (45),
+    primary key PK_TipoProducto(codigoTipoProducto) 
+    -- constraint FK_TipoProducto_CantidadDeProdutoProveedor foreign key TipoProducto(codigoCantidadProveedor)
+    -- references CantidadDeProdutoProveedor(codigoCantidadProveedor) on delete cascade
+);
+
 create table Productos(
 	codigoProducto varchar(15),
     descripcionProducto varchar(45),
@@ -64,7 +96,66 @@ create table Productos(
     codigoTipoProducto int,
     codigoProveedor int,
     primary key PK_codigoProducto (codigoProducto),
-    constraint FK_Productos_TipoProducto foreign key Productos(codigoTipoProducto) references TipoProducto(codigoTipoProducto) on delete cascade,
-    constraint FK_Productos_Proveedores foreign key Productos(codigoProveedor) references Proveedores(codigoProveedor) on delete cascade
+    
+    constraint FK_Productos_TipoProducto foreign key Productos(codigoTipoProducto) 
+    references TipoProducto(codigoTipoProducto) on delete cascade,
+    
+    constraint FK_Productos_Proveedores foreign key Productos(codigoProveedor) 
+    references Proveedores(codigoProveedor) on delete cascade
+);
+
+create table Empleados(
+	codigoEmpleado int not null,
+    nombresEmpleado varchar(50),
+    apellidosEmpleado varchar(50),
+    sueldo decimal(10,2),
+    direccion varchar(150),
+    turno varchar(15),
+    codigoCargoEmpleado int,
+    primary key PK_Empleados(codigoEmpleado),
+    constraint FK_Empleados_CargoEmpleado foreign key Empleados(codigoCargoEmpleado)
+	references CargoEmpleado(codigoCargoEmpleado) on delete cascade
+);
+
+
+
+create table DetalleCompra(
+	codigoDetalleCompra int not null,
+    costoUnitario decimal(10,2),
+    cantidad int,
+    codigoProducto varchar(15),
+    numeroDocumento int,
+    primary key PK_DetalleCompra(codigoDetalleCompra),
+    constraint FK_DetalleCompra_Productos foreign key DetalleCompra(codigoProducto)
+		references Productos(codigoProducto) on delete cascade,
+	constraint FK_DetalleCompra_Compras foreign key DetalleCompra(numeroDocumento)
+		references	Compras(numeroDocumento) on delete cascade
+);
+
+create table Factura(
+	numeroFactura int not null,
+    estado varchar(50),
+    totalFactura decimal(10,2),
+    fechaFactura date,
+    codigoCliente int,
+    codigoEmpleado int,
+    primary key PK_Factura(numeroFactura),
+    constraint FK_Factura_Clientes foreign key Factura(codigoCliente)
+		references Clientes(codigoCliente) on delete cascade,
+	constraint FK_Factura_Empleados foreign key Factura(codigoEmpleado)
+		references Empleados(codigoEmpleado) on delete cascade
+);
+
+create table DetalleFactura(
+	codigoDetalleFactura int not null,
+    precioUnitario decimal(10,2),
+    cantidad int,
+    numeroFactura int,
+    codigoProducto varchar(15),
+    primary key PK_DetalleFactura(codigoDetalleFactura),
+    constraint FK_DetalleFactura_Factura foreign key DetalleFactura(numeroFactura)
+		references Factura(numeroFactura),
+	constraint FK_DetalleFactura foreign key DetalleFactura(codigoProducto)
+		references Productos(codigoProducto)
 );
 
