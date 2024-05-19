@@ -90,8 +90,8 @@
             <TableColumn fx:id="colPrecioUnitario" prefWidth="75.0" text="Precio Unitario" />
             <TableColumn fx:id="colPrecioMayor" prefWidth="75.0" text="Precio Mayor" />
             <TableColumn fx:id="colExistencia" prefWidth="75.0" text="Existencia" />
-            <TableColumn fx:id="colCodigoTipoProducto" prefWidth="75.0" text="Tipo Producto" />
-            <TableColumn fx:id="colCodigoProveedor" prefWidth="75.0" text="Proveedores" />
+            <TableColumn fx:id="colCodigoTipoProducto" prefWidth="118.66668701171875" text="Tipo Producto" />
+            <TableColumn fx:id="colCodigoProveedor" prefWidth="98.0" text="Proveedores" />
         </columns>
       </TableView>
    </children>

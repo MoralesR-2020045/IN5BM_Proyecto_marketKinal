@@ -10,7 +10,7 @@ package org.rammiromorales.bean;
  * @author informatica
  */
 public class Producto {
-    
+
     private String codigoProducto;
     private String descripcionProducto;
     private double precioUnitario;
@@ -96,6 +96,11 @@ public class Producto {
 
     public void setCodigoProveedor(int codigoProveedor) {
         this.codigoProveedor = codigoProveedor;
+    }
+
+    @Override
+    public String toString() {
+        return getCodigoProducto() + " | " + getDescripcionProducto();
     }
 
 }

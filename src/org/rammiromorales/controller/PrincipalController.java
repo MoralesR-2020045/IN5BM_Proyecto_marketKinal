@@ -17,18 +17,19 @@ import org.rammiromorales.system.Principal;
  *
  * @author informatica
  */
-public class PrincipalController implements Initializable{
+public class PrincipalController implements Initializable {
+
     private Principal escenarioPrincipal;
-    
-    @FXML 
+
+    @FXML
     private MenuItem btnMenuCliente;
-    @FXML 
+    @FXML
     private MenuItem btnProgramador;
-    @FXML 
+    @FXML
     private MenuItem btnCargoEmpleado;
     @FXML
     private MenuItem btnTipoDeProducto;
-    @FXML 
+    @FXML
     private MenuItem btnProveedores;
     @FXML
     private MenuItem btnProducto;
@@ -36,10 +37,11 @@ public class PrincipalController implements Initializable{
     private MenuItem btnCompras;
     @FXML
     private MenuItem btnCantidadDeProdutoProveedorController;
-
+    @FXML
+    private MenuItem btnDetalleCompra;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
     }
 
     public Principal getEscenarioPrincipal() {
@@ -49,26 +51,27 @@ public class PrincipalController implements Initializable{
     public void setEscenarioPrincipal(Principal escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
     }
-    
-    
-    @FXML 
-    public void handleButtonAction(ActionEvent event){
-        if(event.getSource() == btnMenuCliente){
+
+    @FXML
+    public void handleButtonAction(ActionEvent event) {
+        if (event.getSource() == btnMenuCliente) {
             escenarioPrincipal.ventanaMenuClientes();
-        }else if (event.getSource() == btnProgramador){
+        } else if (event.getSource() == btnProgramador) {
             escenarioPrincipal.ventanaProgramador();
-        }else if (event.getSource() == btnCargoEmpleado){
+        } else if (event.getSource() == btnCargoEmpleado) {
             escenarioPrincipal.ventanaCargoEmpleado();
-        }else if (event.getSource() == btnTipoDeProducto){
+        } else if (event.getSource() == btnTipoDeProducto) {
             escenarioPrincipal.ventanaTipoProducto();
-        }else if  (event.getSource() == btnProveedores){
+        } else if (event.getSource() == btnProveedores) {
             escenarioPrincipal.ventanaProveedores();
-        }else if (event.getSource() == btnProducto){
+        } else if (event.getSource() == btnProducto) {
             escenarioPrincipal.ventanaProducto();
-        }else if (event.getSource() == btnCompras){
+        } else if (event.getSource() == btnCompras) {
             escenarioPrincipal.ventanaCompras();
-        }else if (event.getSource()== btnCantidadDeProdutoProveedorController){
+        } else if (event.getSource() == btnCantidadDeProdutoProveedorController) {
             escenarioPrincipal.cantidadProductoProveedor();
-        }
+        } else if (event.getSource() ==btnDetalleCompra){
+            escenarioPrincipal.ventanaDetalleProducto();
+                    }
     }
 }
