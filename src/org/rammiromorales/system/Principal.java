@@ -27,6 +27,7 @@ import org.rammiromorales.controller.PrincipalController;
 import org.rammiromorales.controller.ProductoViewController;
 import org.rammiromorales.controller.ProgramadorController;
 import org.rammiromorales.controller.ProveedoresViewController;
+import org.rammiromorales.controller.TelefonoProveedorController;
 import org.rammiromorales.controller.TipoProductoViewController;
 
 /**
@@ -34,12 +35,12 @@ import org.rammiromorales.controller.TipoProductoViewController;
  * @author informatica
  */
 public class Principal extends Application {
-    
+
     private Stage escenarioPrincipal;
     private Scene escena;
     private String paquete = "/org/rammiromorales/view/"
             + "";
-    
+
     @Override
     public void start(Stage escenarioPrincipal) throws Exception {
         this.escenarioPrincipal = escenarioPrincipal;
@@ -48,23 +49,23 @@ public class Principal extends Application {
         escenarioPrincipal.setResizable(false);
         escenarioPrincipal.show();
     }
-    
+
     public Initializable cambiarEscena(String fxmlName, int width, int heigth) throws Exception {
         Initializable resultado = null;
         FXMLLoader loader = new FXMLLoader();
-        
+
         InputStream file = Principal.class.getResourceAsStream(paquete + fxmlName);
         loader.setBuilderFactory(new JavaFXBuilderFactory());
         loader.setLocation(Principal.class.getResource(paquete + fxmlName));
-        
+
         escena = new Scene((AnchorPane) loader.load(file), width, heigth);
         escenarioPrincipal.setScene(escena);
         escenarioPrincipal.sizeToScene();
         resultado = (Initializable) loader.getController();
-        
+
         return resultado;
     }
-    
+
     public void ventanaMenuPrincipal() {
         try {
             PrincipalController menuPrincipalView = (PrincipalController) cambiarEscena("PrincipalView.fxml", 340, 294);
@@ -74,7 +75,7 @@ public class Principal extends Application {
             e.printStackTrace();
         }
     }
-    
+
     public void ventanaMenuClientes() {
         try {
             ClienteController ventanaMenuClientes = (ClienteController) cambiarEscena("ClienteView.fxml", 1163, 654);
@@ -84,7 +85,7 @@ public class Principal extends Application {
             //System.out.println(e.getMessage());
         }
     }
-    
+
     public void ventanaProgramador() {
         try {
             ProgramadorController vistaProgramador = (ProgramadorController) cambiarEscena("ProgramadorView.fxml", 746, 438);
@@ -94,7 +95,7 @@ public class Principal extends Application {
             e.printStackTrace();
         }
     }
-    
+
     public void ventanaCargoEmpleado() {
         try {
             CargoEmpleadoViewController vistaCargoEmpleado = (CargoEmpleadoViewController) cambiarEscena("CargoEmpleadoView.fxml", 1163, 654);
@@ -104,7 +105,7 @@ public class Principal extends Application {
             e.printStackTrace();
         }
     }
-    
+
     public void ventanaTipoProducto() {
         try {
             TipoProductoViewController vistaTipoProducto = (TipoProductoViewController) cambiarEscena("TipoProductoView.fxml", 1163, 654);
@@ -114,7 +115,7 @@ public class Principal extends Application {
             e.printStackTrace();
         }
     }
-    
+
     public void ventanaProveedores() {
         try {
             ProveedoresViewController proveedores = (ProveedoresViewController) cambiarEscena("ProveedoresView.fxml", 1163, 654);
@@ -124,7 +125,7 @@ public class Principal extends Application {
             e.printStackTrace();
         }
     }
-    
+
     public void ventanaProducto() {
         try {
             ProductoViewController producto = (ProductoViewController) cambiarEscena("ProductoView.fxml", 1163, 654);
@@ -134,7 +135,7 @@ public class Principal extends Application {
             e.printStackTrace();
         }
     }
-    
+
     public void ventanaCompras() {
         try {
             ComprasViewController compra = (ComprasViewController) cambiarEscena("ComprasView.fxml", 1163, 654);
@@ -144,7 +145,7 @@ public class Principal extends Application {
             e.printStackTrace();
         }
     }
-    
+
     public void cantidadProductoProveedor() {
         try {
             CantidadDeProdutoProveedorController cantidad = (CantidadDeProdutoProveedorController) cambiarEscena("CantidadDeProdutoProveedor.fxml", 1163, 654);
@@ -154,7 +155,7 @@ public class Principal extends Application {
             e.printStackTrace();
         }
     }
-    
+
     public void ventanaDetalleProducto() {
         try {
             DetalleCompraViewController detalle = (DetalleCompraViewController) cambiarEscena("DetalleCompraView.fxml", 1163, 654);
@@ -164,8 +165,7 @@ public class Principal extends Application {
             e.printStackTrace();
         }
     }
-    
-    
+
     public void ventanaEmpleados() {
         try {
             EmpleadosViewController detalle = (EmpleadosViewController) cambiarEscena("EmpleadosView.fxml", 1163, 654);
@@ -174,9 +174,9 @@ public class Principal extends Application {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-    }    
-    
-        public void ventanaEmailProveedor() {
+    }
+
+    public void ventanaEmailProveedor() {
         try {
             EmailProveedorController detalle = (EmailProveedorController) cambiarEscena("EmailProveedor.fxml", 1163, 654);
             detalle.setEscenarioPrincipal(this);
@@ -184,9 +184,20 @@ public class Principal extends Application {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-    } 
+    }
+
+    public void ventanaTelefonoProveedor() {
+        try {
+            TelefonoProveedorController proveedor = (TelefonoProveedorController) cambiarEscena("TelefonoProveedor.fxml", 1163, 654);
+            proveedor.setEscenarioPrincipal(this);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
