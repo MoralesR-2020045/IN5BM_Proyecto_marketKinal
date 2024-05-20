@@ -380,6 +380,24 @@ public class FacturaViewController implements Initializable {
             e.printStackTrace();
         }
     }
+    
+    
+    public void reportes() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                desactivarControles();
+                limpiarControles();
+                btnEditar.setText("Actualizar");
+                btnListar.setText("Cancelar");
+                btnAgregar.setDisable(false);
+                btnEliminar.setDisable(false);
+                btnEditar.setText("Editar");
+                btnListar.setText("Reporte");
+                tipoDeOperaciones = operaciones.NINGUNO;
+
+                break;
+        }
+    }
 
     public Principal getEscenarioPrincipal() {
         return escenarioPrincipal;

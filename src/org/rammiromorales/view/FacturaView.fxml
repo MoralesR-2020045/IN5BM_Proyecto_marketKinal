@@ -55,7 +55,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnListar" layoutX="58.0" layoutY="552.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="180.0" style="-fx-border-radius: 20; -fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Listar" textFill="#c8d2d1">
+                  <Button fx:id="btnListar" layoutX="58.0" layoutY="552.0" mnemonicParsing="false" onAction="#reportes" prefHeight="82.0" prefWidth="180.0" style="-fx-border-radius: 20; -fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Listar" textFill="#c8d2d1">
                      <graphic>
                         <ImageView fitHeight="107.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
                            <image>

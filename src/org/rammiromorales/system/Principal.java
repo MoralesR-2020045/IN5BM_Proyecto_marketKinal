@@ -21,6 +21,7 @@ import org.rammiromorales.controller.CargoEmpleadoViewController;
 import org.rammiromorales.controller.ClienteController;
 import org.rammiromorales.controller.ComprasViewController;
 import org.rammiromorales.controller.DetalleCompraViewController;
+import org.rammiromorales.controller.DetalleFacturaController;
 import org.rammiromorales.controller.EmailProveedorController;
 import org.rammiromorales.controller.EmpleadosViewController;
 import org.rammiromorales.controller.FacturaViewController;
@@ -201,6 +202,16 @@ public class Principal extends Application {
         try {
             FacturaViewController factura = (FacturaViewController) cambiarEscena("FacturaView.fxml", 1163, 654);
             factura.setEscenarioPrincipal(this);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+        public void ventanaDetalleFactura() {
+        try {
+            DetalleFacturaController DetalleFactura = (DetalleFacturaController) cambiarEscena("DetalleFactura.fxml", 1163, 654);
+            DetalleFactura.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
