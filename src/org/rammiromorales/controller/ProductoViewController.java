@@ -180,8 +180,8 @@ public class ProductoViewController implements Initializable {
 
         return resultado;
     }
-    
-        public Proveedores buscarProveedor(int codigoTipoProveedor) {
+
+    public Proveedores buscarProveedor(int codigoTipoProveedor) {
         Proveedores resultado = null;
         try {
             PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_buscarProveedores(?)}");
@@ -406,7 +406,7 @@ public class ProductoViewController implements Initializable {
             registro.setExistencia(Integer.parseInt(txtExistencia.getText()));
             registro.setCodigoProveedor(((Proveedores) cmbProveedor.getSelectionModel().getSelectedItem()).getCodigoProveedor());
             registro.setCodigoTipoProducto(((TipoProducto) cmbProducto.getSelectionModel().getSelectedItem()).getCodigoTipoProducto());
-            
+
             procedimiento.setString(1, registro.getCodigoProducto());
             procedimiento.setString(2, registro.getDescripcionProducto());
             procedimiento.setDouble(3, registro.getPrecioUnitario());

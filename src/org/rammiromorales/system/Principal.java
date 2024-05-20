@@ -21,6 +21,8 @@ import org.rammiromorales.controller.CargoEmpleadoViewController;
 import org.rammiromorales.controller.ClienteController;
 import org.rammiromorales.controller.ComprasViewController;
 import org.rammiromorales.controller.DetalleCompraViewController;
+import org.rammiromorales.controller.EmailProveedorController;
+import org.rammiromorales.controller.EmpleadosViewController;
 import org.rammiromorales.controller.PrincipalController;
 import org.rammiromorales.controller.ProductoViewController;
 import org.rammiromorales.controller.ProgramadorController;
@@ -163,6 +165,26 @@ public class Principal extends Application {
         }
     }
     
+    
+    public void ventanaEmpleados() {
+        try {
+            EmpleadosViewController detalle = (EmpleadosViewController) cambiarEscena("EmpleadosView.fxml", 1163, 654);
+            detalle.setEscenarioPrincipal(this);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }    
+    
+        public void ventanaEmailProveedor() {
+        try {
+            EmailProveedorController detalle = (EmailProveedorController) cambiarEscena("EmailProveedor.fxml", 1163, 654);
+            detalle.setEscenarioPrincipal(this);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    } 
     public static void main(String[] args) {
         launch(args);
     }

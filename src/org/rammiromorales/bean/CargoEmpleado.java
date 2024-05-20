@@ -10,6 +10,7 @@ package org.rammiromorales.bean;
  * @author Donovan Morales
  */
 public class CargoEmpleado {
+
     private int codigoCargoEmpleado;
     private String nombreCargo;
     private String descripcionCargo;
@@ -46,6 +47,10 @@ public class CargoEmpleado {
     public void setDescripcionCargo(String descripcionCargo) {
         this.descripcionCargo = descripcionCargo;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return getCodigoCargoEmpleado() + " | " + getNombreCargo();
+    }
+
 }

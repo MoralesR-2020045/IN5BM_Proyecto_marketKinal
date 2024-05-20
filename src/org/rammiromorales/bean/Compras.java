@@ -13,7 +13,8 @@ import java.time.LocalDate;
  * @author Donovan Morales
  */
 public class Compras {
-    private int numeroDocumento ; 
+
+    private int numeroDocumento;
     private Date fechaDocumento;
     private String descripcion;
     private double totalDocumento;
@@ -59,8 +60,8 @@ public class Compras {
     public void setTotalDocumento(double totalDocumento) {
         this.totalDocumento = totalDocumento;
     }
-    
-        @Override
+
+    @Override
     public String toString() {
         return getNumeroDocumento() + " | " + getDescripcion();
     }

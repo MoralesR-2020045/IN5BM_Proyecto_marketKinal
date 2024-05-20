@@ -239,13 +239,13 @@ Delimiter ;
 call sp_listarProveedores();
 
 Delimiter $$
-	create procedure sp_buscarProveedores()
+	create procedure sp_buscarProveedores(in spcodigoProveedor int)
 		begin
 			select * from Proveedores where Proveedores.codigoProveedor = spcodigoProveedor;
         end$$
 Delimiter ;
 
-call sp_buscarProveedores();
+call sp_buscarProveedores(1);
 
 -- ------------------------------------------Procedimiento Actualizar Proveedores -------------------------------------------
 Delimiter $$
@@ -714,7 +714,7 @@ begin
 	delete from DetalleFactura where DetalleFactura.codigoDetalleFactura = codigoDetalleFactura;
 end $$
 delimiter ;
-call sp_agregarDetalleFactura(1,22.00,3,1,'ewda');
+
 
 
 delimiter $$
@@ -798,6 +798,6 @@ begin
 end $$
 delimiter ;
 
-call sp_agregarProductos('kinals','Alta Calidad',12.00,13.00,54.00,'PNG',11,1,1);
-call sp_agregarCompras("2020-12-10","Legla", 12.00);
-call sp_agregarDetalleCompra(4,5,2,"kinals",1);
+-- call sp_agregarProductos('kinals','Alta Calidad',12.00,13.00,54.00,'PNG',11,1,1);
+-- call sp_agregarCompras("2020-12-10","Legla", 12.00);
+-- call sp_agregarDetalleCompra(4,5,2,"kinals",1);

@@ -154,8 +154,8 @@ create table DetalleFactura(
     codigoProducto varchar(15),
     primary key PK_DetalleFactura(codigoDetalleFactura),
     constraint FK_DetalleFactura_Factura foreign key DetalleFactura(numeroFactura)
-		references Factura(numeroFactura),
+		references Factura(numeroFactura)on delete cascade,
 	constraint FK_DetalleFactura foreign key DetalleFactura(codigoProducto)
-		references Productos(codigoProducto)
+		references Productos(codigoProducto) on delete cascade
 );
 

@@ -4,12 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Donovan%20Morales/Desktop/Repositorio%20CASA/IN5BM_Proyecto_marketKinal/src/org/rammiromorales/controller/DetalleCompraViewController.java</file>
-            <file>file:/C:/Users/Donovan%20Morales/Desktop/Repositorio%20CASA/IN5BM_Proyecto_marketKinal/src/org/rammiromorales/controller/ProgramadorController.java</file>
+            <file>file:/C:/Users/Donovan%20Morales/Desktop/Repositorio%20CASA/IN5BM_Proyecto_marketKinal/src/org/rammiromorales/controller/ProductoViewController.java</file>
             <file>file:/C:/Users/Donovan%20Morales/Desktop/Repositorio%20CASA/IN5BM_Proyecto_marketKinal/src/org/rammiromorales/bean/DetalleCompra.java</file>
-            <file>file:/C:/Users/Donovan%20Morales/Desktop/Repositorio%20CASA/IN5BM_Proyecto_marketKinal/src/org/rammiromorales/controller/ComprasViewController.java</file>
-            <file>file:/C:/Users/Donovan%20Morales/Desktop/Repositorio%20CASA/IN5BM_Proyecto_marketKinal/src/org/rammiromorales/bean/Producto.java</file>
-            <file>file:/C:/Users/Donovan%20Morales/Desktop/Repositorio%20CASA/IN5BM_Proyecto_marketKinal/src/org/rammiromorales/bean/Proveedores.java</file>
+            <file>file:/C:/Users/Donovan%20Morales/Desktop/Repositorio%20CASA/IN5BM_Proyecto_marketKinal/src/org/rammiromorales/controller/PrincipalController.java</file>
+            <file>file:/C:/Users/Donovan%20Morales/Desktop/Repositorio%20CASA/IN5BM_Proyecto_marketKinal/src/org/rammiromorales/bean/Clientes.java</file>
+            <file>file:/C:/Users/Donovan%20Morales/Desktop/Repositorio%20CASA/IN5BM_Proyecto_marketKinal/src/org/rammiromorales/system/Principal.java</file>
+            <file>file:/C:/Users/Donovan%20Morales/Desktop/Repositorio%20CASA/IN5BM_Proyecto_marketKinal/src/org/rammiromorales/controller/EmpleadosViewController.java</file>
+            <file>file:/C:/Users/Donovan%20Morales/Desktop/Repositorio%20CASA/IN5BM_Proyecto_marketKinal/src/org/rammiromorales/bean/Empleado.java</file>
             <file>file:/C:/Users/Donovan%20Morales/Desktop/Repositorio%20CASA/IN5BM_Proyecto_marketKinal/src/org/rammiromorales/bean/Compras.java</file>
+            <file>file:/C:/Users/Donovan%20Morales/Desktop/Repositorio%20CASA/IN5BM_Proyecto_marketKinal/src/org/rammiromorales/bean/CargoEmpleado.java</file>
         </group>
     </open-files>
 </project-private>
