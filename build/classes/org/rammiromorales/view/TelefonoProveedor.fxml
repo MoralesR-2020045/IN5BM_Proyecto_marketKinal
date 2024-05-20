@@ -28,7 +28,7 @@
                         <Image url="@../images/CargoEmpleado.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="btnAgregar" layoutX="58.0" layoutY="266.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="180.0" style="-fx-border-radius: 20; -fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Agregar" textFill="#c8d2d1">
+                  <Button fx:id="btnAgregar" layoutX="58.0" layoutY="266.0" mnemonicParsing="false" onAction="#agregar" prefHeight="82.0" prefWidth="180.0" style="-fx-border-radius: 20; -fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Agregar" textFill="#c8d2d1">
                      <graphic>
                         <ImageView fitHeight="109.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -37,7 +37,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnEliminar" layoutX="58.0" layoutY="361.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="180.0" style="-fx-border-radius: 20; -fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Eliminar" textFill="#c8d2d1">
+                  <Button fx:id="btnEliminar" layoutX="58.0" layoutY="361.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="82.0" prefWidth="180.0" style="-fx-border-radius: 20; -fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Eliminar" textFill="#c8d2d1">
                      <graphic>
                         <ImageView fitHeight="117.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -46,7 +46,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button fx:id="btnEditar" layoutX="58.0" layoutY="454.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="180.0" style="-fx-border-color: #c8d2d1; -fx-border-radius: 20; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Editar" textFill="#c8d2d1">
+                  <Button fx:id="btnEditar" layoutX="58.0" layoutY="454.0" mnemonicParsing="false" onAction="#editar" prefHeight="82.0" prefWidth="180.0" style="-fx-border-color: #c8d2d1; -fx-border-radius: 20; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Editar" textFill="#c8d2d1">
                      <graphic>
                         <ImageView fitHeight="116.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -105,7 +105,7 @@
                         </ImageView>
                      </graphic>
                   </SplitMenuButton>
-                  <TableView fx:id="tvlTelefonoProveedor" layoutX="315.0" layoutY="281.0" prefHeight="242.0" prefWidth="692.0">
+                  <TableView fx:id="tvlTelefonoProveedor" layoutX="315.0" layoutY="281.0" onMouseClicked="#selecionarElementos" prefHeight="242.0" prefWidth="692.0">
                     <columns>
                       <TableColumn fx:id="colCodigoTelefonoProveedor" prefWidth="139.99996948242188" text="ID Telefono Proveedor" />
                       <TableColumn fx:id="colNumeroPrincipal" minWidth="0.0" prefWidth="144.66668701171875" text="Numero Principal" />

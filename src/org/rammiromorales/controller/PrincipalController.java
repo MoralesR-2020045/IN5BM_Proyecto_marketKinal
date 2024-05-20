@@ -46,6 +46,9 @@ public class PrincipalController implements Initializable {
     @FXML
     private MenuItem btnTelefonoProveedor;
     
+    @FXML 
+    private MenuItem btnFactura;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -85,6 +88,8 @@ public class PrincipalController implements Initializable {
             escenarioPrincipal.ventanaEmailProveedor();
         } else if (event.getSource() ==btnTelefonoProveedor){
            escenarioPrincipal.ventanaTelefonoProveedor();
+        } else if (event.getSource() ==btnFactura){
+           escenarioPrincipal.ventanaFactura();
         }
     }
 }

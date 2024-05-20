@@ -10,6 +10,7 @@ package org.rammiromorales.bean;
  * @author informatica
  */
 public class Clientes {
+
     private int codigoCliente;
     private String NITCliente;
     private String nombresCliente;
@@ -87,6 +88,9 @@ public class Clientes {
         this.correoCliente = correoCliente;
     }
 
-  
-    
+    @Override
+    public String toString() {
+        return getCodigoCliente() + " | " + getNombresCliente() + " " + getApellidosCliente();
+    }
+
 }

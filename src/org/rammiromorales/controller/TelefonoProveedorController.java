@@ -8,6 +8,7 @@ package org.rammiromorales.controller;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -23,6 +24,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javax.swing.JOptionPane;
+import org.rammiromorales.bean.EmailProveedor;
 import org.rammiromorales.bean.Proveedores;
 import org.rammiromorales.bean.TelefonoProveedor;
 import org.rammiromorales.database.Conexion;
@@ -38,6 +41,12 @@ public class TelefonoProveedorController implements Initializable {
     private Principal escenarioPrincipal;
     private ObservableList<TelefonoProveedor> listaTelefonos;
     private ObservableList<Proveedores> listaDeProveedores;
+
+    private enum operaciones {
+        AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
+
+    }
+    private operaciones tipoDeOperaciones = operaciones.NINGUNO;
 
     @FXML
     private Button btnAgregar;
@@ -149,9 +158,173 @@ public class TelefonoProveedorController implements Initializable {
         }
         return listaDeProveedores = FXCollections.observableList(listado);
     }
-    
 
-    
+    public void selecionarElementos() {
+        txtCodigoTelefonoProveedor.setText(String.valueOf(((TelefonoProveedor) tvlTelefonoProveedor.getSelectionModel().getSelectedItem()).getCodigoTelefonoProveedor()));
+        txtNumeroPrincipal.setText(((TelefonoProveedor) tvlTelefonoProveedor.getSelectionModel().getSelectedItem()).getNumeroPrincipal());
+        txtNumeroSecundario.setText(((TelefonoProveedor) tvlTelefonoProveedor.getSelectionModel().getSelectedItem()).getNumeroSecundario());
+        txtObservaciones.setText(((TelefonoProveedor) tvlTelefonoProveedor.getSelectionModel().getSelectedItem()).getObservaciones());
+        cmbCodigoProveedor.getSelectionModel().select(buscarEmpleado(((TelefonoProveedor) tvlTelefonoProveedor.getSelectionModel().getSelectedItem()).getCodigoProveedor()));
+    }
+
+    public Proveedores buscarEmpleado(int codigoTipoEmpleado) {
+        Proveedores resultado = null;
+        try {
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_buscarProveedores(?)}");
+            procedimiento.setInt(1, codigoTipoEmpleado);
+            ResultSet registro = procedimiento.executeQuery();
+            while (registro.next()) {
+                resultado = new Proveedores(registro.getInt("codigoProveedor"),
+                        registro.getString("NITProveedor"),
+                        registro.getString("nombresProveedor"),
+                        registro.getString("apellidosProveedor"),
+                        registro.getString("direccionProveedor"),
+                        registro.getString("razonSocial"),
+                        registro.getString("contactoPrincipal"),
+                        registro.getString("paginaWeb")
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultado;
+    }
+
+    public void agregar() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                activarControles();
+                btnAgregar.setText("Guardar");
+                btnEliminar.setText("Cancelar");
+                btnEditar.setDisable(true);
+                btnListar.setDisable(true);
+                tipoDeOperaciones = operaciones.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                guardar();
+                desactivarControles();
+                limpiarControles();
+                btnAgregar.setText("Agregar");
+                btnEliminar.setText("Eliminar");
+                btnEditar.setDisable(false);
+                btnListar.setDisable(false);
+                tipoDeOperaciones = operaciones.NINGUNO;
+                cargaDatos();
+                break;
+        }
+    }
+
+    public void guardar() {
+        String png = "png";
+        TelefonoProveedor registro = new TelefonoProveedor();
+        registro.setCodigoTelefonoProveedor(Integer.parseInt(txtCodigoTelefonoProveedor.getText()));
+        registro.setNumeroPrincipal(txtNumeroPrincipal.getText());
+        registro.setNumeroSecundario(txtNumeroSecundario.getText());
+        registro.setObservaciones(txtObservaciones.getText());
+        registro.setCodigoProveedor(((Proveedores) cmbCodigoProveedor.getSelectionModel().getSelectedItem()).getCodigoProveedor());
+        try {
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_agregarTelefonoProveedor(?, ?, ?, ?, ?)}");
+            procedimiento.setInt(1, registro.getCodigoTelefonoProveedor());
+            procedimiento.setString(2, registro.getNumeroPrincipal());
+            procedimiento.setString(3, registro.getNumeroSecundario());
+            procedimiento.setString(4, registro.getObservaciones());
+            procedimiento.setInt(5, registro.getCodigoProveedor());
+            procedimiento.execute();
+            listaTelefonos.add(registro);
+        } catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+    }
+
+    public void eliminar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                desactivarControles();
+                limpiarControles();
+                btnAgregar.setText("Agregar");
+                btnEliminar.setText("Eliminar");
+                btnEditar.setDisable(false);
+                btnListar.setDisable(false);
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+            default:
+                if (tvlTelefonoProveedor.getSelectionModel().getSelectedItem() != null) {
+                    int confirmacion = JOptionPane.showConfirmDialog(null, "Confirmar la eliminacion del registro ", "Eliminar Telefono Empleado", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (confirmacion == JOptionPane.YES_NO_OPTION) {
+                        eliminarProceso();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Se ha cancelado la eliminacion de la fila ");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debe de seleccionar una fila para hacer una eliminacion");
+                }
+                break;
+        }
+    }
+
+    public void eliminarProceso() {
+        try {
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_eliminarTelefonoProveedor(?)}");
+            procedimiento.setInt(1, ((TelefonoProveedor) tvlTelefonoProveedor.getSelectionModel().getSelectedItem()).getCodigoTelefonoProveedor());
+            procedimiento.execute();
+            listaTelefonos.remove(tvlTelefonoProveedor.getSelectionModel().getSelectedItem());
+            cargaDatos();
+            desactivarControles();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editar() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                if (tvlTelefonoProveedor.getSelectionModel().getSelectedItem() != null) {
+                    btnEditar.setText(" Actualizar ");
+                    btnListar.setText("Cancelar ");
+                    btnAgregar.setDisable(true);
+                    btnEliminar.setDisable(true);
+                    activarControles();
+                    txtCodigoTelefonoProveedor.setEditable(false);
+                    tipoDeOperaciones = operaciones.ACTUALIZAR;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debe de seleccionar un proveedor para editar ");
+                }
+                break;
+            case ACTUALIZAR:
+                actualizarProceso();
+                btnEditar.setText(" Editar ");
+                btnListar.setText("Reporte ");
+                btnAgregar.setDisable(false);
+                btnEliminar.setDisable(false);
+                desactivarControles();
+                limpiarControles();
+                tipoDeOperaciones = operaciones.NINGUNO;
+                cargaDatos();
+                break;
+        }
+    }
+
+    public void actualizarProceso() {
+        try {
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_actualizarTelefonoProveedor(?, ?, ?, ?, ?)}");
+            TelefonoProveedor registro = ((TelefonoProveedor) tvlTelefonoProveedor.getSelectionModel().getSelectedItem());
+            registro.setCodigoTelefonoProveedor(Integer.parseInt(txtCodigoTelefonoProveedor.getText()));
+            registro.setNumeroPrincipal(txtNumeroPrincipal.getText());
+            registro.setNumeroSecundario(txtNumeroSecundario.getText());
+            registro.setObservaciones(txtObservaciones.getText());
+            registro.setCodigoProveedor(((Proveedores) cmbCodigoProveedor.getSelectionModel().getSelectedItem()).getCodigoProveedor());
+            procedimiento.setInt(1, registro.getCodigoTelefonoProveedor());
+            procedimiento.setString(2, registro.getNumeroPrincipal());
+            procedimiento.setString(3, registro.getNumeroSecundario());
+            procedimiento.setString(4, registro.getObservaciones());
+            procedimiento.setInt(5, registro.getCodigoProveedor());
+            procedimiento.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Principal getEscenarioPrincipal() {
         return escenarioPrincipal;

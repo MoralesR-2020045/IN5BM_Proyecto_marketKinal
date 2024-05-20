@@ -70,9 +70,16 @@ Delimiter $$
     end $$
 Delimiter ;
 
-call sp_ListarCargoEmpleado();
 
 
+Delimiter $$
+	create procedure sp_BuscarCargoEmpleado (in spCodigoCargoEmpleado int)
+    begin
+		select * from CargoEmpleado where CargoEmpleado.codigoCargoEmpleado = spCodigoCargoEmpleado; 
+    end $$
+Delimiter ;
+
+call sp_BuscarCargoEmpleado(1);
 -- ------------------------------------------Procedimiento Eliminar Cargo Empleado -------------------------------------------
 Delimiter $$
 	create procedure sp_eliminarCargoEmpleado (in spCodigoCargoEmpleado int)
