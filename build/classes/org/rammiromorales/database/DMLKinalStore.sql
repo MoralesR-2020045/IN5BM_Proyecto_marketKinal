@@ -10,11 +10,11 @@ Delimiter $$
 	create procedure sp_agregarCantidadDeProdutoProveedor( in spCantidadProductoProveedor varchar(45))
 		begin 
 			insert into CantidadDeProdutoProveedor(cantidadProductoProveedor)
-            values (spcantidadProductoProveedor );
+            values (spCantidadProductoProveedor );
 		end $$
 Delimiter ;
 
-call sp_agregarCantidadDeProdutoProveedor("1 caja");
+call sp_agregarCantidadDeProdutoProveedor("Caja");
 
 Delimiter $$
 	create procedure sp_listarCantidadDeProdutoProveedor ()
@@ -26,24 +26,65 @@ Delimiter ;
 call sp_listarCantidadDeProdutoProveedor();
 
 Delimiter $$
-	create procedure sp_eliminarCantidadDeProdutoProveedor (in spCodigoCargoEmpleado int)
+	create procedure sp_eliminarCantidadDeProdutoProveedor (in spCodigoCantidadProveedor int)
 		begin 
 			delete from CantidadDeProdutoProveedor where 
-            CantidadDeProdutoProveedor.codigoCantidadProveedor = spCodigoCargoEmpleado;
+            CantidadDeProdutoProveedor.codigoCantidadProveedor = spCodigoCantidadProveedor;
 		end $$
 Delimiter ;
 
 Delimiter $$
-	create procedure  sp_actualizarCantidadDeProdutoProveedor (in spCodigoCargoEmpleado int, in spCantidadProductoProveedor varchar (45))
+	create procedure  sp_actualizarCantidadDeProdutoProveedor (in spCodigoCantidadProveedor int, in spCcantidadProductoProveedor varchar (45))
         begin 
 			update CantidadDeProdutoProveedor
 				set
 					cantidadProductoProveedor = spCantidadProductoProveedor
-				where codigoCantidadProveedor = spCodigoCargoEmpleado;
+				where codigoCantidadProveedor = spCodigoCantidadProveedor;
 		end $$
 Delimiter ;
 
 -- call sp_actualizarCantidadDeProdutoProveedor();
+
+-- ------------------------------------------Entidad Producto Proveedor -----------------------------------------------------
+Delimiter $$
+	create procedure sp_agregarProductoProveedor( in spNombreProductoProveedor varchar(45), in spCodigoCantidadProveedor int, in spCantidadDeProducto int,
+    in spExistenciaPorDescripcion int, in spExistenciaTotalDelProducto int)
+		begin 
+			insert into ProductoProveedor(nombreProductoProveedor, codigoCantidadProveedor, cantidadDeProducto, existenciaPorDescripcion, existenciaTotalDelProducto)
+            values (spNombreProductoProveedor, spCodigoCantidadProveedor, spCantidadDeProducto, spExistenciaPorDescripcion, spExistenciaTotalDelProducto);
+		end $$
+Delimiter ;
+
+Delimiter $$
+	create procedure sp_listarProductoProveedor ()
+		begin
+			select * from ProductoProveedor ;
+		end $$
+Delimiter ;
+
+call sp_listarCantidadDeProdutoProveedor();
+
+Delimiter $$
+	create procedure sp_eliminarProductoProveedor (in spIdProductoProveedor int)
+		begin 
+			delete from ProductoProveedor where 
+            ProductoProveedor.idProductoProveedor = spIdProductoProveedor;
+		end $$
+Delimiter ;
+
+Delimiter $$
+	create procedure  sp_actualizarProductoProveedor (in spIdProductoProveedor int, in spNombreProductoProveedor varchar (45), 
+    in spCodigoCantidadProveedor int, in spExistenciaDeTipoCantidad int, in spExistenciaDeTotalidadProducto int)
+        begin 
+			update ProductoProveedor
+				set
+					nombreProductoProveedor = spNombreProductoProveedor,
+                    codigoCantidadProveedor = spCodigoCantidadProveedor,
+					existenciaDeTipoCantidad = spExistenciaDeTipoCantidad,
+                    existenciaDeTotalidadProducto = spExistenciaDeTotalidadProducto
+				where idProductoProveedor = spIdProductoProveedor;
+		end $$
+Delimiter ;
 
 
 

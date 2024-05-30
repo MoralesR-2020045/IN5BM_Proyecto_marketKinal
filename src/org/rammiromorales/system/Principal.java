@@ -49,6 +49,7 @@ public class Principal extends Application {
         this.escenarioPrincipal.setTitle(" Kinal Express");
         ventanaMenuPrincipal();
         escenarioPrincipal.setResizable(false);
+        
         escenarioPrincipal.show();
     }
 
@@ -70,7 +71,7 @@ public class Principal extends Application {
 
     public void ventanaMenuPrincipal() {
         try {
-            PrincipalController menuPrincipalView = (PrincipalController) cambiarEscena("PrincipalView.fxml", 340, 294);
+            PrincipalController menuPrincipalView = (PrincipalController) cambiarEscena("PrincipalView.fxml", 765, 434);
             menuPrincipalView.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());

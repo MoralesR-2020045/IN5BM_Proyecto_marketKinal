@@ -11,7 +11,7 @@ use DBKinalStore;
 
 create table CantidadDeProdutoProveedor(
 	codigoCantidadProveedor int auto_increment, 
-    tipoDeCantidad varchar(45),
+    cantidadProductoProveedor varchar(45),
     primary key PK_CantidadDeProductoProveedor(codigoCantidadProveedor)
 );
 
@@ -19,8 +19,9 @@ create table ProductoProveedor(
 	idProductoProveedor int auto_increment,
     nombreProductoProveedor varchar(100),
 	codigoCantidadProveedor int,
-    existenciaDeTipoCantidad int,
-    existenciaDeTotalidadProducto int,
+    cantidadDeProducto int,
+    existenciaPorDescripcion int,
+    existenciaTotalDelProducto int,
 	primary key PK_ProductoProveedor(idProductoProveedor),
     constraint FK_ProductoProveedor_CantidadDeProdutoProveedor foreign key ProductoProveedor(codigoCantidadProveedor)
 	references CantidadDeProdutoProveedor(codigoCantidadProveedor) on delete cascade
