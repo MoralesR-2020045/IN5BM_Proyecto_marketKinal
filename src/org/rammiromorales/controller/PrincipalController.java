@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -62,39 +63,48 @@ public class PrincipalController implements Initializable {
     private MenuItem btnEmailProveedores;
     @FXML
     private MenuItem btnTelefonoProveedor;
-    
+
     @FXML
     private MenuItem btnFactura;
 
     @FXML
     private MenuItem btnDetalleFactura;
 
+    @FXML
+    private ImageView imageLogo;
 
+    @FXML
+    private VBox boxPanel;
+    @FXML
+    private ImageView iconFactura;
+
+    @FXML
+    private Button btnFacturaDos;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            agregar();
-        } catch (IOException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }
-    
 
     public void agregar() throws IOException {
         switch (tipoDeOperaciones) {
             case NINGUNO:
-                Parent panel = FXMLLoader.load(getClass().getResource("/org/rammiromorales/view/PanelInicioView.fxml"));
-                separadorPane.setLeft(panel);
+                boxPanel.setPrefHeight(437);
+                boxPanel.setPrefWidth(49);
+                imageLogo.setVisible(false);
+                btnFacturaDos.setPrefWidth(48);
+                btnFacturaDos.setPrefHeight(35);
                 tipoDeOperaciones = operaciones.MOSTRAR;
                 break;
             case MOSTRAR:
-                Parent panel2 = FXMLLoader.load(getClass().getResource("/org/rammiromorales/view/PanelDosInicio.fxml"));
-                separadorPane.setLeft(panel2);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
         }
 
+    }
+
+    public void facturas() {
+        escenarioPrincipal.ventanaFactura();
     }
 
     public Principal getEscenarioPrincipal() {
@@ -133,7 +143,7 @@ public class PrincipalController implements Initializable {
             escenarioPrincipal.ventanaTelefonoProveedor();
         } else if (event.getSource() == btnDetalleFactura) {
             escenarioPrincipal.ventanaDetalleFactura();
-        }else if (event.getSource() == btnFactura ){
+        } else if (event.getSource() == btnFactura) {
             escenarioPrincipal.ventanaFactura();
         }
     }

@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -25,6 +26,7 @@ import org.rammiromorales.controller.DetalleFacturaController;
 import org.rammiromorales.controller.EmailProveedorController;
 import org.rammiromorales.controller.EmpleadosViewController;
 import org.rammiromorales.controller.FacturaViewController;
+import org.rammiromorales.controller.PanelDosInicioController;
 import org.rammiromorales.controller.PrincipalController;
 import org.rammiromorales.controller.ProductoViewController;
 import org.rammiromorales.controller.ProgramadorController;
@@ -78,6 +80,8 @@ public class Principal extends Application {
             e.printStackTrace();
         }
     }
+    
+
 
     public void ventanaMenuClientes() {
         try {

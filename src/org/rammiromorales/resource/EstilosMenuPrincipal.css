@@ -20,4 +20,5 @@ and open the template in the editor.
 
 .modificacionBtn{
         -fx-background-color: #025959;
+        padding:  auto;
 }
