@@ -8,11 +8,13 @@ and open the template in the editor.
     Author     : informatica
 */
 .menubar{
-        -fx-background-color: transparent;
-        -fxopacy: 0.5;
-        -fx-font-color: #68904d;
+        -fx-background-color: white;
+        -fxopacy: 0.2;
+        -fx-font-color: white;
     
 }
+
+
 
 table-view colum-header,
 table-view colum-backgroungColor-filler{

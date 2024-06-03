@@ -10,6 +10,14 @@ and open the template in the editor.
 .barraLateral{
         -fx-background-color: #011526;
 }
+.barraSuperior{
+        -fx-background-color: white;
+        -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.50), 30, 0.15, 5, 5);
+}
+
+.botonMenu{
+        -fx-background-color: #FFFFFF;
+}
 
 .fondo{
         -fx-background-color: #E4F2E7;
@@ -22,3 +30,34 @@ and open the template in the editor.
         -fx-background-color: #025959;
         padding:  auto;
 }
+
+.root {
+    -fx-background-color: #FAF7F0; /* Fondo ligeramente gris */
+}
+
+/* Style for the TableView */
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3B3B3B;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
+     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.70), 30, 0.15, 5, 5);
+    -fx-padding: 10;
+}
+
+/* Style for the TableColumn headers */
+.table-view .column-header-background {
+    -fx-background-color: black;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 30px;
+}
+
+.table-view .column-header .label {
+     -fx-background-color: #3B3B3B;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+

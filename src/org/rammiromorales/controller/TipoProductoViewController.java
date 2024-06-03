@@ -70,7 +70,7 @@ public class TipoProductoViewController implements Initializable {
     private TableColumn  colDescripcion;
 
     @FXML
-    private MenuItem btnMenuPrincipal;
+    private Button btnInicio;
 
     @FXML
     private MenuItem btnClientes;
@@ -270,13 +270,19 @@ public class TipoProductoViewController implements Initializable {
     }
 
     public void handleButtonAction(ActionEvent event) {
-        if (event.getSource() == btnMenuPrincipal) {
-            escenarioPrincipal.ventanaMenuPrincipal();
-        } else if (event.getSource() == btnClientes) {
+        if  (event.getSource() == btnClientes) {
             escenarioPrincipal.ventanaMenuClientes();
         } else if (event.getSource() == btnProgramador) {
             escenarioPrincipal.ventanaProgramador();
         }
+    }
+    
+    public void inicio(){
+        escenarioPrincipal.ventanaMenuPrincipal();
+    }
+    
+    public void ventanaEmergente(){
+    escenarioPrincipal.ventanaEmergenteTiporProducto();
     }
 
 }

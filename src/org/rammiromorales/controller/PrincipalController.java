@@ -63,48 +63,23 @@ public class PrincipalController implements Initializable {
     private MenuItem btnEmailProveedores;
     @FXML
     private MenuItem btnTelefonoProveedor;
-
-    @FXML
-    private MenuItem btnFactura;
-
     @FXML
     private MenuItem btnDetalleFactura;
 
     @FXML
-    private ImageView imageLogo;
-
+    private Button btnFactura;
     @FXML
-    private VBox boxPanel;
+    private Button btnProductoIcon;
     @FXML
-    private ImageView iconFactura;
-
+    private Button btnDetalleCompraIcon;
     @FXML
-    private Button btnFacturaDos;
+    private Button btnDetalleFacturaIcon;
+    @FXML
+    private VBox panelInicio;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-    }
-
-    public void agregar() throws IOException {
-        switch (tipoDeOperaciones) {
-            case NINGUNO:
-                boxPanel.setPrefHeight(437);
-                boxPanel.setPrefWidth(49);
-                imageLogo.setVisible(false);
-                btnFacturaDos.setPrefWidth(48);
-                btnFacturaDos.setPrefHeight(35);
-                tipoDeOperaciones = operaciones.MOSTRAR;
-                break;
-            case MOSTRAR:
-                tipoDeOperaciones = operaciones.NINGUNO;
-                break;
-        }
-
-    }
-
-    public void facturas() {
-        escenarioPrincipal.ventanaFactura();
     }
 
     public Principal getEscenarioPrincipal() {
@@ -127,24 +102,63 @@ public class PrincipalController implements Initializable {
             escenarioPrincipal.ventanaTipoProducto();
         } else if (event.getSource() == btnProveedores) {
             escenarioPrincipal.ventanaProveedores();
-        } else if (event.getSource() == btnProducto) {
-            escenarioPrincipal.ventanaProducto();
         } else if (event.getSource() == btnCompras) {
             escenarioPrincipal.ventanaCompras();
         } else if (event.getSource() == btnCantidadDeProdutoProveedorController) {
             escenarioPrincipal.cantidadProductoProveedor();
-        } else if (event.getSource() == btnDetalleCompra) {
-            escenarioPrincipal.ventanaDetalleProducto();
         } else if (event.getSource() == btnEmpleados) {
             escenarioPrincipal.ventanaEmpleados();
         } else if (event.getSource() == btnEmailProveedores) {
             escenarioPrincipal.ventanaEmailProveedor();
         } else if (event.getSource() == btnTelefonoProveedor) {
             escenarioPrincipal.ventanaTelefonoProveedor();
-        } else if (event.getSource() == btnDetalleFactura) {
-            escenarioPrincipal.ventanaDetalleFactura();
-        } else if (event.getSource() == btnFactura) {
-            escenarioPrincipal.ventanaFactura();
         }
+    }
+
+    public void agregar() throws IOException {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                panelInicio.setPrefHeight(437);
+                panelInicio.setPrefWidth(205);
+                btnFactura.setPrefWidth(205);
+                btnFactura.setText("Factura");
+                btnProductoIcon.setPrefWidth(205);
+                btnProductoIcon.setText("Producto");
+                btnDetalleCompraIcon.setPrefWidth(205);
+                btnDetalleCompraIcon.setText("Detalle Compra");
+                btnDetalleFacturaIcon.setPrefWidth(205);
+                btnDetalleFacturaIcon.setText("Detalle Factura");
+                tipoDeOperaciones = operaciones.MOSTRAR;
+                break;
+            case MOSTRAR:
+                panelInicio.setPrefHeight(437);
+                panelInicio.setPrefWidth(61);
+                btnFactura.setPrefWidth(42);
+                btnFactura.setText("");
+                btnProductoIcon.setPrefWidth(42);
+                btnProductoIcon.setText("");
+                btnDetalleCompraIcon.setPrefWidth(42);
+                btnDetalleCompraIcon.setText("");
+                btnDetalleFacturaIcon.setPrefWidth(42);
+                btnDetalleFacturaIcon.setText("");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+
+    public void factura() {
+        escenarioPrincipal.ventanaFactura();
+    }
+
+    public void Producto() {
+        escenarioPrincipal.ventanaProducto();
+    }
+
+    public void DetalleCompra() {
+        escenarioPrincipal.ventanaDetalleProducto();
+    }
+
+    public void DetalleFactura() {
+        escenarioPrincipal.ventanaDetalleFactura();
     }
 }

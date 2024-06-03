@@ -1,102 +1,162 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rammiromorales.controller.TipoProductoViewController">
+<AnchorPane id="AnchorPane" maxHeight="469.0" maxWidth="697.0" minHeight="469.0" minWidth="697.0" prefHeight="469.0" prefWidth="697.0" styleClass="root" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rammiromorales.controller.TipoProductoViewController">
    <children>
-      <ImageView fitHeight="655.0" fitWidth="1177.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/TipoProducto%20.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="btnAgregar" layoutX="60.0" layoutY="273.0" mnemonicParsing="false" onAction="#agregarTipoProducto" prefHeight="82.0" prefWidth="180.0" style="-fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20; -fx-border-radius: 20;" text="Agregar" textFill="#c8d2d1">
-         <graphic>
-            <ImageView fitHeight="71.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/agregar.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
-      <Button fx:id="btnEliminar" layoutX="60.0" layoutY="371.0" mnemonicParsing="false" onAction="#eliminarTipoProducto" prefHeight="82.0" prefWidth="180.0" style="-fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20; -fx-border-radius: 20;" text="Eliminar" textFill="#c8d2d1">
-         <graphic>
-            <ImageView fitHeight="71.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/eliminar.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
-      <Button fx:id="btnActualizar" layoutX="60.0" layoutY="470.0" mnemonicParsing="false" onAction="#editarTipoProducto" prefHeight="82.0" prefWidth="180.0" style="-fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20; -fx-border-radius: 20; -fx-border-radius: 20;" text="Actualizar" textFill="#c8d2d1">
-         <graphic>
-            <ImageView fitHeight="107.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/editar.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
-      <Button fx:id="btnListar" layoutX="60.0" layoutY="566.0" mnemonicParsing="false" onAction="#reportes" prefHeight="82.0" prefWidth="180.0" style="-fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20; -fx-border-radius: 20;" text="Listar" textFill="#c8d2d1">
-         <graphic>
-            <ImageView fitHeight="72.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/listar.png" />
-               </image>
-            </ImageView>
-         </graphic></Button>
-      <GridPane layoutX="325.0" layoutY="152.0" prefHeight="64.0" prefWidth="266.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.66668701171875" minWidth="10.0" prefWidth="106.00002034505209" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.33333333333334" minWidth="10.0" prefWidth="124.66664632161459" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <AnchorPane layoutY="101.0" prefHeight="63.0" prefWidth="704.0" styleClass="vBoxOscuro">
          <children>
-            <Label prefHeight="17.0" prefWidth="123.0" text="Codigo Tipo Producto " />
-            <Label text="Descripcion" GridPane.rowIndex="1" />
-            <TextField fx:id="txtCodigoTipoProducto" GridPane.columnIndex="1" />
-            <TextField fx:id="txtDescripcion" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <HBox layoutX="107.0" layoutY="22.0" prefHeight="17.0" prefWidth="281.0">
+               <children>
+                  <Label maxHeight="17.0" maxWidth="120.0" minHeight="17.0" minWidth="120.0" prefHeight="17.0" prefWidth="120.0" text="ID Tipo Producto " textFill="WHITE">
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets top="2.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtCodigoTipoProducto" maxHeight="25.0" maxWidth="145.0" minHeight="18.0" minWidth="100.0" prefHeight="19.0" prefWidth="145.0" promptText="ID" styleClass="txtTransaperencia" stylesheets="@../resource/EstilosDeEscenarios.css" />
+               </children>
+            </HBox>
+            <HBox layoutX="405.0" layoutY="19.0" prefHeight="25.0" prefWidth="253.0">
+               <children>
+                  <Label maxHeight="17.0" maxWidth="120.0" minHeight="17.0" minWidth="97.0" prefHeight="17.0" prefWidth="97.0" text=" Descripción" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets top="2.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtDescripcion" maxHeight="25.0" maxWidth="147.0" minHeight="0.0" minWidth="120.0" prefHeight="0.0" prefWidth="147.0" promptText="Descripción" styleClass="txtTransaperencia">
+                     <stylesheets>
+                        <URL value="@../resource/KinalExpres.css" />
+                        <URL value="@../resource/EstilosDeEscenarios.css" />
+                     </stylesheets>
+                  </TextField>
+               </children>
+            </HBox>
+            <Line endX="81.3333511352539" endY="176.3333282470703" layoutX="145.0" layoutY="-135.0" startX="229.00003051757812" startY="176.3333282470703" stroke="WHITE" />
+            <Line endX="81.3333511352539" endY="176.3333282470703" layoutX="420.0" layoutY="-135.0" startX="229.00003051757812" startY="176.3333282470703" stroke="WHITE" />
          </children>
-      </GridPane>
-      <TableView fx:id="tvlTipoProducto" layoutX="334.0" layoutY="344.0" prefHeight="200.0" prefWidth="247.0">
+      </AnchorPane>
+      <HBox layoutX="54.0" layoutY="46.0" prefHeight="51.0" prefWidth="646.0" styleClass="vBoxOscuro" stylesheets="@../resource/EstilosDeEscenarios.css">
+         <children>
+            <HBox prefHeight="36.0" prefWidth="120.0">
+               <children>
+                  <Button fx:id="btnFacturaa" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="AGREGAR" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="10.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="7.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets left="100.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox prefHeight="36.0" prefWidth="120.0">
+               <children>
+                  <Button fx:id="btnFacturaa1" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="EDITAR" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="10.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="7.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets left="30.0" right="30.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox prefHeight="36.0" prefWidth="120.0">
+               <children>
+                  <Button fx:id="btnFacturaa2" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="ELIMINAR" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="10.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="7.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets right="100.0" />
+               </HBox.margin>
+            </HBox>
+         </children>
+      </HBox>
+      <TableView fx:id="tvlTipoProducto" layoutX="147.0" layoutY="212.0" prefHeight="193.0" prefWidth="409.0">
         <columns>
-          <TableColumn fx:id="colCodigoTipoProducto" prefWidth="132.66664123535156" text="Codigo Tipo Producto" />
-          <TableColumn fx:id="colDescripcion" minWidth="5.3333740234375" prefWidth="111.33330281575522" text="Descripcion" />
+          <TableColumn fx:id="colCodigoTipoProducto" prefWidth="200.0" text="ID Tipo Producto" />
+          <TableColumn fx:id="colDescripcion" minWidth="5.3333740234375" prefWidth="200.0" text="Descripcion" />
         </columns>
       </TableView>
-      <SplitMenuButton layoutX="690.0" layoutY="156.0" mnemonicParsing="false">
+      <HBox prefHeight="44.0" prefWidth="697.0" styleClass="root" stylesheets="@../resource/EstilosDeEscenarios.css">
+         <children>
+            <TextField prefHeight="27.0" prefWidth="299.0" styleClass="buscar">
+               <HBox.margin>
+                  <Insets left="300.0" top="7.0" />
+               </HBox.margin>
+            </TextField>
+         </children></HBox>
+      <ImageView fitHeight="361.0" fitWidth="96.0" layoutX="-39.0" layoutY="25.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/panel%20.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnInicio" layoutX="4.0" layoutY="69.0" mnemonicParsing="false" onAction="#inicio" prefHeight="30.0" prefWidth="30.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
          <graphic>
-            <ImageView fitHeight="55.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/inicio%202.png" />
+                  <Image url="@../images/Inicio.png" />
                </image>
             </ImageView>
          </graphic>
-         <items>
-            <Menu mnemonicParsing="false" text="Modulos">
-              <items>
-                <MenuItem fx:id="btnMenuPrincipal" mnemonicParsing="false" onAction="#handleButtonAction" text="Menu Principal" />
-                  <MenuItem fx:id="btnClientes" mnemonicParsing="false" onAction="#handleButtonAction" text="Clientes" />
-              </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Acerca de">
-              <items>
-                <MenuItem fx:id="btnProgramador" mnemonicParsing="false" onAction="#handleButtonAction" text="Programador" />
-              </items>
-            </Menu>
-         </items>
-      </SplitMenuButton>
+      </Button>
+      <Button layoutX="2.0" layoutY="155.0" maxHeight="30.0" maxWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
+         <graphic>
+            <ImageView fitHeight="36.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/productoIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="5.0" layoutY="212.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="42.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/ProveedoresIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="14.0" layoutY="334.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/salida.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
+   <stylesheets>
+      <URL value="@../resource/EstilosDeEscenarios.css" />
+      <URL value="@../resource/EstilosMenuPrincipal.css" />
+   </stylesheets>
 </AnchorPane>

@@ -1,0 +1,67 @@
+
+.barras{
+    -fx-background-color: #012E40;
+}
+
+.boton{
+    -fx-background-color: #011526;
+}
+
+.vBoxOscuro{
+    -fx-background-color: #3B3B3B;
+}
+
+.fondoEscenario{
+    -fx-background-color: #025959;
+}
+
+.botonDeUtilidades{
+    -fx-border-color: white;
+    -fx-background-radius: 180;
+    -fx-border-radius: 360;
+    -fx-background-radius: white;
+    -fx-background-color: #3B3B3B;
+}
+
+.botonDeUtilidades:hover{
+        -fx-border-color: white;
+    -fx-background-radius: 180;
+    -fx-border-radius: 360;
+    -fx-background-radius: white ;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #00ffb6, #04425b);
+}
+
+
+.txtTransaperencia{
+    -fx-background-color: #3B3B3B;
+    -fxopacy: 0.5;
+    -fx-text-fill: white;
+
+
+}
+.txtAgregar{
+    -fx-text-fill: white;
+}
+
+.buttonTransaparente{
+    -fx-background-color: transparent;
+}
+
+.barraDos{
+    -fx-border-color: black;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-background-radius: #FFFFFF;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #00ffb6, #04425b);
+}
+
+
+
+.buscar{
+    -fx-background-color: transparent;
+    -fx-background-radius: 180;
+    -fx-border-radius: 360;
+    -fx-background-radius: #3B3B3B;
+    -fx-border-color: #3B3B3B;
+
+}
