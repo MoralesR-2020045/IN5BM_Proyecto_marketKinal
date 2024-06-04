@@ -115,7 +115,7 @@ public class Principal extends Application {
 
     public void ventanaMenuPrincipal() {
         try {
-            PrincipalController menuPrincipalView = (PrincipalController) cambiarEscena("PrincipalView.fxml", 765, 434, false);
+            PrincipalController menuPrincipalView = (PrincipalController) cambiarEscena("PrincipalView.fxml", 783, 434, false);
             menuPrincipalView.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());

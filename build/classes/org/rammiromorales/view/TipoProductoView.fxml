@@ -54,7 +54,7 @@
          <children>
             <HBox prefHeight="36.0" prefWidth="120.0">
                <children>
-                  <Button fx:id="btnFacturaa" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="AGREGAR" textFill="WHITE">
+                  <Button fx:id="btnAgregar" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#agregarTipoProducto" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="AGREGAR" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="10.0" />
                      </font>
@@ -64,12 +64,12 @@
                   </Button>
                </children>
                <HBox.margin>
-                  <Insets left="100.0" />
+                  <Insets left="110.0" />
                </HBox.margin>
             </HBox>
             <HBox prefHeight="36.0" prefWidth="120.0">
                <children>
-                  <Button fx:id="btnFacturaa1" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="EDITAR" textFill="WHITE">
+                  <Button fx:id="btnEliminar" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="EDITAR" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="10.0" />
                      </font>
@@ -84,7 +84,7 @@
             </HBox>
             <HBox prefHeight="36.0" prefWidth="120.0">
                <children>
-                  <Button fx:id="btnFacturaa2" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="ELIMINAR" textFill="WHITE">
+                  <Button fx:id="btnActualizar" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="ELIMINAR" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="10.0" />
                      </font>
@@ -99,20 +99,12 @@
             </HBox>
          </children>
       </HBox>
-      <TableView fx:id="tvlTipoProducto" layoutX="147.0" layoutY="212.0" prefHeight="193.0" prefWidth="409.0">
+      <TableView fx:id="tvlTipoProducto" layoutX="167.0" layoutY="200.0" prefHeight="225.0" prefWidth="420.0">
         <columns>
           <TableColumn fx:id="colCodigoTipoProducto" prefWidth="200.0" text="ID Tipo Producto" />
           <TableColumn fx:id="colDescripcion" minWidth="5.3333740234375" prefWidth="200.0" text="Descripcion" />
         </columns>
       </TableView>
-      <HBox prefHeight="44.0" prefWidth="697.0" styleClass="root" stylesheets="@../resource/EstilosDeEscenarios.css">
-         <children>
-            <TextField prefHeight="27.0" prefWidth="299.0" styleClass="buscar">
-               <HBox.margin>
-                  <Insets left="300.0" top="7.0" />
-               </HBox.margin>
-            </TextField>
-         </children></HBox>
       <ImageView fitHeight="361.0" fitWidth="96.0" layoutX="-39.0" layoutY="25.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/panel%20.png" />
@@ -154,6 +146,20 @@
             </ImageView>
          </graphic>
       </Button>
+      <AnchorPane layoutX="281.0" layoutY="11.0" prefHeight="28.0" prefWidth="313.0" styleClass="buscar">
+         <children>
+            <Button layoutX="244.0" layoutY="4.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="65.0" styleClass="barraDos" text="BUSCAR" textFill="WHITE">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="20.0" fitWidth="28.0" layoutX="-586.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" x="600.0">
+               <image>
+                  <Image url="@../images/buscar%20icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
    </children>
    <stylesheets>
       <URL value="@../resource/EstilosDeEscenarios.css" />

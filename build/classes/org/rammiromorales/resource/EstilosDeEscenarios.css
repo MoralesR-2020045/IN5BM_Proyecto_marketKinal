@@ -24,10 +24,10 @@
 }
 
 .botonDeUtilidades:hover{
-        -fx-border-color: white;
+        -fx-border-color: #19b699;
     -fx-background-radius: 180;
     -fx-border-radius: 360;
-    -fx-background-radius: white ;
+    -fx-background-radius: #19b699;
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #00ffb6, #04425b);
 }
 

@@ -118,7 +118,6 @@ public class TipoProductoViewController implements Initializable {
                 btnAgregar.setText("Guardar");
                 btnEliminar.setText("Cancelar");
                 btnActualizar.setDisable(true);
-                btnListar.setDisable(true);
                 tipoDeOperaciones = operaciones.ACTUALIZAR;
                 break;
             case ACTUALIZAR:
@@ -126,10 +125,9 @@ public class TipoProductoViewController implements Initializable {
                 cargarDatosTable();
                 desactivarTextField();
                 limpiarTextField();
-                btnAgregar.setText("Agregar");
-                btnEliminar.setText("Eliminar");
+                btnAgregar.setText("AGREGAR");
+                btnEliminar.setText("EDITAR");
                 btnActualizar.setDisable(false);
-                btnListar.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
         }

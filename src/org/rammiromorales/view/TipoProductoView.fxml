@@ -54,7 +54,7 @@
          <children>
             <HBox prefHeight="36.0" prefWidth="120.0">
                <children>
-                  <Button fx:id="btnFacturaa" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="AGREGAR" textFill="WHITE">
+                  <Button fx:id="btnAgregar" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#agregarTipoProducto" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="AGREGAR" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="10.0" />
                      </font>
@@ -69,7 +69,7 @@
             </HBox>
             <HBox prefHeight="36.0" prefWidth="120.0">
                <children>
-                  <Button fx:id="btnFacturaa1" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="EDITAR" textFill="WHITE">
+                  <Button fx:id="btnEliminar" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="EDITAR" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="10.0" />
                      </font>
@@ -84,7 +84,7 @@
             </HBox>
             <HBox prefHeight="36.0" prefWidth="120.0">
                <children>
-                  <Button fx:id="btnFacturaa2" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="ELIMINAR" textFill="WHITE">
+                  <Button fx:id="btnActualizar" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="ELIMINAR" textFill="WHITE">
                      <font>
                         <Font name="Century Gothic" size="10.0" />
                      </font>

@@ -161,4 +161,7 @@ public class PrincipalController implements Initializable {
     public void DetalleFactura() {
         escenarioPrincipal.ventanaDetalleFactura();
     }
+    public void TipoDeProducto(){
+        escenarioPrincipal.ventanaTipoProducto();
+    }
 }
