@@ -164,4 +164,8 @@ public class PrincipalController implements Initializable {
     public void TipoDeProducto(){
         escenarioPrincipal.ventanaTipoProducto();
     }
+    
+    public void ProductoProveedor(){
+        escenarioPrincipal.ventanaProductoProveedor();
+    }
 }

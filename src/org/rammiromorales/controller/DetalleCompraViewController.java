@@ -149,6 +149,7 @@ public class DetalleCompraViewController implements Initializable {
                         registro.getDouble("precioDocena"),
                         registro.getDouble("precioMayor"),
                         registro.getInt("existencia"),
+                        registro.getInt("idProductoProveedor"),
                         registro.getInt("codigoTipoProducto"),
                         registro.getInt("codigoProveedor")
                 );
@@ -209,6 +210,7 @@ public class DetalleCompraViewController implements Initializable {
                         resultado.getDouble("precioDocena"),
                         resultado.getDouble("precioMayor"),
                         resultado.getInt("existencia"),
+                        resultado.getInt("idProductoProveedor"),
                         resultado.getInt("codigoTipoProducto"),
                         resultado.getInt("codigoProveedor")
                 ));

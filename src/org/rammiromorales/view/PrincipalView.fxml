@@ -184,7 +184,7 @@
                                           <Insets bottom="20.0" left="20.0" top="20.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" prefHeight="88.0" prefWidth="97.0" style="-fx-background-color: #FFFFFF;" text="Button">
+                                    <Button fx:id="btnProductoProveedor" mnemonicParsing="false" onAction="#ProductoProveedor" prefHeight="88.0" prefWidth="97.0" style="-fx-background-color: #FFFFFF;" text="Producto Proveedor">
                                        <HBox.margin>
                                           <Insets bottom="20.0" left="29.0" top="20.0" />
                                        </HBox.margin>

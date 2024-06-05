@@ -17,14 +17,13 @@ create table CantidadDeProdutoProveedor(
 
 create table ProductoProveedor(
 	idProductoProveedor int auto_increment,
-    nombreProductoProveedor varchar(100),
-	codigoCantidadProveedor int,
+    nombreProductoProveedor varchar(60),
+	descripcionProducto varchar(100),
+    precioProveedor decimal(10,2),
     cantidadDeProducto int,
     existenciaPorDescripcion int,
     existenciaTotalDelProducto int,
-	primary key PK_ProductoProveedor(idProductoProveedor),
-    constraint FK_ProductoProveedor_CantidadDeProdutoProveedor foreign key ProductoProveedor(codigoCantidadProveedor)
-	references CantidadDeProdutoProveedor(codigoCantidadProveedor) on delete cascade
+    primary key PK_IdProductoProveedor(idProductoProveedor)
 );
 
 create table Compras(
@@ -105,9 +104,14 @@ create table Productos(
 	precioMayor decimal(10,2),
 	imagenProducto varchar(45),
 	existencia int,
+    idProductoProveedor int,
     codigoTipoProducto int,
     codigoProveedor int,
+
     primary key PK_codigoProducto (codigoProducto),
+    
+    constraint FK_Productos_IdProductoProveedor foreign key Productos(idProductoProveedor) 
+    references ProductoProveedor(idProductoProveedor) on delete cascade,
     
     constraint FK_Productos_TipoProducto foreign key Productos(codigoTipoProducto) 
     references TipoProducto(codigoTipoProducto) on delete cascade,
