@@ -361,14 +361,19 @@ Delimiter $$
 Delimiter ;
  
 call sp_listarProductos();
- 
+
+CREATE VIEW vw_Producto AS SELECT ProductoProveedor.nombreProductoProveedor, 
+Productos.descripcionProducto  FROM Productos 
+INNER JOIN ProductoProveedor ON Productos.idProductoProveedor = ProductoProveedor.idProductoProveedor;
+
+
 Delimiter $$
 	create procedure sp_buscarProductos(in codigoProducto varchar(15))
 		begin
 			select * from Productos where productos.codigoProducto = codigoProducto;
 		end $$
 Delimiter ;
- 
+
 call sp_buscarProductos('ewda');
  
 Delimiter $$
@@ -801,9 +806,10 @@ Delimiter $$
 				where productos.codigoproducto = old.codigoproducto;
 			end $$
 Delimiter ;
+
 Delimiter $$
 	create trigger TriggerTotalExistenciaProducto
-		before insert on ProductoProveedor
+		after insert on Productos
 			for each row 
 				begin 
 					declare totalExistencia int;

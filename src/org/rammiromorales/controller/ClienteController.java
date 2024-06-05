@@ -4,11 +4,14 @@
  * and open the template in the editor.
  */
 package org.rammiromorales.controller;
+
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javax.swing.JOptionPane;
 import org.rammiromorales.bean.Clientes;
 import org.rammiromorales.database.Conexion;
+import org.rammiromorales.report.GenerarReportes;
 import org.rammiromorales.system.Principal;
 
 /**
@@ -31,10 +35,10 @@ import org.rammiromorales.system.Principal;
  * @author informatica
  */
 public class ClienteController implements Initializable {
-    
+
     private Principal escenarioPrincipal;
     private ObservableList<Clientes> listaClientes;
-    
+
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
     }
@@ -43,50 +47,50 @@ public class ClienteController implements Initializable {
 // Tabla y columnas de la misma 
     @FXML
     private TableView tvClientes;
-    
+
     @FXML
     private TableColumn colCodigoC;
-    
+
     @FXML
     private TableColumn colNombresC;
-    
+
     @FXML
     private TableColumn colApellidosC;
-    
+
     @FXML
     private TableColumn colDireccionC;
-    
+
     @FXML
     private TableColumn colNitC;
-    
+
     @FXML
     private TableColumn colTelefonoC;
-    
+
     @FXML
     private TableColumn colCorreoC;
 
 // Text field que reciben datos 
     @FXML
     private TextField txtCodigoC;
-    
+
     @FXML
     private TextField txtNombresC;
-    
+
     @FXML
     private TextField txtApellidosC;
-    
+
     @FXML
     private TextField txtDireccionC;
-    
+
     @FXML
     private TextField txtTelefonoC;
-    
+
     @FXML
     private TextField txtCorreoC;
-    
+
     @FXML
     private TextField txtNitC;
-    
+
 // Botones que sirven para retorno o cumplir siertas acciones 
     @FXML
     private Button btnAgregarC;
@@ -100,16 +104,16 @@ public class ClienteController implements Initializable {
     private MenuItem btnMenu;
     @FXML
     private MenuItem btnClientes;
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cargarDatos();
     }
-    
+
     public Principal getEscenarioPrincipal() {
         return escenarioPrincipal;
     }
-    
+
     public void cargarDatos() {
         tvClientes.setItems(getClientes());
         colCodigoC.setCellValueFactory(new PropertyValueFactory<Clientes, Integer>("codigoCliente"));
@@ -120,7 +124,7 @@ public class ClienteController implements Initializable {
         colTelefonoC.setCellValueFactory(new PropertyValueFactory<Clientes, String>("telefonoCliente"));
         colCorreoC.setCellValueFactory(new PropertyValueFactory<Clientes, String>("correoCliente"));
     }
-    
+
     public void seleccionarDatos() {
         txtCodigoC.setText(String.valueOf(((Clientes) tvClientes.getSelectionModel().getSelectedItem()).getCodigoCliente()));
         txtNombresC.setText(((Clientes) tvClientes.getSelectionModel().getSelectedItem()).getNombresCliente());
@@ -129,9 +133,9 @@ public class ClienteController implements Initializable {
         txtTelefonoC.setText(((Clientes) tvClientes.getSelectionModel().getSelectedItem()).getTelefonoCliente());
         txtCorreoC.setText(((Clientes) tvClientes.getSelectionModel().getSelectedItem()).getCorreoCliente());
         txtNitC.setText(((Clientes) tvClientes.getSelectionModel().getSelectedItem()).getNITCliente());
-        
+
     }
-    
+
     public ObservableList<Clientes> getClientes() {
         ArrayList<Clientes> lista = new ArrayList<>();
         try {
@@ -152,7 +156,7 @@ public class ClienteController implements Initializable {
         }
         return listaClientes = FXCollections.observableList(lista);
     }
-    
+
     public void Agregar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
@@ -162,7 +166,7 @@ public class ClienteController implements Initializable {
                 btnEditarC.setDisable(true);
                 btnListarC.setDisable(true);
                 tipoDeOperaciones = operaciones.ACTUALIZAR;
-                
+
                 break;
             case ACTUALIZAR:
                 guardar();
@@ -177,7 +181,7 @@ public class ClienteController implements Initializable {
                 break;
         }
     }
-    
+
     public void guardar() {
         Clientes registro = new Clientes();
         registro.setNITCliente(txtNitC.getText());
@@ -201,7 +205,7 @@ public class ClienteController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     public void eliminar() {
         switch (tipoDeOperaciones) {
             case ACTUALIZAR:
@@ -263,7 +267,7 @@ public class ClienteController implements Initializable {
                 break;
         }
     }
-    
+
     public void actualizar() {
         try {
             PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_actualizarCliente( ?, ?, ?, ?, ?, ?, ?)}");
@@ -282,12 +286,37 @@ public class ClienteController implements Initializable {
             procedimiento.setString(6, registro.getTelefonoCliente());
             procedimiento.setString(7, registro.getCorreoCliente());
             procedimiento.execute();
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
+
+    public void reportes() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                imprimirReporte();
+                break;
+            case ACTUALIZAR:
+                desactivarControles();
+                limpiarControles();
+                btnEditarC.setText("Actualizar");
+                btnListarC.setText("Cancelar");
+                btnAgregarC.setDisable(false);
+                btnEliminarC.setDisable(false);
+                btnEditarC.setText("Editar");
+                btnListarC.setText("Reporte");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+
+    public void imprimirReporte() {
+        Map parametros = new HashMap();
+        parametros.put("codigoCliente", null);
+        GenerarReportes.mostrarReportes("reportCliente.jasper", "Reporte Cliente", parametros);
+    }
+
     public void desactivarControles() {
         txtCodigoC.setEditable(false);
         txtNombresC.setEditable(false);
@@ -297,7 +326,7 @@ public class ClienteController implements Initializable {
         txtCorreoC.setEditable(false);
         txtNitC.setEditable(false);
     }
-    
+
     public void activarControles() {
         txtCodigoC.setEditable(true);
         txtNombresC.setEditable(true);
@@ -307,7 +336,7 @@ public class ClienteController implements Initializable {
         txtCorreoC.setEditable(true);
         txtNitC.setEditable(true);
     }
-    
+
     public void limpiarControles() {
         txtCodigoC.clear();
         txtNombresC.clear();
@@ -317,11 +346,11 @@ public class ClienteController implements Initializable {
         txtCorreoC.clear();
         txtNitC.clear();
     }
-    
+
     public void setEscenarioPrincipal(Principal escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
     }
-    
+
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnMenu) {
             escenarioPrincipal.ventanaMenuPrincipal();

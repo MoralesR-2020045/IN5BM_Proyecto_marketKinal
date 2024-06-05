@@ -126,7 +126,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="btnListarC" alignment="CENTER" layoutX="57.0" layoutY="563.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="179.0" style="-fx-border-radius: 20; -fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20;" styleClass="menubar" stylesheets="@../../../../../MarketKinal/src/org/rammiromorales/resource/KinalExpres.css" text="Listar" textFill="#c8d2d1">
+      <Button fx:id="btnListarC" alignment="CENTER" layoutX="57.0" layoutY="563.0" mnemonicParsing="false" onAction="#reportes" prefHeight="81.0" prefWidth="179.0" style="-fx-border-radius: 20; -fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20;" styleClass="menubar" stylesheets="@../../../../../MarketKinal/src/org/rammiromorales/resource/KinalExpres.css" text="Listar" textFill="#c8d2d1">
          <font>
             <Font name="Arial Rounded MT Bold" size="16.0" />
          </font>

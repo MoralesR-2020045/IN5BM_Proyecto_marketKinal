@@ -807,12 +807,9 @@ Delimiter $$
 			for each row 
 				begin 
 					declare totalExistencia int;
-                    SET totalExistencia = NEW.cantidadDeProducto * NEW.existenciaPorDescripcion;
+                    SET new.existenciaTotalDelProducto = NEW.cantidadDeProducto * NEW.existenciaPorDescripcion;
                    
-                   
-                    update ProductoProveedor
-                    set existenciaTotalDelProducto = totalExistencia
-                    where idProductoProveedor = new.idProductoProveedor;
+
                end 
 Delimiter ; 
 call sp_listarProductoProveedor();
@@ -822,6 +819,10 @@ Delimiter $$
 		AFTER INSERT ON Productos
 FOR EACH ROW
 BEGIN
+                    update ProductoProveedor
+                    set existenciaTotalDelProducto = totalExistencia
+                    where idProductoProveedor = new.idProductoProveedor;
+                    
     declare existenciaProducto int;
     DECLARE producto INT;
 
