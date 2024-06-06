@@ -8,7 +8,7 @@ set global time_zone = "-6:00";+
 
 -- ------------------------------------------Entidad Producto Proveedor -----------------------------------------------------
 Delimiter $$
-	create procedure sp_agregarProductoProveedor(in nombreProductoProveedor varchar(60), in descripcionProducto varchar(100),
+	create procedure sp_agregarProductoProveedorUno(in nombreProductoProveedor varchar(60), in descripcionProducto varchar(100),
     in precioProveedor decimal(10,2), in cantidadDeProducto int, in existenciaPorDescripcion int, 
     in existenciaTotalDelProducto int)
 		begin 
@@ -20,7 +20,7 @@ Delimiter $$
 		end $$
 Delimiter ;
 
-call sp_agregarProductoProveedor("Papel Rosal", "Fardos", 205.00, 12, 1, 0);
+call sp_agregarProductoProveedorUno("Papel Rosal", "Fardos", 205.00, 12, 1, 0);
 
 Delimiter $$
 	create procedure sp_listarProductoProveedor ()
@@ -336,21 +336,8 @@ Delimiter ;
 
 -- ------------------------------------------------Entidad Producto -----------------------------------------------------
 
-Delimiter $$
-create procedure sp_agregarProductos(in spCodigoProducto varchar(15), in spDescripcionProducto varchar(45), 
-in spPrecioUnitario decimal(10,2), in spPrecioDocena decimal(10,2), in spPrecioMayor decimal(10,2), 
-in spImagenProducto varchar(45), in spExistencia int(11), in  spIdProductoProveedor int,
- in spCodigoTipoProducto int(11), in spCodigoProveedor int)
-	begin
-		insert into Productos(codigoProducto, descripcionProducto,precioUnitario, precioDocena,precioMayor, 
-        imagenProducto, existencia, idProductoProveedor, codigoTipoProducto, codigoProveedor)
-        
-		values (spCodigoProducto,spDescripcionProducto, spPrecioUnitario,spPrecioDocena, spPrecioMayor, 
-        spImagenProducto, spExistencia, spIdProductoProveedor, spCodigoTipoProducto, spCodigoProveedor);
-	end $$
-Delimiter ;
  
-call sp_agregarProductos('JD5BM','Calidad',10.00,15.00,54.00,'PNG',11,1,1,1);
+
 -- call sp_agregarProductos('jjjj','Alta Calidad',12.00,13.00,54.00,'PNG',11,1,1);
  
 Delimiter $$
@@ -574,7 +561,7 @@ Delimiter ;
 
 
 -- --------------------------- Detalle Compra --------------------------- 
-
+/*
 Delimiter $$
 	create procedure sp_agregarDetalleCompra(in codigoDetalleCompra int, in costoUnitario decimal(10,2), in cantidad int, in codigoProducto varchar(15), in numeroDocumento int)
 		begin
@@ -582,7 +569,7 @@ Delimiter $$
 			values (codigoDetalleCompra, costoUnitario, cantidad, codigoProducto, numeroDocumento);
 		end $$
 Delimiter ;
-
+*/
 -- call sp_agregarDetalleCompra(4,10.5,5,"PJDKS",1);
 
 Delimiter $$
@@ -721,6 +708,72 @@ Delimiter $$
 	create procedure sp_eliminarDetalleFactura(in codigoDetalleFactura int)
 		begin
 			delete from DetalleFactura where DetalleFactura.codigoDetalleFactura = codigoDetalleFactura;
+		end $$
+Delimiter ;
+
+
+Delimiter $$
+	create procedure sp_agregarProductoProveedor(in nombreProductoProveedor varchar(60), in descripcionProducto varchar(100),
+    in precioProveedor decimal(10,2), in cantidadDeProducto int, in existenciaPorDescripcion int, 
+    in existenciaTotalDelProducto int)
+		begin 
+			declare total int;
+            set total = cantidadDeProducto * existenciaPorDescripcion;
+            
+			insert into ProductoProveedor(nombreProductoProveedor, descripcionProducto, precioProveedor, 
+            cantidadDeProducto, existenciaPorDescripcion, existenciaTotalDelProducto)
+            
+            values (nombreProductoProveedor, descripcionProducto, precioProveedor, cantidadDeProducto, 
+            existenciaPorDescripcion, total);
+		end $$
+Delimiter ;
+
+Delimiter $$
+create procedure sp_agregarProductos(in spCodigoProducto varchar(15), in spDescripcionProducto varchar(45), 
+in spPrecioUnitario decimal(10,2), in spPrecioDocena decimal(10,2), in spPrecioMayor decimal(10,2), 
+in spImagenProducto varchar(45), in spExistencia int(11), in  spIdProductoProveedor int,
+ in spCodigoTipoProducto int(11), in spCodigoProveedor int)
+	begin
+		declare total int;
+        select existenciaTotalDelProducto into total from ProductoProveedor where idProductoProveedor = spIdProductoProveedor ;
+		
+        insert into Productos(codigoProducto, descripcionProducto,precioUnitario, precioDocena,precioMayor, 
+        imagenProducto, existencia, idProductoProveedor, codigoTipoProducto, codigoProveedor)
+        
+		values (spCodigoProducto,spDescripcionProducto, spPrecioUnitario,spPrecioDocena, spPrecioMayor, 
+        spImagenProducto, total, spIdProductoProveedor, spCodigoTipoProducto, spCodigoProveedor);
+	end $$
+Delimiter ;
+
+Delimiter $$
+	create procedure sp_agregarDetalleCompra(in spCodigoDetalleCompra int, in spCostoUnitario decimal(10,2), in spCantidad int, in spCodigoProducto varchar(15), in spNumeroDocumento int)
+		begin
+            set total = calculoDePrecio(spCodigoProducto);
+		
+			insert into DetalleCompra(codigoDetalleCompra, costoUnitario, cantidad, codigoProducto,numeroDocumento)
+			values (spCodigoDetalleCompra, total, spCantidad, spCodigoProducto, spNumeroDocumento);
+		end $$
+Delimiter ;
+
+Delimiter $$
+	create function calculoDePrecio (  spCodigoProducto varchar(15))
+    returns decimal(10.2)
+     deterministic
+		begin
+        declare idPProveedor int ;
+            declare precio decimal(10.2);
+            declare cantidad int;
+            declare total decimal(10.2);
+            declare porcentaje decimal(10.2);
+            declare totales decimal(10.2);
+            
+			select idProductoProveedor into idPProveedor from Productos where codigoProducto = spCodigoProducto;
+            select  precioProveedor into precio from ProductoProveedor where idProductoProveedor = idPProveedor;
+			select  cantidadDeProducto into cantidad from ProductoProveedor where idProductoProveedor = idPProveedor;
+            set total = (precio/cantidad);
+            set porcentaje = total*0.4;
+			set totales = total + porcentaje;
+            return totales;
 		end $$
 Delimiter ;
 

@@ -10,13 +10,14 @@ public class Conexion {
     private String baseDatos = "jdbc:mysql://localhost:3306/DBKinalStore?userSSL=false";
     private String useCasa = "root";
     private String useColegio = "2023021_IN5BV";
+    private String useCol = "root";
     private String passwordCasa = "admin15";
     private String passwordColegio = "abc123!!";
     
     public Conexion(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            conexion = DriverManager.getConnection(baseDatos,useColegio,passwordColegio);
+            conexion = DriverManager.getConnection(baseDatos,useCol,passwordColegio);
         
         }catch(ClassNotFoundException e){
             e.printStackTrace();
