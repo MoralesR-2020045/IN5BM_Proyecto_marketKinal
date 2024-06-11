@@ -10,7 +10,7 @@ create database DBKinalStore;
 use DBKinalStore;
 
 create table CantidadDeProdutoProveedor(
-	codigoCantidadProveedor int auto_increment, 
+	codigoCantidadProveedor int auto_increment not null, 
     cantidadProductoProveedor varchar(45),
     primary key PK_CantidadDeProductoProveedor(codigoCantidadProveedor)
 );

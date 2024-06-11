@@ -960,11 +960,18 @@ call sp_agregarEmailProveedor(1,'kinal@kinal','antigua',1);
 
 call sp_agregarTelefonoProveedor(1,'76297387','40910212','502',1);
 
-
+call sp_agregarProductoProveedor("Ambar","Caja",110,15,2,0);
 -- Productos 
-
+-- call sp_agregarProductos("JD5BM","Jabon Ambar",0,0,0,"PNG",0,1,1,"123412sK2" );
+-- call sp_agregarProductos(?,         ?,         ?,?,?, ?,   ?, ?, ?, ?)
 -- DETALLE COMPRA
-
+call sp_agregarDetalleCompra(1,0,2,"JD5BM",1);
 -- Detalle Factura
-
 call sp_agregarFactura(1,'Anonimo',4.0,'2022-11-06',1,1);
+
+
+select * from DetalleFactura
+join Factura on DetalleFactura.numeroFactura = Factura.numeroFactura
+join Clientes on Factura.codigoCliente = Clientes.codigoCliente
+join Productos on DetalleFactura.codigoProducto = Productos. codigoProducto
+where Factura.numeroFactura = 1;
