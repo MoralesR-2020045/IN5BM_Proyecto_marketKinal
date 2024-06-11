@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -9,18 +10,94 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="482.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rammiromorales.controller.ProductoViewController">
+
+<AnchorPane id="AnchorPane" maxHeight="469.0" maxWidth="756.0" minHeight="469.0" minWidth="697.0" prefHeight="469.0" prefWidth="751.0" styleClass="fondoDos" stylesheets="@../resource/EstilosDeEscenarios.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rammiromorales.controller.ProductoViewController">
    <children>
-      <Button fx:id="btnAgregar" layoutX="35.0" layoutY="32.0" mnemonicParsing="false" onAction="#agregar" text="Agregar" />
-      <Button fx:id="btnEliminar" layoutX="39.0" layoutY="80.0" mnemonicParsing="false" onAction="#eliminarProveedores" text="Eliminar" />
-      <Button fx:id="btnEditar" layoutX="39.0" layoutY="129.0" mnemonicParsing="false" onAction="#editar" text="Editar" />
-      <Button fx:id="btnListar" layoutX="39.0" layoutY="169.0" mnemonicParsing="false" onAction="#reportes" text="Listar" />
-      <SplitMenuButton layoutX="447.0" layoutY="23.0" mnemonicParsing="false" text="SplitMenuButton">
+      <AnchorPane layoutX="32.0" layoutY="109.0" prefHeight="141.0" prefWidth="721.0" styleClass="vBoxOscuro">
+         <children>
+            <GridPane layoutX="81.0" layoutY="11.0" prefHeight="111.0" prefWidth="295.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="151.99996439615887" minWidth="10.0" prefWidth="144.66665140787762" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.3333740234375" minWidth="10.0" prefWidth="148.00001525878906" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Codigo Producto" textFill="WHITE" />
+                  <Label text="Descripcion Empaque" textFill="WHITE" GridPane.rowIndex="2" />
+                  <TextField fx:id="txtCodigoProducto" promptText="ID" styleClass="txtTransaperencia" GridPane.columnIndex="1" />
+                  <TextField fx:id="txtDescripcionProducto" promptText="Descripción" styleClass="txtTransaperencia" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Nombre producto" textFill="WHITE" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="cmbNombreProducto" opacity="0.5" prefHeight="25.0" prefWidth="147.0" promptText="Nombre" styleClass="custom-combo-box" visibleRowCount="0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Line endX="81.3333511352539" endY="176.3333282470703" startX="229.00003051757812" startY="176.3333282470703" stroke="WHITE" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets top="27.0" />
+                     </GridPane.margin>
+                  </Line>
+                  <Line endX="81.3333511352539" endY="176.3333282470703" startX="229.00003051757812" startY="176.3333282470703" stroke="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets top="25.0" />
+                     </GridPane.margin>
+                  </Line>
+                  <Line endX="81.3333511352539" endY="176.3333282470703" startX="229.00003051757812" startY="176.3333282470703" stroke="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets top="27.0" />
+                     </GridPane.margin>
+                  </Line>
+               </children>
+            </GridPane>
+            <GridPane layoutX="405.0" layoutY="14.0" prefHeight="77.0" prefWidth="302.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Tipo Producto" textFill="WHITE" />
+                  <Label prefHeight="17.0" prefWidth="124.0" text="Proveedores  codigo" textFill="WHITE" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="cmbProducto" opacity="0.5" prefWidth="150.0" promptText=" Tipo Producto" styleClass="custom-combo-box" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="cmbProveedor" opacity="0.5" prefWidth="150.0" promptText="ID Proveedores" styleClass="custom-combo-box" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Line endX="81.3333511352539" endY="176.3333282470703" startX="229.00003051757812" startY="176.3333282470703" stroke="WHITE" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets top="27.0" />
+                     </GridPane.margin>
+                  </Line>
+                  <Line endX="81.3333511352539" endY="176.3333282470703" startX="229.00003051757812" startY="176.3333282470703" stroke="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets top="27.0" />
+                     </GridPane.margin>
+                  </Line>
+               </children>
+            </GridPane>
+            <Button alignment="CENTER" layoutX="416.0" layoutY="109.0" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="GUARDAR" textFill="WHITE">
+               <font>
+                  <Font name="Century Gothic" size="10.0" />
+               </font>
+            </Button>
+            <Button alignment="CENTER" layoutX="557.0" layoutY="107.0" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="CANCELAR" textFill="WHITE">
+               <font>
+                  <Font name="Century Gothic" size="10.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <SplitMenuButton layoutX="23.0" layoutY="440.0" mnemonicParsing="false" text="SplitMenuButton">
         <items>
             <Menu mnemonicParsing="false" text="Modulo ">
               <items>
@@ -35,68 +112,86 @@
             </Menu>
         </items>
       </SplitMenuButton>
-      <GridPane layoutX="112.0" layoutY="64.0" prefHeight="150.0" prefWidth="234.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label text="Codigo Producto" />
-            <Label text="Descripcion Producto " GridPane.rowIndex="2" />
-            <Label text="Precio Unitario" GridPane.rowIndex="3" />
-            <TextField fx:id="txtCodigoProducto" GridPane.columnIndex="1" />
-            <TextField fx:id="txtDescripcionProducto" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="txtPrecioDocena" editable="false" text="0.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label text="Precio Docena" GridPane.rowIndex="4" />
-            <TextField fx:id="txtPrecioUnitario" editable="false" text="0.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Nombre producto" GridPane.rowIndex="1" />
-            <ComboBox fx:id="cmbNombreProducto" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         </children>
-      </GridPane>
-      <GridPane layoutX="397.0" layoutY="64.0" prefHeight="150.0" prefWidth="264.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Label text="Imagen Producto" GridPane.rowIndex="1" />
-            <Label text="Existencia" GridPane.rowIndex="2" />
-            <Label text="Tipo Producto" GridPane.rowIndex="3" />
-            <TextField fx:id="txtImage" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="txtExistencia" editable="false" text="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label prefHeight="17.0" prefWidth="124.0" text="Proveedores  codigo" GridPane.rowIndex="4" />
-            <ComboBox fx:id="cmbProducto" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox fx:id="cmbProveedor" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="txtPrecioMayor" editable="false" text="0.0" GridPane.columnIndex="1" />
-            <Label text="Precio Mayor" />
-         </children>
-      </GridPane>
-      <TableView fx:id="tblProductos" layoutX="56.0" layoutY="241.0" onMouseClicked="#selecionarElementos" prefHeight="200.0" prefWidth="737.0">
+      <TableView fx:id="tblProductos" layoutX="91.0" layoutY="271.0" onMouseClicked="#selecionarElementos" prefHeight="179.0" prefWidth="637.0">
         <columns>
           <TableColumn fx:id="colCodigoProducto" prefWidth="75.0" text="ID Producto" />
-            <TableColumn fx:id="colNombreProducto" prefWidth="98.0" text="Nombre " />
-          <TableColumn fx:id="coldescripcionProducto" prefWidth="75.0" text="Descripcion" />
-            <TableColumn fx:id="colPrecioDocena" prefWidth="75.0" text="Precio Docena" />
-            <TableColumn fx:id="colPrecioUnitario" prefWidth="75.0" text="Precio Unitario" />
-            <TableColumn fx:id="colPrecioMayor" prefWidth="75.0" text="Precio Mayor" />
-            <TableColumn fx:id="colExistencia" prefWidth="75.0" text="Existencia" />
-            <TableColumn fx:id="colCodigoTipoProducto" prefWidth="118.66668701171875" text="Tipo Producto" />
-            <TableColumn fx:id="colCodigoProveedor" prefWidth="98.0" text="Proveedores" />
+            <TableColumn fx:id="colNombreProducto" prefWidth="72.0" text="Nombre " />
+          <TableColumn fx:id="coldescripcionProducto" prefWidth="98.66667175292969" text="Descripcion" />
+            <TableColumn fx:id="colPrecioDocena" prefWidth="103.33331298828125" text="Precio Docena" />
+            <TableColumn fx:id="colPrecioUnitario" prefWidth="99.33340454101562" text="Precio Unitario" />
+            <TableColumn fx:id="colPrecioMayor" prefWidth="90.66668701171875" text="Precio Mayor" />
+            <TableColumn fx:id="colExistencia" prefWidth="71.3333740234375" text="Existencia" />
+            <TableColumn fx:id="colCodigoTipoProducto" prefWidth="100.0" text="Tipo Producto" />
+            <TableColumn fx:id="colCodigoProveedor" prefWidth="105.99993896484375" text="Proveedores" />
         </columns>
       </TableView>
+      <AnchorPane layoutX="291.0" layoutY="21.0" prefHeight="28.0" prefWidth="313.0" styleClass="buscar">
+         <children>
+            <Button layoutX="244.0" layoutY="4.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="65.0" styleClass="busquedad" text="BUSCAR" textFill="WHITE">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="20.0" fitWidth="28.0" layoutX="-586.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" x="600.0">
+               <image>
+                  <Image url="@../images/buscar%20icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <HBox layoutX="64.0" layoutY="56.0" prefHeight="51.0" prefWidth="687.0" styleClass="vBoxOscuro" stylesheets="@../resource/EstilosDeEscenarios.css">
+         <children>
+            <HBox prefHeight="36.0" prefWidth="120.0">
+               <children>
+                  <Button fx:id="btnAgregar" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#agregar" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="AGREGAR" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="10.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="7.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets left="110.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox prefHeight="36.0" prefWidth="120.0">
+               <children>
+                  <Button fx:id="btnEliminar" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#eliminarProveedores" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="ELIMINAR" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="10.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="7.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets left="30.0" right="30.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox prefHeight="36.0" prefWidth="120.0">
+               <children>
+                  <Button fx:id="btnEditar" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#editar" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="ACTUALIZAR" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="10.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="7.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets right="100.0" />
+               </HBox.margin>
+            </HBox>
+         </children>
+      </HBox>
+      <ImageView fitHeight="361.0" fitWidth="96.0" layoutX="-29.0" layoutY="35.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/panel%20.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

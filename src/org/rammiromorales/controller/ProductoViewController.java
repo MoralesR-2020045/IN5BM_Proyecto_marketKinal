@@ -49,7 +49,11 @@ public class ProductoViewController implements Initializable {
 
     }
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
+
     @FXML
+    private Button btnListar;
+    
+        @FXML
     private Button btnAgregar;
 
     @FXML
@@ -57,9 +61,6 @@ public class ProductoViewController implements Initializable {
 
     @FXML
     private Button btnEditar;
-
-    @FXML
-    private Button btnListar;
 
     @FXML
     private MenuItem btnMenuPrincipal;
@@ -329,20 +330,12 @@ public class ProductoViewController implements Initializable {
         switch (tipoDeOperaciones) {
             case NINGUNO:
                 activarControles();
-                btnAgregar.setText("Guardar");
-                btnEliminar.setText("Cancelar");
-                btnEditar.setDisable(true);
-                btnListar.setDisable(true);
                 tipoDeOperaciones = operaciones.ACTUALIZAR;
                 break;
             case ACTUALIZAR:
                 guardar();
                 desactivarControles();
                 limpiarControles();
-                btnAgregar.setText("Agregar");
-                btnEliminar.setText("Eliminar");
-                btnEditar.setDisable(false);
-                btnListar.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 cargaDatos();
                 break;
@@ -501,10 +494,6 @@ public class ProductoViewController implements Initializable {
     public void desactivarControles() {
         txtCodigoProducto.setEditable(false);
         txtDescripcionProducto.setEditable(false);
-        txtPrecioUnitario.setEditable(false);
-        txtPrecioDocena.setEditable(false);
-        txtPrecioMayor.setEditable(false);
-        txtExistencia.setEditable(false);
         cmbProducto.setDisable(true);
         cmbProveedor.setDisable(true);
         cmbNombreProducto.setDisable(true);
@@ -513,10 +502,6 @@ public class ProductoViewController implements Initializable {
     public void activarControles() {
         txtCodigoProducto.setEditable(true);
         txtDescripcionProducto.setEditable(true);
-        txtPrecioUnitario.setEditable(true);
-        txtPrecioDocena.setEditable(true);
-        txtPrecioMayor.setEditable(true);
-        txtExistencia.setEditable(true);
         cmbProducto.setDisable(false);
         cmbProveedor.setDisable(false);
         cmbNombreProducto.setDisable(false);
@@ -525,10 +510,6 @@ public class ProductoViewController implements Initializable {
     public void limpiarControles() {
         txtCodigoProducto.clear();
         txtDescripcionProducto.clear();
-        txtPrecioUnitario.clear();
-        txtPrecioDocena.clear();
-        txtPrecioMayor.clear();
-        txtExistencia.clear();
     }
 
     public void handleButtonAction(ActionEvent event) {

@@ -8,7 +8,22 @@ and open the template in the editor.
     Author     : Donovan Morales
 */
 .barraLateral{
-        -fx-background-color: #011526;
+        -fx-background-color: #171F2A;
+}
+
+.fondo {
+    -fx-background-color: #FEFEFF;
+
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.50), 30, 0.15, 5, 5);
+    -fx-padding: 10;
+}
+
+.fondoPrincipio{
+    -fx-background-color: #1F2B39;
+    
 }
 .barraSuperior{
         -fx-background-color: white;
@@ -19,9 +34,7 @@ and open the template in the editor.
         -fx-background-color: #FFFFFF;
 }
 
-.fondo{
-        -fx-background-color: white;
-}
+
 .modificacionIcon{
         -fx-fill: white;
 }
@@ -31,9 +44,6 @@ and open the template in the editor.
         padding:  auto;
 }
 
-.root {
-    -fx-background-color: #FAF7F0; /* Fondo ligeramente gris */
-}
 
 /* Style for the TableView */
 .table-view {
@@ -65,4 +75,26 @@ and open the template in the editor.
     -fx-background-color:#011526;
 }
 
+.Panel{
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+    -fx-background-radius: #FFFFFF;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #00ffb6, #04425b);
+}
 
+.transparenteBoton{
+    -fx-background-color: transparent;
+}
+
+
+.buttonEntidades{
+        -fx-background-color: #ffffff;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.buttonEncabezado{
+    -fx-background-color: #1BF2A3;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;  
+}

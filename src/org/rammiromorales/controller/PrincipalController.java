@@ -118,8 +118,8 @@ public class PrincipalController implements Initializable {
     public void agregar() throws IOException {
         switch (tipoDeOperaciones) {
             case NINGUNO:
-                panelInicio.setPrefHeight(437);
-                panelInicio.setPrefWidth(205);
+                panelInicio.setPrefHeight(430);
+                panelInicio.setPrefWidth(190);
                 btnFactura.setPrefWidth(205);
                 btnFactura.setText("Factura");
                 btnProductoIcon.setPrefWidth(205);
@@ -131,7 +131,7 @@ public class PrincipalController implements Initializable {
                 tipoDeOperaciones = operaciones.MOSTRAR;
                 break;
             case MOSTRAR:
-                panelInicio.setPrefHeight(437);
+                panelInicio.setPrefHeight(430);
                 panelInicio.setPrefWidth(61);
                 btnFactura.setPrefWidth(42);
                 btnFactura.setText("");

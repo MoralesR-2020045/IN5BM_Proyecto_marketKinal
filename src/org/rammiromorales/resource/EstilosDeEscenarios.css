@@ -1,3 +1,26 @@
+.fondoDos {
+    -fx-background-color: #FAF7F0;
+}
+
+.buscar{
+    -fx-background-color: transparent;
+    -fx-background-radius: 180;
+    -fx-border-radius: 360;
+    -fx-background-radius: #3B3B3B;
+    -fx-border-color: #3B3B3B;
+}
+
+.busquedad{
+    -fx-border-color: black;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-background-radius: #FFFFFF;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #00ffb6, #04425b);
+}
+
+.vBoxOscuro{
+    -fx-background-color: #3B3B3B;
+}
 
 .barras{
     -fx-background-color: #012E40;
@@ -5,10 +28,6 @@
 
 .boton{
     -fx-background-color: #011526;
-}
-
-.vBoxOscuro{
-    -fx-background-color: #3B3B3B;
 }
 
 .fondoEscenario{
@@ -23,6 +42,54 @@
     -fx-background-color: #3B3B3B;
 }
 
+.txtTransaperencia{
+    -fx-background-color: #3B3B3B;
+    -fx-text-fill: white;
+}
+.custom-combo-box  {
+    -fx-background-color: #3B3B3B;
+}
+.custom-combo-box .list-cell {
+    -fx-text-fill: white; /* Color del texto de las opciones */
+}
+
+.custom-combo-box .text-field .text {
+    -fx-fill: white; /* Color del texto del prompt text */
+}
+
+.custom-combo-box .text {
+    -fx-prompt-text-fill: white; /* Color del prompt text */
+}
+.table-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #3B3B3B;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 0);
+     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.70), 30, 0.15, 5, 5);
+    -fx-padding: 10;
+}
+
+/* Style for the TableColumn headers */
+.table-view .column-header-background {
+    -fx-background-color: black;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 30px;
+}
+
+.table-view .column-header .label {
+     -fx-background-color: #3B3B3B;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.scrol {
+    -fx-background-color:#011526;
+}
+
+
 .botonDeUtilidades:hover{
         -fx-border-color: #19b699;
     -fx-background-radius: 180;
@@ -31,14 +98,6 @@
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #00ffb6, #04425b);
 }
 
-
-.txtTransaperencia{
-    -fx-background-color: #3B3B3B;
-    -fxopacy: 0.5;
-    -fx-text-fill: white;
-
-
-}
 .txtAgregar{
     -fx-text-fill: white;
 }
@@ -47,21 +106,5 @@
     -fx-background-color: transparent;
 }
 
-.barraDos{
-    -fx-border-color: black;
-    -fx-background-radius: 10;
-    -fx-border-radius: 10;
-    -fx-background-radius: #FFFFFF;
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #00ffb6, #04425b);
-}
 
 
-
-.buscar{
-    -fx-background-color: transparent;
-    -fx-background-radius: 180;
-    -fx-border-radius: 360;
-    -fx-background-radius: #3B3B3B;
-    -fx-border-color: #3B3B3B;
-
-}

@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 
@@ -54,7 +55,6 @@ public class Principal extends Application {
         this.escenarioPrincipal = escenarioPrincipal;
         this.escenarioPrincipal.setTitle(" Kinal Express");
         ventanaMenuPrincipal();
-        escenarioPrincipal.setResizable(false);
 
         escenarioPrincipal.show();
     }
@@ -71,8 +71,6 @@ public class Principal extends Application {
         if (emergente) {
         
      
-
-
         } else {
             escena = new Scene(escenaNueva, width, heigth);
             escenarioPrincipal.setScene(escena);
@@ -116,7 +114,7 @@ public class Principal extends Application {
 
     public void ventanaMenuPrincipal() {
         try {
-            PrincipalController menuPrincipalView = (PrincipalController) cambiarEscena("PrincipalView.fxml", 783, 434, false);
+            PrincipalController menuPrincipalView = (PrincipalController) cambiarEscena("PrincipalView.fxml", 1082, 580, false);
             menuPrincipalView.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
