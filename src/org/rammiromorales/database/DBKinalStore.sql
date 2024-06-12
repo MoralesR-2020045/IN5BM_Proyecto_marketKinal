@@ -9,6 +9,7 @@ create database DBKinalStore;
 
 use DBKinalStore;
 
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'admin15';
 create table CantidadDeProdutoProveedor(
 	codigoCantidadProveedor int auto_increment not null, 
     cantidadProductoProveedor varchar(45),

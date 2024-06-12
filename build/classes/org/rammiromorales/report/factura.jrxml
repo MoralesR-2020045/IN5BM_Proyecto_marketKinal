@@ -93,10 +93,6 @@ where Factura.numeroFactura = $P{idNumero}]]>
 	</background>
 	<title>
 		<band height="95" splitType="Stretch">
-			<image scaleImage="FillFrame">
-				<reportElement x="0" y="0" width="101" height="95" uuid="1304ff4a-4728-469c-948c-f789b8cdd1a6"/>
-				<imageExpression><![CDATA["C:\\Users\\Informatica\\Desktop\\Repositorio Ramiro\\IN5BM_Proyecto_marketKinal\\src\\org\\rammiromorales\\images\\Blue Black Modern Simple Design Hotel and Resort Logo - Logos(3).png"]]></imageExpression>
-			</image>
 			<textField>
 				<reportElement x="201" y="38" width="177" height="20" uuid="638fd747-1dfb-44ee-97ce-c621d94d25cd"/>
 				<textElement>

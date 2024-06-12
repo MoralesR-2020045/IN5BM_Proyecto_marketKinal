@@ -79,7 +79,7 @@ and open the template in the editor.
     -fx-background-radius: 3;
     -fx-border-radius: 3;
     -fx-background-radius: #FFFFFF;
-    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #00ffb6, #04425b);
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #01C48C, #04425b);
 }
 
 .transparenteBoton{
@@ -114,4 +114,27 @@ and open the template in the editor.
     -fx-background-radius: white;
         
     -fx-background-color: #3B3B3B;
+}
+
+
+.buscar{
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: black;
+    -fx-background-radius: #FFFFFF;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #00ffb6, #04425b);
+}
+
+.barraDeInformacion{
+    -fx-background-color: #334B65;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.botonRecuadro{
+    -fx-background-color: transparent;
+}
+
+.botonRecuadro:hover{
+        -fx-text-fill: #34c0d8; /* Cambia el color del texto al pasar el mouse */
 }

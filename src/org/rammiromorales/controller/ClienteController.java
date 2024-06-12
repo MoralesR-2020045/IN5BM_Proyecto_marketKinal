@@ -314,7 +314,7 @@ public class ClienteController implements Initializable {
     public void imprimirReporte() {
         Map parametros = new HashMap();
         parametros.put("codigoCliente", null);
-        GenerarReportes.mostrarReportes("reportCliente.jasper", "Reporte Cliente", parametros);
+        GenerarReportes.mostrarReportes("reportClientes.jasper", "Reporte Cliente", parametros);
     }
 
     public void desactivarControles() {

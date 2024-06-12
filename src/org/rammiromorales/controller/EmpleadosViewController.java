@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +31,7 @@ import org.rammiromorales.bean.Empleado;
 import org.rammiromorales.bean.Producto;
 import org.rammiromorales.bean.TipoProducto;
 import org.rammiromorales.database.Conexion;
+import org.rammiromorales.report.GenerarReportes;
 import org.rammiromorales.system.Principal;
 
 /**
@@ -130,8 +133,8 @@ public class EmpleadosViewController implements Initializable {
         colTurno.setCellValueFactory(new PropertyValueFactory<Empleado, String>("turno"));
         colCodigoCargoEmpleado.setCellValueFactory(new PropertyValueFactory<Empleado, Integer>("codigoCargoEmpleado"));
     }
-    
-        public void selecionarElementos() {
+
+    public void selecionarElementos() {
         txtCodigoEmpleado.setText(String.valueOf(((Empleado) tvlEmpleados.getSelectionModel().getSelectedItem()).getCodigoEmpleado()));
         txtNombresEmpleado.setText(((Empleado) tvlEmpleados.getSelectionModel().getSelectedItem()).getNombresEmpleado());
         txtApellidosEmpleado.setText(((Empleado) tvlEmpleados.getSelectionModel().getSelectedItem()).getApellidosEmpleado());
@@ -198,7 +201,6 @@ public class EmpleadosViewController implements Initializable {
         }
         return listaDeCargo = FXCollections.observableList(listado);
     }
-
 
     public void agregar() {
         switch (tipoDeOperaciones) {
@@ -344,9 +346,12 @@ public class EmpleadosViewController implements Initializable {
             e.printStackTrace();
         }
     }
-    
-        public void reportes() {
+
+    public void reportes() {
         switch (tipoDeOperaciones) {
+            case NINGUNO:
+                imprimirReporte();
+                break;
             case ACTUALIZAR:
                 desactivarControles();
                 limpiarControles();
@@ -359,13 +364,21 @@ public class EmpleadosViewController implements Initializable {
                 tipoDeOperaciones = operaciones.NINGUNO;
 
                 break;
-
         }
-
     }
 
 
-    public Principal getEscenarioPrincipal() {
+    
+
+    public void imprimirReporte() {
+        Map parametros = new HashMap();
+        parametros.put("codigoEmpleado", null);
+        GenerarReportes.mostrarReportes("ReporteEmpleados.jasper", "Reporte Empleado", parametros);
+    }
+
+
+
+public Principal getEscenarioPrincipal() {
         return escenarioPrincipal;
     }
 
