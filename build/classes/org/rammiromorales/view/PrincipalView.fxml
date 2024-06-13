@@ -102,7 +102,7 @@
                                           <Font name="Tahoma" size="18.0" />
                                        </font>
                                        <graphic>
-                                          <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="10.0" nodeOrientation="INHERIT" onMouseClicked="#Producto" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/agregar-producto.png" />
                                              </image>

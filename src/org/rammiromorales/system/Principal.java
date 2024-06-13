@@ -14,6 +14,7 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -54,8 +55,10 @@ public class Principal extends Application {
     public void start(Stage escenarioPrincipal) throws Exception {
         this.escenarioPrincipal = escenarioPrincipal;
         this.escenarioPrincipal.setTitle(" Kinal Express");
+        escenarioPrincipal.getIcons().add(new Image("/org/rammiromorales/images/logo.png"));
+        escenarioPrincipal.initStyle(StageStyle.UNDECORATED);
         ventanaMenuPrincipal();
-
+       
         escenarioPrincipal.show();
     }
 
@@ -102,7 +105,11 @@ public class Principal extends Application {
 
         return resultado;
     }
-
+    public void metodoMinimizar(ImageView imagen){
+        escenarioPrincipal = (Stage) imagen.getScene().getWindow();
+        escenarioPrincipal.setIconified(true);
+    }
+            
     public void ventanaEmergenteTiporProducto() {
         try {
             VeEmergenteTiProductoViewController emergenteTipoProducto = (VeEmergenteTiProductoViewController) cambiarEscena("VeEmergenteTiProductoView.fxml", 322, 201, true);
@@ -124,7 +131,7 @@ public class Principal extends Application {
 
     public void ventanaMenuClientes() {
         try {
-            ClienteController ventanaMenuClientes = (ClienteController) cambiarEscena("ClienteView.fxml", 1163, 654, false);
+            ClienteController ventanaMenuClientes = (ClienteController) cambiarEscena("ClienteView.fxml", 1082, 580, false);
             ventanaMenuClientes.setEscenarioPrincipal(this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -134,7 +141,7 @@ public class Principal extends Application {
 
     public void ventanaProgramador() {
         try {
-            ProgramadorController vistaProgramador = (ProgramadorController) cambiarEscena("ProgramadorView.fxml", 746, 438, false);
+            ProgramadorController vistaProgramador = (ProgramadorController) cambiarEscena("ProgramadorView.fxml", 1082, 580, false);
             vistaProgramador.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -144,7 +151,7 @@ public class Principal extends Application {
 
     public void ventanaCargoEmpleado() {
         try {
-            CargoEmpleadoViewController vistaCargoEmpleado = (CargoEmpleadoViewController) cambiarEscena("CargoEmpleadoView.fxml", 1163, 654, false);
+            CargoEmpleadoViewController vistaCargoEmpleado = (CargoEmpleadoViewController) cambiarEscena("CargoEmpleadoView.fxml", 1082, 580, false);
             vistaCargoEmpleado.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -154,7 +161,7 @@ public class Principal extends Application {
 
     public void ventanaTipoProducto() {
         try {
-            TipoProductoViewController vistaTipoProducto = (TipoProductoViewController) cambiarEscena("TipoProductoView.fxml", 697, 469, false);
+            TipoProductoViewController vistaTipoProducto = (TipoProductoViewController) cambiarEscena("TipoProductoView.fxml", 1082, 580, false);
             vistaTipoProducto.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -164,7 +171,7 @@ public class Principal extends Application {
 
     public void ventanaProveedores() {
         try {
-            ProveedoresViewController proveedores = (ProveedoresViewController) cambiarEscena("ProveedoresView.fxml", 1163, 654, false);
+            ProveedoresViewController proveedores = (ProveedoresViewController) cambiarEscena("ProveedoresView.fxml", 1082, 580, false);
             proveedores.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -174,7 +181,7 @@ public class Principal extends Application {
 
     public void ventanaProducto() {
         try {
-            ProductoViewController producto = (ProductoViewController) cambiarEscena("ProductoView.fxml", 1163, 654, false);
+            ProductoViewController producto = (ProductoViewController) cambiarEscena("ProductoView.fxml", 1082, 580, false);
             producto.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -184,7 +191,7 @@ public class Principal extends Application {
 
     public void ventanaCompras() {
         try {
-            ComprasViewController compra = (ComprasViewController) cambiarEscena("ComprasView.fxml", 1163, 654, false);
+            ComprasViewController compra = (ComprasViewController) cambiarEscena("ComprasView.fxml", 1082, 580, false);
             compra.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -194,7 +201,7 @@ public class Principal extends Application {
 
     public void cantidadProductoProveedor() {
         try {
-            CantidadDeProdutoProveedorController cantidad = (CantidadDeProdutoProveedorController) cambiarEscena("CantidadDeProdutoProveedor.fxml", 1163, 654, false);
+            CantidadDeProdutoProveedorController cantidad = (CantidadDeProdutoProveedorController) cambiarEscena("CantidadDeProdutoProveedor.fxml", 1082, 580, false);
             cantidad.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -204,7 +211,7 @@ public class Principal extends Application {
 
     public void ventanaDetalleProducto() {
         try {
-            DetalleCompraViewController detalle = (DetalleCompraViewController) cambiarEscena("DetalleCompraView.fxml", 1163, 654, false);
+            DetalleCompraViewController detalle = (DetalleCompraViewController) cambiarEscena("DetalleCompraView.fxml", 1082, 580, false);
             detalle.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -214,7 +221,7 @@ public class Principal extends Application {
 
     public void ventanaEmpleados() {
         try {
-            EmpleadosViewController detalle = (EmpleadosViewController) cambiarEscena("EmpleadosView.fxml", 1163, 654, false);
+            EmpleadosViewController detalle = (EmpleadosViewController) cambiarEscena("EmpleadosView.fxml", 1082, 580, false);
             detalle.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -224,7 +231,7 @@ public class Principal extends Application {
 
     public void ventanaEmailProveedor() {
         try {
-            EmailProveedorController detalle = (EmailProveedorController) cambiarEscena("EmailProveedor.fxml", 1163, 654, false);
+            EmailProveedorController detalle = (EmailProveedorController) cambiarEscena("EmailProveedor.fxml", 1082, 580, false);
             detalle.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -234,7 +241,7 @@ public class Principal extends Application {
 
     public void ventanaTelefonoProveedor() {
         try {
-            TelefonoProveedorController proveedor = (TelefonoProveedorController) cambiarEscena("TelefonoProveedor.fxml", 1163, 654, false);
+            TelefonoProveedorController proveedor = (TelefonoProveedorController) cambiarEscena("TelefonoProveedor.fxml", 1082, 580, false);
             proveedor.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -244,7 +251,7 @@ public class Principal extends Application {
 
     public void ventanaFactura() {
         try {
-            FacturaViewController factura = (FacturaViewController) cambiarEscena("FacturaView.fxml", 1163, 654, false);
+            FacturaViewController factura = (FacturaViewController) cambiarEscena("FacturaView.fxml", 1082, 580, false);
             factura.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -254,7 +261,7 @@ public class Principal extends Application {
 
     public void ventanaDetalleFactura() {
         try {
-            DetalleFacturaController DetalleFactura = (DetalleFacturaController) cambiarEscena("DetalleFactura.fxml", 1163, 654, false);
+            DetalleFacturaController DetalleFactura = (DetalleFacturaController) cambiarEscena("DetalleFactura.fxml", 1082, 580, false);
             DetalleFactura.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -264,7 +271,7 @@ public class Principal extends Application {
     
     public void ventanaProductoProveedor(){
         try{
-            ProductoProveedorController productoController = (ProductoProveedorController) cambiarEscena("ProductoProveedor.fxml", 1163, 654, false );
+            ProductoProveedorController productoController = (ProductoProveedorController) cambiarEscena("ProductoProveedor.fxml", 1082, 580, false );
             productoController.setEscenarioPrincipal(this);
         }catch(Exception e){
             e.printStackTrace();

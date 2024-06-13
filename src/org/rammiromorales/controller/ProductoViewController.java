@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,13 +23,19 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import javax.swing.JOptionPane;
 import org.rammiromorales.bean.Producto;
 import org.rammiromorales.bean.ProductoProveedor;
 import org.rammiromorales.bean.Proveedores;
 import org.rammiromorales.bean.TipoProducto;
 import org.rammiromorales.database.Conexion;
+import org.rammiromorales.resource.EstilosDeEscenarios;
 import org.rammiromorales.system.Principal;
 
 /**
@@ -38,22 +45,30 @@ import org.rammiromorales.system.Principal;
  */
 public class ProductoViewController implements Initializable {
 
+    private EstilosDeEscenarios estilo;
     private Principal escenarioPrincipal;
     private ObservableList<Producto> listaProducto;
     private ObservableList<Proveedores> listaDeProveedores;
     private ObservableList<TipoProducto> listaDeTipoProducto;
     private ObservableList<ProductoProveedor> listaProductoProveedor;
+    private Button controlDeButton;
+    private String accion;
+
+    private enum visibilidad {
+        VISIBLE, INVISIBLE, NULL
+    }
 
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
 
     }
+    private visibilidad mostrar = visibilidad.VISIBLE;
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
 
     @FXML
     private Button btnListar;
-    
-        @FXML
+
+    @FXML
     private Button btnAgregar;
 
     @FXML
@@ -130,6 +145,20 @@ public class ProductoViewController implements Initializable {
     private ComboBox cmbNombreProducto;
     @FXML
     private TableColumn colNombreProducto;
+    @FXML
+    private ImageView imgMinimizer;
+    @FXML
+    private AnchorPane ancherPane;
+    @FXML
+    private Button btnProveedor;
+
+    @FXML
+    private Button btnInicio;
+
+    @FXML
+    private Button btnSalir;
+    @FXML
+    private Button btnMultiple;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -326,6 +355,64 @@ public class ProductoViewController implements Initializable {
         return listaProductoProveedor = FXCollections.observableList(listado);
     }
 
+    public void agregados() {
+        visibilidadDePanel(btnAgregar);
+    }
+
+    public void eliminados() {
+        visibilidadDePanel(btnEliminar);
+    }
+    
+    public void editados(){
+       visibilidadDePanel(btnEditar);
+    }
+
+    public void visibilidadDePanel(Button button) {
+        if (controlDeButton == button) {
+            tblProductos.setPrefHeight(406);
+            tblProductos.setLayoutY(140);
+            ancherPane.setVisible(true);
+            controlDeButton = null;
+        } else {
+            tblProductos.setPrefHeight(247);
+            tblProductos.setLayoutY(293);
+            ancherPane.setVisible(false);
+            if (button == btnAgregar) {
+                btnMultiple.setText("GUARDARS");
+                accion = "Agregar";
+            } else if (button == btnEliminar) {
+                btnMultiple.setText("Eliminar");
+                accion = "Eliminar";
+            }
+            controlDeButton = button;
+        }
+    }
+
+    public void multipleAcciones() {
+        switch (accion) {
+            case "Agregar":
+                agregar();
+                break;
+            case "Eliminar":
+                eliminarProductos();
+                break;
+        }
+    }
+
+    public void cancelar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Agregar un Producto", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarControles();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Agregando");
+                    tipoDeOperaciones = operaciones.NINGUNO;
+                }
+                break;
+        }
+    }
+
     public void agregar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
@@ -340,13 +427,12 @@ public class ProductoViewController implements Initializable {
                 cargaDatos();
                 break;
         }
-
     }
 
     public void guardar() {
         String png = "png";
         double cero = 0.0;
-        int  ceros=0;
+        int ceros = 0;
         Producto registro = new Producto();
         registro.setCodigoProducto(txtCodigoProducto.getText());
         registro.setIdProductoProveedor(((ProductoProveedor) cmbNombreProducto.getSelectionModel().getSelectedItem()).getIdProductoProveedor());
@@ -374,7 +460,7 @@ public class ProductoViewController implements Initializable {
         }
     }
 
-    public void eliminarProveedores() {
+    public void eliminarProductos() {
         switch (tipoDeOperaciones) {
             case ACTUALIZAR:
                 desactivarControles();
@@ -510,6 +596,18 @@ public class ProductoViewController implements Initializable {
     public void limpiarControles() {
         txtCodigoProducto.clear();
         txtDescripcionProducto.clear();
+    }
+
+    public void actionExit(MouseEvent event) {
+        javafx.application.Platform.exit();
+    }
+
+    public void actionEvent(MouseEvent event) {
+        escenarioPrincipal.metodoMinimizar(imgMinimizer);
+    }
+
+    public void inicio() {
+        escenarioPrincipal.ventanaMenuPrincipal();
     }
 
     public void handleButtonAction(ActionEvent event) {

@@ -50,15 +50,18 @@
     -fx-background-color: #3B3B3B;
 }
 .custom-combo-box .list-cell {
-    -fx-text-fill: white; /* Color del texto de las opciones */
+    -fx-text-fill: white;
+    -fx-font-size:16;
 }
 
 .custom-combo-box .text-field .text {
     -fx-fill: white; /* Color del texto del prompt text */
+    -fx-font-size:16;
 }
 
 .custom-combo-box .text {
     -fx-prompt-text-fill: white; /* Color del prompt text */
+    -fx-font-size:16;
 }
 .table-view {
     -fx-background-color: #ffffff;
@@ -91,7 +94,7 @@
 
 
 .botonDeUtilidades:hover{
-        -fx-border-color: #19b699;
+    -fx-border-color: #19b699;
     -fx-background-radius: 180;
     -fx-border-radius: 360;
     -fx-background-radius: #19b699;
@@ -106,5 +109,7 @@
     -fx-background-color: transparent;
 }
 
+.cajaMinimizer{
+        -fx-background-color: transparent;
 
-
+}
