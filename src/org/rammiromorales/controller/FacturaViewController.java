@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +32,7 @@ import org.rammiromorales.bean.Clientes;
 import org.rammiromorales.bean.Empleado;
 import org.rammiromorales.bean.Factura;
 import org.rammiromorales.database.Conexion;
+import org.rammiromorales.report.GenerarReportes;
 import org.rammiromorales.system.Principal;
 
 public class FacturaViewController implements Initializable {
@@ -380,10 +383,12 @@ public class FacturaViewController implements Initializable {
             e.printStackTrace();
         }
     }
-    
-    
+
     public void reportes() {
         switch (tipoDeOperaciones) {
+            case NINGUNO:
+                imprimirReporte();
+                break;
             case ACTUALIZAR:
                 desactivarControles();
                 limpiarControles();
@@ -398,6 +403,14 @@ public class FacturaViewController implements Initializable {
                 break;
         }
     }
+
+    public void imprimirReporte() {
+        Map parametros = new HashMap();
+        int numeroFactura = (Integer.valueOf(((Factura) tvlFactura.getSelectionModel().getSelectedItem()).getNumeroFactura()));
+        parametros.put("numeroFactura", numeroFactura);
+        GenerarReportes.mostrarReportes("factura.jasper", "factura", parametros);
+    }
+    
 
     public Principal getEscenarioPrincipal() {
         return escenarioPrincipal;

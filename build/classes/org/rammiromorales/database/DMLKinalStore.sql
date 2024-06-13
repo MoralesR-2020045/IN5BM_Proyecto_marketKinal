@@ -3,10 +3,11 @@
 -- Fecha de Creacion: 23/04/2024
 
 use DBKinalStore;
-set global time_zone = "-6:00";+
+set global time_zone = "-6:00";
 
 
 -- ------------------------------------------Entidad Producto Proveedor -----------------------------------------------------
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'admin15';
 Delimiter $$
 	create procedure sp_listarProductoProveedor ()
 		begin
@@ -965,10 +966,12 @@ call sp_agregarProductoProveedor("Ambar","Caja",110,15,2,0);
 -- call sp_agregarProductos("JD5BM","Jabon Ambar",0,0,0,"PNG",0,1,1,"123412sK2" );
 -- call sp_agregarProductos(?,         ?,         ?,?,?, ?,   ?, ?, ?, ?)
 -- DETALLE COMPRA
-call sp_agregarDetalleCompra(1,0,2,"JD5BM",1);
+-- call sp_agregarDetalleCompra(1,0,2,"JD5BM",1);
 -- Detalle Factura
 call sp_agregarFactura(1,'Anonimo',4.0,'2022-11-06',1,1);
 
+select * from Empleados
+join CargoEmpleado on Empleados.codigoEmpleado = CargoEmpleado.codigoCargoEmpleado;
 
 select * from DetalleFactura
 join Factura on DetalleFactura.numeroFactura = Factura.numeroFactura

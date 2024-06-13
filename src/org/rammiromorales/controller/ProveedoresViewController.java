@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,6 +28,7 @@ import javax.swing.JOptionPane;
 import org.rammiromorales.bean.CargoEmpleado;
 import org.rammiromorales.bean.Proveedores;
 import org.rammiromorales.database.Conexion;
+import org.rammiromorales.report.GenerarReportes;
 import org.rammiromorales.system.Principal;
 
 /**
@@ -34,6 +37,7 @@ import org.rammiromorales.system.Principal;
  * @author Donovan Morales
  */
 public class ProveedoresViewController implements Initializable {
+
     private Principal escenarioPrincipal;
 
     private ObservableList<Proveedores> listaDeProveedores;
@@ -150,7 +154,6 @@ public class ProveedoresViewController implements Initializable {
                         resultado.getString("razonSocial"),
                         resultado.getString("contactoPrincipal"),
                         resultado.getString("paginaWeb")
-
                 ));
             }
         } catch (Exception e) {
@@ -247,8 +250,7 @@ public class ProveedoresViewController implements Initializable {
             e.printStackTrace();
         }
     }
-    
-    
+
     public void editar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
@@ -277,7 +279,7 @@ public class ProveedoresViewController implements Initializable {
                 break;
         }
     }
-    
+
     public void actualizarProceso() {
         try {
             PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_actualizarProveedores(?, ?, ?, ?, ?, ?, ?, ?)}");
@@ -305,6 +307,10 @@ public class ProveedoresViewController implements Initializable {
 
     public void reportes() {
         switch (tipoDeOperaciones) {
+            case NINGUNO:
+                imprimirReporte();
+                break;
+
             case ACTUALIZAR:
                 desactivarTextField();
                 limpiarTextField();
@@ -321,8 +327,20 @@ public class ProveedoresViewController implements Initializable {
         }
 
     }
+
+
+    
+
+        public void imprimirReporte() {
+        Map parametros = new HashMap();
+        parametros.put("codigoProveedor", null);
+        GenerarReportes.mostrarReportes("ReporteProveedores.jasper.", "Reporte Proveedor", parametros);
+    }
+
     
     // Los tres siguientes metodos abilitan y deshabilitan los text File
+    
+
     public void desactivarTextField() {
         txtCodigoProveedor.setEditable(false);
         txtNITProveedor.setEditable(false);
@@ -355,7 +373,7 @@ public class ProveedoresViewController implements Initializable {
         txtContactoPrincipal.clear();
         txtPaginaWeb.clear();
     }
-    
+
     public void setEscenarioPrincipal(Principal escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
     }
