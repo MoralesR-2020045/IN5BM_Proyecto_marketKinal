@@ -22,7 +22,7 @@ import javafx.stage.Modality;
 
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.rammiromorales.controller.CantidadDeProdutoProveedorController;
+
 import org.rammiromorales.controller.CargoEmpleadoViewController;
 import org.rammiromorales.controller.ClienteController;
 import org.rammiromorales.controller.ComprasViewController;
@@ -31,7 +31,6 @@ import org.rammiromorales.controller.DetalleFacturaController;
 import org.rammiromorales.controller.EmailProveedorController;
 import org.rammiromorales.controller.EmpleadosViewController;
 import org.rammiromorales.controller.FacturaViewController;
-import org.rammiromorales.controller.VeEmergenteTiProductoViewController;
 import org.rammiromorales.controller.PrincipalController;
 import org.rammiromorales.controller.ProductoProveedorController;
 import org.rammiromorales.controller.ProductoViewController;
@@ -110,14 +109,6 @@ public class Principal extends Application {
         escenarioPrincipal.setIconified(true);
     }
             
-    public void ventanaEmergenteTiporProducto() {
-        try {
-            VeEmergenteTiProductoViewController emergenteTipoProducto = (VeEmergenteTiProductoViewController) cambiarEscena("VeEmergenteTiProductoView.fxml", 322, 201, true);
-            emergenteTipoProducto.setEscenarioPrincipal(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void ventanaMenuPrincipal() {
         try {
@@ -193,16 +184,6 @@ public class Principal extends Application {
         try {
             ComprasViewController compra = (ComprasViewController) cambiarEscena("ComprasView.fxml", 1082, 580, false);
             compra.setEscenarioPrincipal(this);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    public void cantidadProductoProveedor() {
-        try {
-            CantidadDeProdutoProveedorController cantidad = (CantidadDeProdutoProveedorController) cambiarEscena("CantidadDeProdutoProveedor.fxml", 1082, 580, false);
-            cantidad.setEscenarioPrincipal(this);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

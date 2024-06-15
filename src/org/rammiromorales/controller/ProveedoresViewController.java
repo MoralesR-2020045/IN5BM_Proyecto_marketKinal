@@ -24,6 +24,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
 import org.rammiromorales.bean.CargoEmpleado;
 import org.rammiromorales.bean.Proveedores;
@@ -41,11 +44,19 @@ public class ProveedoresViewController implements Initializable {
     private Principal escenarioPrincipal;
 
     private ObservableList<Proveedores> listaDeProveedores;
+    private Button controlDeButton;
+    private String accion;
 
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
     }
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
+    @FXML
+    private ImageView imgMinimizer;
+    @FXML
+    private AnchorPane ancherPane;
+    @FXML
+    private Button btnMultiple;
 
     @FXML
     private Button btnAgregar;
@@ -127,6 +138,16 @@ public class ProveedoresViewController implements Initializable {
     public Principal getEscenarioPrincipal() {
         return escenarioPrincipal;
     }
+        public void seleccionarElementos() {
+        txtCodigoProveedor.setText(String.valueOf(((Proveedores) tvlProveedores.getSelectionModel().getSelectedItem()).getCodigoProveedor()));
+        txtNITProveedor.setText(((Proveedores) tvlProveedores.getSelectionModel().getSelectedItem()).getNITProveedor());
+        txtNombresProveedor.setText(((Proveedores) tvlProveedores.getSelectionModel().getSelectedItem()).getNombresProveedor());
+        txtApellidosProveedor.setText(((Proveedores) tvlProveedores.getSelectionModel().getSelectedItem()).getApellidosProveedor());
+        txtDireccionProveedor.setText(((Proveedores) tvlProveedores.getSelectionModel().getSelectedItem()).getDireccionProveedor());
+        txtRazonSocial.setText(((Proveedores) tvlProveedores.getSelectionModel().getSelectedItem()).getRazonSocial());
+        txtContactoPrincipal.setText(((Proveedores) tvlProveedores.getSelectionModel().getSelectedItem()).getContactoPrincipal());
+        txtPaginaWeb.setText(((Proveedores) tvlProveedores.getSelectionModel().getSelectedItem()).getPaginaWeb());
+    }
 
     public void cargarDatosTable() {
         tvlProveedores.setItems(listaDeProveedores());
@@ -168,21 +189,20 @@ public class ProveedoresViewController implements Initializable {
         switch (tipoDeOperaciones) {
             case NINGUNO:
                 activarTextField();
-                btnAgregar.setText("Guardar");
-                btnEliminar.setText("Cancelar");
-                btnEditar.setDisable(true);
-                btnListar.setDisable(true);
+                btnMultiple.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                 tipoDeOperaciones = operaciones.ACTUALIZAR;
                 break;
             case ACTUALIZAR:
+                btnMultiple.setStyle("");
                 guardar();
                 cargarDatosTable();
                 desactivarTextField();
                 limpiarTextField();
-                btnAgregar.setText("Agregar");
-                btnEliminar.setText("Eliminar");
-                btnEditar.setDisable(false);
-                btnListar.setDisable(false);
+
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
         }
@@ -218,10 +238,6 @@ public class ProveedoresViewController implements Initializable {
             case ACTUALIZAR:
                 desactivarTextField();
                 limpiarTextField();
-                btnAgregar.setText("Agregar");
-                btnEliminar.setText("Eliminar");
-                btnEditar.setDisable(false);
-                btnListar.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
             default:
@@ -255,10 +271,11 @@ public class ProveedoresViewController implements Initializable {
         switch (tipoDeOperaciones) {
             case NINGUNO:
                 if (tvlProveedores.getSelectionModel().getSelectedItem() != null) {
-                    btnEditar.setText(" Actualizar ");
-                    btnListar.setText("Cancelar ");
-                    btnAgregar.setDisable(true);
-                    btnEliminar.setDisable(true);
+                    btnMultiple.setStyle("    -fx-border-color: black;\n"
+                            + "    -fx-background-radius: 10;\n"
+                            + "    -fx-border-radius: 10;\n"
+                            + "    -fx-background-radius: #FFFFFF;\n"
+                            + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                     activarTextField();
                     txtCodigoProveedor.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
@@ -267,11 +284,8 @@ public class ProveedoresViewController implements Initializable {
                 }
                 break;
             case ACTUALIZAR:
+                btnMultiple.setStyle("");
                 actualizarProceso();
-                btnEditar.setText(" Editar ");
-                btnListar.setText("Reporte ");
-                btnAgregar.setDisable(false);
-                btnEliminar.setDisable(false);
                 desactivarTextField();
                 limpiarTextField();
                 tipoDeOperaciones = operaciones.NINGUNO;
@@ -314,12 +328,6 @@ public class ProveedoresViewController implements Initializable {
             case ACTUALIZAR:
                 desactivarTextField();
                 limpiarTextField();
-                btnEditar.setText("Actualizar");
-                btnListar.setText("Cancelar");
-                btnAgregar.setDisable(false);
-                btnEliminar.setDisable(false);
-                btnEditar.setText("Editar");
-                btnListar.setText("Reporte");
                 tipoDeOperaciones = operaciones.NINGUNO;
 
                 break;
@@ -328,19 +336,13 @@ public class ProveedoresViewController implements Initializable {
 
     }
 
-
-    
-
-        public void imprimirReporte() {
+    public void imprimirReporte() {
         Map parametros = new HashMap();
         parametros.put("codigoProveedor", null);
         GenerarReportes.mostrarReportes("ReporteProveedores.jasper.", "Reporte Proveedor", parametros);
     }
 
-    
     // Los tres siguientes metodos abilitan y deshabilitan los text File
-    
-
     public void desactivarTextField() {
         txtCodigoProveedor.setEditable(false);
         txtNITProveedor.setEditable(false);
@@ -378,13 +380,104 @@ public class ProveedoresViewController implements Initializable {
         this.escenarioPrincipal = escenarioPrincipal;
     }
 
-    public void handleButtonAction(ActionEvent event) {
-        if (event.getSource() == btnMenuPrincipal) {
-            escenarioPrincipal.ventanaMenuPrincipal();
-        } else if (event.getSource() == btnClientes) {
-            escenarioPrincipal.ventanaMenuClientes();
-        } else if (event.getSource() == btnProgramador) {
-            escenarioPrincipal.ventanaProgramador();
+    public void actionExit(MouseEvent event) {
+        javafx.application.Platform.exit();
+    }
+
+    public void actionEvent(MouseEvent event) {
+        escenarioPrincipal.metodoMinimizar(imgMinimizer);
+    }
+
+    public void agregados() {
+        visibilidadDePanel(btnAgregar);
+    }
+
+    public void eliminados() {
+        visibilidadDePanel(btnEliminar);
+    }
+
+    public void editados() {
+        visibilidadDePanel(btnEditar);
+    }
+
+    public void visibilidadDePanel(Button button) {
+        if (controlDeButton == button) {
+            tvlProveedores.setPrefHeight(402);
+            tvlProveedores.setLayoutY(144);
+            ancherPane.setVisible(true);
+            controlDeButton = null;
+        } else {
+            tvlProveedores.setPrefHeight(163);
+            tvlProveedores.setLayoutY(383);
+            ancherPane.setVisible(false);
+            if (button == btnAgregar) {
+                btnMultiple.setText("GUARDAR");
+                accion = "Agregar";
+            } else if (button == btnEliminar) {
+                btnMultiple.setText("ELIMINAR");
+                accion = "Eliminar";
+            } else if (button == btnEditar) {
+                btnMultiple.setText("EDITAR");
+                accion = "Actualizar";
+            }
+            controlDeButton = button;
         }
+    }
+
+    public void multipleAcciones() {
+        switch (accion) {
+            case "Agregar":
+                agregarProveedores();
+                break;
+            case "Eliminar":
+                eliminarProveedores();
+                break;
+            case "Actualizar":
+                editar();
+                break;
+        }
+    }
+
+    public void cancelar() {
+        switch (accion) {
+            case "Agregar":
+                cancelarAgregar();
+                break;
+            case "Actualizar":
+                cancelarEditar();
+                break;
+        }
+    }
+
+    public void cancelarAgregar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Agregar un Proveedor", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarTextField();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Agregando");
+                    tipoDeOperaciones = operaciones.NINGUNO;
+                }
+                break;
+        }
+    }
+
+    public void cancelarEditar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Editar un Proveedor", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarTextField();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Editando");
+                    tipoDeOperaciones = operaciones.ACTUALIZAR;
+                }
+                break;
+        }
+    }
+
+    public void Principal() {
+        escenarioPrincipal.ventanaMenuPrincipal();
     }
 }

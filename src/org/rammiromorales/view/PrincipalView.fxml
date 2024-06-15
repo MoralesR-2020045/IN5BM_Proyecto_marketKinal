@@ -20,7 +20,29 @@
    <children>
       <BorderPane fx:id="separadorPane" layoutX="-1.0" prefHeight="995.0" prefWidth="1099.0" styleClass="fondoPrincipio" stylesheets="@../resource/EstilosMenuPrincipal.css">
          <top>
-            <HBox prefHeight="33.0" prefWidth="1116.0" styleClass="barraLateral" stylesheets="@../resource/EstilosDeEscenarios.css" BorderPane.alignment="CENTER" />
+            <HBox prefHeight="33.0" prefWidth="1116.0" styleClass="barraLateral" stylesheets="@../resource/EstilosDeEscenarios.css" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox layoutX="1083.0" prefHeight="26.0" prefWidth="53.0" styleClass="cajaMinimizer">
+                     <children>
+                        <ImageView fx:id="imgMinimizer" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#actionEvent" opacity="0.78" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/minimizarBlanco.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#actionExit" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/cerrarBlanco.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="3.0" />
+                           </HBox.margin>
+                        </ImageView>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="1025.0" />
+                     </HBox.margin>
+                  </HBox>
+               </children></HBox>
          </top>
          <left>
             <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="434.0" minWidth="205.0" prefHeight="448.0" prefWidth="205.0" styleClass="fondoPrincipio" BorderPane.alignment="CENTER" />
@@ -34,10 +56,10 @@
                            <children>
                               <AnchorPane layoutX="205.0" layoutY="80.0" prefHeight="48.0" prefWidth="893.0" styleClass="barraDeInformacion">
                                  <children>
-                                    <Button layoutX="8.0" layoutY="7.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="132.0" styleClass="botonRecuadro" text="COMPRAS" textFill="WHITE" />
-                                    <Button layoutX="158.0" layoutY="7.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="137.0" styleClass="botonRecuadro" text="INVENTARIO" textFill="WHITE" />
-                                    <Button layoutX="463.0" layoutY="7.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="181.0" styleClass="botonRecuadro" text="ACERCA DEL PROGRAMADOR" textFill="WHITE" />
-                                    <Button layoutX="304.0" layoutY="7.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="133.0" styleClass="botonRecuadro" text="PROVEEDORES" textFill="WHITE" />
+                                    <Button layoutX="8.0" layoutY="7.0" mnemonicParsing="false" onAction="#compras" prefHeight="33.0" prefWidth="132.0" styleClass="botonRecuadro" text="COMPRAS" textFill="WHITE" />
+                                    <Button layoutX="158.0" layoutY="7.0" mnemonicParsing="false" onAction="#productoProveedor" prefHeight="33.0" prefWidth="137.0" styleClass="botonRecuadro" text="INVENTARIO" textFill="WHITE" />
+                                    <Button layoutX="463.0" layoutY="7.0" mnemonicParsing="false" onAction="#programador" prefHeight="33.0" prefWidth="181.0" styleClass="botonRecuadro" text="ACERCA DEL PROGRAMADOR" textFill="WHITE" />
+                                    <Button layoutX="304.0" layoutY="7.0" mnemonicParsing="false" onAction="#proveedores" prefHeight="33.0" prefWidth="133.0" styleClass="botonRecuadro" text="PROVEEDORES" textFill="WHITE" />
                                     <Button layoutX="675.0" layoutY="7.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="183.0" styleClass="botonRecuadro" text="INFORMACION DE LA CUENTA" textFill="WHITE" />
                                  </children></AnchorPane>
                               <ImageView fitHeight="61.0" fitWidth="55.0" layoutX="1030.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -94,7 +116,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <children>
-                                    <Button fx:id="btnProductoIcon" alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="35.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#Producto" prefHeight="35.0" prefWidth="42.0" styleClass="modificacionBtn" textFill="WHITE">
+                                    <Button fx:id="btnProductoIcon" alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="35.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#producto" prefHeight="35.0" prefWidth="42.0" styleClass="modificacionBtn" textFill="WHITE">
                                        <HBox.margin>
                                           <Insets left="19.0" />
                                        </HBox.margin>
@@ -102,7 +124,7 @@
                                           <Font name="Tahoma" size="18.0" />
                                        </font>
                                        <graphic>
-                                          <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="10.0" nodeOrientation="INHERIT" onMouseClicked="#Producto" pickOnBounds="true" preserveRatio="true">
+                                          <ImageView fitHeight="30.0" fitWidth="32.0" layoutX="10.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                              <image>
                                                 <Image url="@../images/agregar-producto.png" />
                                              </image>
@@ -122,7 +144,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <children>
-                                    <Button fx:id="btnDetalleCompraIcon" alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="35.0" minWidth="42.0" mnemonicParsing="false" onAction="#DetalleCompra" prefHeight="35.0" prefWidth="42.0" styleClass="modificacionBtn" textFill="WHITE">
+                                    <Button fx:id="btnDetalleCompraIcon" alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="35.0" minWidth="42.0" mnemonicParsing="false" onAction="#detalleCompra" prefHeight="35.0" prefWidth="42.0" styleClass="modificacionBtn" textFill="WHITE">
                                        <HBox.margin>
                                           <Insets left="19.0" />
                                        </HBox.margin>
@@ -153,7 +175,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <children>
-                                    <Button fx:id="btnDetalleFacturaIcon" alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="35.0" minWidth="42.0" mnemonicParsing="false" onAction="#DetalleFactura" prefHeight="35.0" prefWidth="42.0" styleClass="modificacionBtn" textFill="WHITE">
+                                    <Button fx:id="btnDetalleFacturaIcon" alignment="BASELINE_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="35.0" minWidth="42.0" mnemonicParsing="false" onAction="#detalleFactura" prefHeight="35.0" prefWidth="42.0" styleClass="modificacionBtn" textFill="WHITE">
                                        <HBox.margin>
                                           <Insets left="19.0" />
                                        </HBox.margin>
@@ -190,9 +212,9 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <ScrollPane layoutX="-3.0" layoutY="155.0" prefHeight="391.0" prefWidth="882.0" styleClass="fondoPrincipio">
+                  <ScrollPane layoutX="-3.0" layoutY="155.0" prefHeight="387.0" prefWidth="882.0" styleClass="fondoPrincipio">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="650.0" prefWidth="885.0" styleClass="fondoPrincipio">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="681.0" prefWidth="885.0" styleClass="fondoPrincipio">
                            <children>
                               <MenuBar fx:id="btnMenuBar" layoutX="633.0" layoutY="248.0" prefHeight="25.0" prefWidth="271.0" styleClass="scrol" stylesheets="@../resource/KinalExpres.css">
                                 <menus>
@@ -251,7 +273,7 @@
                                   </Menu>
                                 </menus>
                               </MenuBar>
-                              <AnchorPane layoutY="302.0" onMouseClicked="#DetalleCompra" prefHeight="134.0" prefWidth="214.0" styleClass="buttonEntidades">
+                              <AnchorPane layoutY="302.0" onMouseClicked="#clientes" prefHeight="134.0" prefWidth="214.0" styleClass="buttonEntidades">
                                  <children>
                                     <AnchorPane layoutY="-1.0" prefHeight="35.0" prefWidth="214.0" styleClass="buttonEncabezado">
                                        <children>
@@ -274,7 +296,7 @@
                                     <Image url="@../images/Planet(NUEVO.png" />
                                  </image>
                               </ImageView>
-                              <AnchorPane layoutX="229.0" layoutY="302.0" onMouseClicked="#DetalleCompra" prefHeight="134.0" prefWidth="214.0" styleClass="buttonEntidades">
+                              <AnchorPane layoutX="229.0" layoutY="302.0" onMouseClicked="#empleados" prefHeight="134.0" prefWidth="214.0" styleClass="buttonEntidades">
                                  <children>
                                     <AnchorPane layoutY="-1.0" prefHeight="35.0" prefWidth="214.0" styleClass="buttonEncabezado">
                                        <children>
@@ -292,7 +314,7 @@
                                     </ImageView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="456.0" layoutY="302.0" onMouseClicked="#DetalleCompra" prefHeight="134.0" prefWidth="214.0" styleClass="buttonEntidades">
+                              <AnchorPane layoutX="456.0" layoutY="302.0" onMouseClicked="#cargoEmpleados" prefHeight="134.0" prefWidth="214.0" styleClass="buttonEntidades">
                                  <children>
                                     <AnchorPane layoutY="-1.0" prefHeight="35.0" prefWidth="214.0" styleClass="buttonEncabezado">
                                        <children>
@@ -310,7 +332,7 @@
                                     </ImageView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutY="474.0" onMouseClicked="#DetalleCompra" prefHeight="134.0" prefWidth="214.0" styleClass="buttonEntidades">
+                              <AnchorPane layoutY="474.0" onMouseClicked="#tipoDeProducto" prefHeight="134.0" prefWidth="214.0" styleClass="buttonEntidades">
                                  <children>
                                     <AnchorPane layoutY="-1.0" prefHeight="35.0" prefWidth="214.0" styleClass="buttonEncabezado">
                                        <children>
@@ -328,7 +350,7 @@
                                     </ImageView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="229.0" layoutY="474.0" onMouseClicked="#DetalleCompra" prefHeight="135.0" prefWidth="214.0" styleClass="buttonEntidades">
+                              <AnchorPane layoutX="229.0" layoutY="474.0" onMouseClicked="#telefonoProveedor" prefHeight="135.0" prefWidth="214.0" styleClass="buttonEntidades">
                                  <children>
                                     <AnchorPane layoutY="-1.0" prefHeight="35.0" prefWidth="214.0" styleClass="buttonEncabezado">
                                        <children>
@@ -346,7 +368,7 @@
                                     </ImageView>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="456.0" layoutY="474.0" onMouseClicked="#DetalleCompra" prefHeight="134.0" prefWidth="214.0" styleClass="buttonEntidades">
+                              <AnchorPane layoutX="456.0" layoutY="474.0" onMouseClicked="#emailProveedor" prefHeight="134.0" prefWidth="214.0" styleClass="buttonEntidades">
                                  <children>
                                     <AnchorPane layoutY="-1.0" prefHeight="35.0" prefWidth="214.0" styleClass="buttonEncabezado">
                                        <children>

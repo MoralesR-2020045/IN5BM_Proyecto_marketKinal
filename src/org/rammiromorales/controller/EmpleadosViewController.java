@@ -25,6 +25,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
 import org.rammiromorales.bean.CargoEmpleado;
 import org.rammiromorales.bean.Empleado;
@@ -44,12 +47,20 @@ public class EmpleadosViewController implements Initializable {
     private Principal escenarioPrincipal;
     private ObservableList<Empleado> listaEmpleado;
     private ObservableList<CargoEmpleado> listaDeCargo;
+    private Button controlDeButton;
+    private String accion;
 
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
 
     }
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
+    @FXML
+    private ImageView imgMinimizer;
+    @FXML
+    private AnchorPane ancherPane;
+    @FXML
+    private Button btnMultiple;
     @FXML
     private Button btnAgregar;
 
@@ -205,21 +216,19 @@ public class EmpleadosViewController implements Initializable {
     public void agregar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
+                btnMultiple.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                 activarControles();
-                btnAgregar.setText("Guardar");
-                btnEliminar.setText("Cancelar");
-                btnEditar.setDisable(true);
-                btnListar.setDisable(true);
                 tipoDeOperaciones = operaciones.ACTUALIZAR;
                 break;
             case ACTUALIZAR:
+                btnMultiple.setStyle("");
                 guardar();
                 desactivarControles();
                 limpiarControles();
-                btnAgregar.setText("Agregar");
-                btnEliminar.setText("Eliminar");
-                btnEditar.setDisable(false);
-                btnListar.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 cargaDatos();
                 break;
@@ -257,12 +266,9 @@ public class EmpleadosViewController implements Initializable {
     public void eliminar() {
         switch (tipoDeOperaciones) {
             case ACTUALIZAR:
+                btnMultiple.setStyle("");
                 desactivarControles();
                 limpiarControles();
-                btnAgregar.setText("Agregar");
-                btnEliminar.setText("Eliminar");
-                btnEditar.setDisable(false);
-                btnListar.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
             default:
@@ -296,11 +302,13 @@ public class EmpleadosViewController implements Initializable {
     public void editar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
+                btnMultiple.setStyle("");
                 if (tvlEmpleados.getSelectionModel().getSelectedItem() != null) {
-                    btnEditar.setText(" Actualizar ");
-                    btnListar.setText("Cancelar ");
-                    btnAgregar.setDisable(true);
-                    btnEliminar.setDisable(true);
+                    btnMultiple.setStyle("    -fx-border-color: black;\n"
+                            + "    -fx-background-radius: 10;\n"
+                            + "    -fx-border-radius: 10;\n"
+                            + "    -fx-background-radius: #FFFFFF;\n"
+                            + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                     activarControles();
                     txtCodigoEmpleado.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
@@ -309,11 +317,8 @@ public class EmpleadosViewController implements Initializable {
                 }
                 break;
             case ACTUALIZAR:
+                btnMultiple.setStyle("");
                 actualizarProceso();
-                btnEditar.setText(" Editar ");
-                btnListar.setText("Reporte ");
-                btnAgregar.setDisable(false);
-                btnEliminar.setDisable(false);
                 desactivarControles();
                 limpiarControles();
                 tipoDeOperaciones = operaciones.NINGUNO;
@@ -355,21 +360,11 @@ public class EmpleadosViewController implements Initializable {
             case ACTUALIZAR:
                 desactivarControles();
                 limpiarControles();
-                btnEditar.setText("Actualizar");
-                btnListar.setText("Cancelar");
-                btnAgregar.setDisable(false);
-                btnEliminar.setDisable(false);
-                btnEditar.setText("Editar");
-                btnListar.setText("Reporte");
                 tipoDeOperaciones = operaciones.NINGUNO;
 
                 break;
         }
     }
-    
-
-
-    
 
     public void imprimirReporte() {
         Map parametros = new HashMap();
@@ -377,9 +372,7 @@ public class EmpleadosViewController implements Initializable {
         GenerarReportes.mostrarReportes("ReporteEmpleados.jasper", "Reporte Empleado", parametros);
     }
 
-
-
-public Principal getEscenarioPrincipal() {
+    public Principal getEscenarioPrincipal() {
         return escenarioPrincipal;
     }
 
@@ -417,13 +410,104 @@ public Principal getEscenarioPrincipal() {
         cmbCodigoCargoEmpleado.getSelectionModel().getSelectedItem();
     }
 
-    public void handleButtonAction(ActionEvent event) {
-        if (event.getSource() == btnMenuPrincipal) {
-            escenarioPrincipal.ventanaMenuPrincipal();
-        } else if (event.getSource() == btnClientes) {
-            escenarioPrincipal.ventanaMenuClientes();
-        } else if (event.getSource() == btnProgramador) {
-            escenarioPrincipal.ventanaProgramador();
+    public void actionExit(MouseEvent event) {
+        javafx.application.Platform.exit();
+    }
+
+    public void actionEvent(MouseEvent event) {
+        escenarioPrincipal.metodoMinimizar(imgMinimizer);
+    }
+
+    public void agregados() {
+        visibilidadDePanel(btnAgregar);
+    }
+
+    public void eliminados() {
+        visibilidadDePanel(btnEliminar);
+    }
+
+    public void editados() {
+        visibilidadDePanel(btnEditar);
+    }
+
+    public void visibilidadDePanel(Button button) {
+        if (controlDeButton == button) {
+            tvlEmpleados.setPrefHeight(402);
+            tvlEmpleados.setLayoutY(143);
+            ancherPane.setVisible(true);
+            controlDeButton = null;
+        } else {
+            tvlEmpleados.setPrefHeight(213);
+            tvlEmpleados.setLayoutY(332);
+            ancherPane.setVisible(false);
+            if (button == btnAgregar) {
+                btnMultiple.setText("GUARDAR");
+                accion = "Agregar";
+            } else if (button == btnEliminar) {
+                btnMultiple.setText("ELIMINAR");
+                accion = "Eliminar";
+            } else if (button == btnEditar) {
+                btnMultiple.setText("EDITAR");
+                accion = "Actualizar";
+            }
+            controlDeButton = button;
         }
+    }
+
+    public void multipleAcciones() {
+        switch (accion) {
+            case "Agregar":
+                agregar();
+                break;
+            case "Eliminar":
+                eliminar();
+                break;
+            case "Actualizar":
+                editar();
+                break;
+        }
+    }
+
+    public void cancelar() {
+        switch (accion) {
+            case "Agregar":
+                cancelarAgregar();
+                break;
+            case "Actualizar":
+                cancelarEditar();
+                break;
+        }
+    }
+
+    public void cancelarAgregar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Agregar un Empleado", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarControles();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Agregando");
+                    tipoDeOperaciones = operaciones.NINGUNO;
+                }
+                break;
+        }
+    }
+
+    public void cancelarEditar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Editar un Empleado", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarControles();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir editando Empleados");
+                    tipoDeOperaciones = operaciones.ACTUALIZAR;
+                }
+                break;
+        }
+    }
+
+    public void Principal() {
+        escenarioPrincipal.ventanaMenuPrincipal();
     }
 }

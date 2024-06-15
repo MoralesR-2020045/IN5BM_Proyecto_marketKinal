@@ -22,6 +22,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
 import org.rammiromorales.bean.ProductoProveedor;
 import org.rammiromorales.database.Conexion;
@@ -36,12 +39,19 @@ public class ProductoProveedorController implements Initializable {
 
     private Principal escenarioPrincipal;
     private ObservableList<ProductoProveedor> listadoProductoProveedor;
+    private Button controlDeButton;
+    private String accion;
 
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
     }
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
-
+    @FXML
+    private ImageView imgMinimizer;
+    @FXML
+    private AnchorPane ancherPane;
+    @FXML
+    private Button btnMultiple;
     @FXML
     private Button btnAgregar;
 
@@ -168,22 +178,20 @@ public class ProductoProveedorController implements Initializable {
     public void agregarProductoProveedor() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
+                btnMultiple.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                 activarTextField();
-                btnAgregar.setText("Guardar");
-                btnEliminar.setText("Cancelar");
-                btnEditar.setDisable(true);
-                btnListar.setDisable(true);
                 tipoDeOperaciones = operaciones.ACTUALIZAR;
                 break;
             case ACTUALIZAR:
                 guardar();
+                btnMultiple.setStyle("");
                 cargarDatosTable();
                 desactivarTextField();
                 limpiarTextField();
-                btnAgregar.setText("Agregar");
-                btnEliminar.setText("Eliminar");
-                btnEditar.setDisable(false);
-                btnListar.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
         }
@@ -212,15 +220,11 @@ public class ProductoProveedorController implements Initializable {
         }
     }
 
-    public void eliminarCargoEmpleado() {
+    public void eliminarProductoProveedor() {
         switch (tipoDeOperaciones) {
             case ACTUALIZAR:
                 desactivarTextField();
                 limpiarTextField();
-                btnAgregar.setText("Agregar");
-                btnEliminar.setText("Eliminar");
-                btnEditar.setDisable(false);
-                btnListar.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
             default:
@@ -254,10 +258,11 @@ public class ProductoProveedorController implements Initializable {
         switch (tipoDeOperaciones) {
             case NINGUNO:
                 if (tvlProductoProveedor.getSelectionModel().getSelectedItem() != null) {
-                    btnEditar.setText(" Actualizar ");
-                    btnListar.setText("Cancelar ");
-                    btnAgregar.setDisable(true);
-                    btnEliminar.setDisable(true);
+                    btnMultiple.setStyle("    -fx-border-color: black;\n"
+                            + "    -fx-background-radius: 10;\n"
+                            + "    -fx-border-radius: 10;\n"
+                            + "    -fx-background-radius: #FFFFFF;\n"
+                            + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                     activarTextField();
                     txtIdPProveedor.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
@@ -267,10 +272,6 @@ public class ProductoProveedorController implements Initializable {
                 break;
             case ACTUALIZAR:
                 actualizarProceso();
-                btnEditar.setText(" Editar ");
-                btnListar.setText("Reporte ");
-                btnAgregar.setDisable(false);
-                btnEliminar.setDisable(false);
                 desactivarTextField();
                 limpiarTextField();
                 tipoDeOperaciones = operaciones.NINGUNO;
@@ -309,12 +310,6 @@ public class ProductoProveedorController implements Initializable {
             case ACTUALIZAR:
                 desactivarTextField();
                 limpiarTextField();
-                btnEditar.setText("Actualizar");
-                btnListar.setText("Cancelar");
-                btnAgregar.setDisable(false);
-                btnEliminar.setDisable(false);
-                btnEditar.setText("Editar");
-                btnListar.setText("Reporte");
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
         }
@@ -350,13 +345,104 @@ public class ProductoProveedorController implements Initializable {
         txtExistenciaTotalProducto.clear();
     }
 
-    public void handleButtonAction(ActionEvent event) {
-        if (event.getSource() == btnPrincipal) {
-            escenarioPrincipal.ventanaMenuPrincipal();
-        } else if (event.getSource() == btnClientes) {
-            escenarioPrincipal.ventanaMenuClientes();
-        } else if (event.getSource() == btnProgramador) {
-            escenarioPrincipal.ventanaProgramador();
+    public void actionExit(MouseEvent event) {
+        javafx.application.Platform.exit();
+    }
+
+    public void actionEvent(MouseEvent event) {
+        escenarioPrincipal.metodoMinimizar(imgMinimizer);
+    }
+
+    public void agregados() {
+        visibilidadDePanel(btnAgregar);
+    }
+
+    public void eliminados() {
+        visibilidadDePanel(btnEliminar);
+    }
+
+    public void editados() {
+        visibilidadDePanel(btnEditar);
+    }
+
+    public void visibilidadDePanel(Button button) {
+        if (controlDeButton == button) {
+            tvlProductoProveedor.setPrefHeight(403);
+            tvlProductoProveedor.setLayoutY(145);
+            ancherPane.setVisible(true);
+            controlDeButton = null;
+        } else {
+            tvlProductoProveedor.setPrefHeight(223);
+            tvlProductoProveedor.setLayoutY(325);
+            ancherPane.setVisible(false);
+            if (button == btnAgregar) {
+                btnMultiple.setText("GUARDAR");
+                accion = "Agregar";
+            } else if (button == btnEliminar) {
+                btnMultiple.setText("ELIMINAR");
+                accion = "Eliminar";
+            } else if (button == btnEditar) {
+                btnMultiple.setText("EDITAR");
+                accion = "Actualizar";
+            }
+            controlDeButton = button;
         }
+    }
+
+    public void multipleAcciones() {
+        switch (accion) {
+            case "Agregar":
+                agregarProductoProveedor();
+                break;
+            case "Eliminar":
+                eliminarProductoProveedor();
+                break;
+            case "Actualizar":
+                editar();
+                break;
+        }
+    }
+
+    public void cancelar() {
+        switch (accion) {
+            case "Agregar":
+                cancelarAgregar();
+                break;
+            case "Actualizar":
+                cancelarEditar();
+                break;
+        }
+    }
+
+    public void cancelarAgregar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Agregar al Inventario", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarTextField();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Agregando");
+                    tipoDeOperaciones = operaciones.NINGUNO;
+                }
+                break;
+        }
+    }
+
+    public void cancelarEditar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Editar al Inventario", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarTextField();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Editando");
+                    tipoDeOperaciones = operaciones.ACTUALIZAR;
+                }
+                break;
+        }
+    }
+
+    public void Principal() {
+        escenarioPrincipal.ventanaMenuPrincipal();
     }
 }

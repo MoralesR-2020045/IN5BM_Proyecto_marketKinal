@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -14,129 +16,228 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.rammiromorales.controller.DetalleFacturaController">
+<AnchorPane maxHeight="580.0" maxWidth="1082.0" prefHeight="580.0" prefWidth="1082.0" styleClass="fondoDos" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rammiromorales.controller.DetalleFacturaController">
    <children>
-      <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+      <HBox layoutX="74.0" layoutY="66.0" prefHeight="51.0" prefWidth="1020.0" styleClass="vBoxOscuro" stylesheets="@../resource/EstilosDeEscenarios.css">
          <children>
-            <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+            <HBox prefHeight="51.0" prefWidth="145.0">
                <children>
-                  <AnchorPane id="AnchorPane" prefHeight="558.0" prefWidth="787.0">
-                     <children>
-                        <ImageView fitHeight="655.0" fitWidth="1177.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/CargoEmpleado.png" />
-                           </image>
-                        </ImageView>
-                        <Button fx:id="btnAgregar" layoutX="58.0" layoutY="266.0" mnemonicParsing="false" onAction="#agregar" prefHeight="82.0" prefWidth="180.0" style="-fx-border-radius: 20; -fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Agregar" textFill="#c8d2d1">
-                           <graphic>
-                              <ImageView fitHeight="109.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/agregar.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="btnEliminar" layoutX="58.0" layoutY="361.0" mnemonicParsing="false" onAction="#eliminar" prefHeight="82.0" prefWidth="180.0" style="-fx-border-radius: 20; -fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Eliminar" textFill="#c8d2d1">
-                           <graphic>
-                              <ImageView fitHeight="117.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/eliminar.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="btnEditar" layoutX="58.0" layoutY="454.0" mnemonicParsing="false" onAction="#editar" prefHeight="82.0" prefWidth="180.0" style="-fx-border-color: #c8d2d1; -fx-border-radius: 20; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Editar" textFill="#c8d2d1">
-                           <graphic>
-                              <ImageView fitHeight="116.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/editar.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="btnListar" layoutX="58.0" layoutY="552.0" mnemonicParsing="false" onAction="#reportes" prefHeight="82.0" prefWidth="180.0" style="-fx-border-radius: 20; -fx-border-color: #c8d2d1; -fx-background-color: #68904d; -fx-background-radius: 20;" text="Listar" textFill="#c8d2d1">
-                           <graphic>
-                              <ImageView fitHeight="107.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/listar.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <GridPane layoutX="315.0" layoutY="113.0" prefHeight="126.0" prefWidth="307.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="137.3333740234375" minWidth="10.0" prefWidth="112.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.66666666666669" minWidth="10.0" prefWidth="120.66666666666669" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Label prefHeight="17.0" prefWidth="144.0" text="ID Detalle Factura" />
-                              <TextField fx:id="txtCodigoDetalleFactura" prefHeight="25.0" prefWidth="128.0" GridPane.columnIndex="1" />
-                              <TextField fx:id="txtPrecioUnitario" prefHeight="25.0" prefWidth="109.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <TextField fx:id="txtCantidad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label text="Precio Unitario" GridPane.rowIndex="1" />
-                              <Label text="Cantidad" GridPane.rowIndex="2" />
-                           </children>
-                        </GridPane>
-                        <SplitMenuButton layoutX="874.0" layoutY="46.0" mnemonicParsing="false">
-                          <items>
-                              <Menu mnemonicParsing="false" text="Modulos">
-                                <items>
-                                  <MenuItem fx:id="btnPrincipal" mnemonicParsing="false" onAction="#handleButtonAction" text="Menu Principal " />
-                                    <MenuItem fx:id="btnClientes" mnemonicParsing="false" onAction="#handleButtonAction" text="Clientes " />
-                                </items>
-                              </Menu>
-                              <Menu mnemonicParsing="false" text="Acerca de ">
-                                <items>
-                                  <MenuItem fx:id="btnProgramador" mnemonicParsing="false" onAction="#handleButtonAction" text="Programador" />
-                                </items>
-                              </Menu>
-                          </items>
-                           <graphic>
-                              <ImageView fitHeight="25.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../images/inicio%202.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </SplitMenuButton>
-                        <TableView fx:id="tvlDetalleFactura" layoutX="277.0" layoutY="281.0" onMouseClicked="#selecionarElementos" prefHeight="242.0" prefWidth="567.0">
-                          <columns>
-                            <TableColumn fx:id="colCodigoDetalleFactura" prefWidth="109.99996948242188" text="ID Detalle Factura" />
-                            <TableColumn fx:id="colPrecioUnitario" minWidth="0.0" prefWidth="100.0" text="Precio Unitario" />
-                              <TableColumn fx:id="colCantidad" minWidth="3.3333740234375" prefWidth="99.99996948242188" text="Cantidad" />
-                              <TableColumn fx:id="colNumeroFactura" minWidth="3.3333740234375" prefWidth="112.0" text="No. Factura" />
-                              <TableColumn fx:id="colCodigoProducto" minWidth="3.3333740234375" prefWidth="112.0" text="Codigo Producto" />
-                          </columns>
-                        </TableView>
-                        <GridPane layoutX="604.0" layoutY="113.0" prefHeight="126.0" prefWidth="275.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="137.3333740234375" minWidth="10.0" prefWidth="117.3333740234375" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="147.99995930989581" minWidth="10.0" prefWidth="141.99995930989581" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <Label prefHeight="17.0" prefWidth="144.0" text="Codigo Producto" GridPane.rowIndex="1" />
-                              <ComboBox fx:id="cmbCodigoProducto" prefHeight="25.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label prefHeight="17.0" prefWidth="144.0" text="No. Factura" />
-                              <ComboBox fx:id="cmbNumeroFactura" prefHeight="25.0" prefWidth="151.0" GridPane.columnIndex="1" />
-                           </children>
-                        </GridPane>
-                     </children>
-                  </AnchorPane>
+                  <Button fx:id="btnAgregar" alignment="CENTER" maxHeight="35.0" maxWidth="215.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#agregados" prefHeight="35.0" prefWidth="215.0" styleClass="botonDeUtilidades" text="AGREGAR" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="7.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
-            </AnchorPane>
+               <HBox.margin>
+                  <Insets left="210.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox prefHeight="51.0" prefWidth="145.0">
+               <children>
+                  <Button fx:id="btnEliminar" alignment="CENTER" maxHeight="35.0" maxWidth="215.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#eliminados" prefHeight="35.0" prefWidth="215.0" styleClass="botonDeUtilidades" text="ELIMINAR" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="7.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets left="80.0" right="80.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="141.0">
+               <children>
+                  <Button fx:id="btnEditar" alignment="CENTER" maxHeight="35.0" maxWidth="215.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#editados" prefHeight="35.0" prefWidth="215.0" styleClass="botonDeUtilidades" text="ACTUALIZAR" textFill="WHITE">
+                     <font>
+                        <Font name="Century Gothic" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="7.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets right="100.0" />
+               </HBox.margin>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox layoutX="1042.0" layoutY="1.0" prefHeight="26.0" prefWidth="53.0" styleClass="cajaMinimizer">
+         <children>
+            <ImageView fx:id="imgMinimizer" fitHeight="21.0" fitWidth="23.0" onMouseClicked="#actionEvent" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/minimizar%20(1).png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="21.0" fitWidth="23.0" onMouseClicked="#actionExit" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/cerrar.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="3.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
+      <AnchorPane layoutX="526.0" layoutY="29.0" prefHeight="28.0" prefWidth="411.0" styleClass="buscar" stylesheets="@../resource/EstilosDeEscenarios.css">
+         <children>
+            <Button layoutX="344.0" layoutY="4.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="62.0" styleClass="busquedad" text="BUSCAR" textFill="WHITE">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="20.0" fitWidth="28.0" layoutX="-586.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" x="600.0">
+               <image>
+                  <Image url="@../images/buscar%20icon.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
+      <AnchorPane layoutX="42.0" layoutY="119.0" prefHeight="172.0" prefWidth="1052.0" styleClass="vBoxOscuro">
+         <children>
+            <Button fx:id="btnMultiple" alignment="CENTER" layoutX="359.0" layoutY="130.0" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#multipleAcciones" prefHeight="27.0" prefWidth="141.0" styleClass="botonDeUtilidades" text="GUARDAR" textFill="WHITE">
+               <font>
+                  <Font name="Century Gothic" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnCancelar" alignment="CENTER" layoutX="590.0" layoutY="130.0" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#cancelar" prefHeight="27.0" prefWidth="142.0" styleClass="botonDeUtilidades" text="CANCELAR" textFill="WHITE">
+               <font>
+                  <Font name="Century Gothic" size="14.0" />
+               </font>
+            </Button>
+            <GridPane layoutX="127.0" layoutY="14.0" prefHeight="101.0" prefWidth="411.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="302.6666463216146" minWidth="10.0" prefWidth="215.66670735677084" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.66670735677084" minWidth="10.0" prefWidth="194.99995930989584" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label prefHeight="30.0" prefWidth="209.0" text="ID Detalle Factura" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtCodigoDetalleFactura" prefHeight="25.0" prefWidth="128.0" promptText="ID Detalle Factura" styleClass="txtTransaperencia" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="txtCantidad" promptText="Cantidad" styleClass="txtTransaperencia" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextField>
+                  <Label prefHeight="30.0" prefWidth="164.0" text="Cantidad" textFill="WHITE" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Line endX="81.3333511352539" endY="176.3333282470703" startX="269.29290771484375" startY="176.379150390625" stroke="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets top="27.0" />
+                     </GridPane.margin>
+                  </Line>
+                  <Line endX="81.3333511352539" endY="176.3333282470703" startX="269.29290771484375" startY="176.379150390625" stroke="WHITE" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets top="27.0" />
+                     </GridPane.margin>
+                  </Line>
+               </children>
+            </GridPane>
+            <GridPane layoutX="590.0" layoutY="20.0" prefHeight="95.0" prefWidth="387.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.9999796549479" minWidth="10.0" prefWidth="201.33331298828125" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.66664632161462" minWidth="10.0" prefWidth="186.00002034505212" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label prefHeight="30.0" prefWidth="197.0" text="Codigo Producto" textFill="WHITE" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cmbCodigoProducto" opacity="0.5" prefHeight="25.0" prefWidth="180.0" promptText="Codigo Producto" styleClass="custom-combo-box" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label prefHeight="17.0" prefWidth="144.0" text="No. Factura" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cmbNumeroFactura" opacity="0.5" prefHeight="25.0" prefWidth="179.0" promptText="No. Factura" styleClass="custom-combo-box" GridPane.columnIndex="1" />
+                  <Line endX="81.3333511352539" endY="176.3333282470703" startX="269.29290771484375" startY="176.379150390625" stroke="WHITE" GridPane.columnIndex="1">
+                     <GridPane.margin>
+                        <Insets top="27.0" />
+                     </GridPane.margin>
+                  </Line>
+                  <Line endX="81.3333511352539" endY="176.3333282470703" startX="269.29290771484375" startY="176.379150390625" stroke="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets top="27.0" />
+                     </GridPane.margin>
+                  </Line>
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="ancherPane" layoutX="28.0" layoutY="119.0" prefHeight="203.0" prefWidth="1067.0" styleClass="fondoDos" />
+      <ImageView fitHeight="406.0" fitWidth="157.0" layoutX="-19.0" layoutY="45.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/panel%20.png" />
+         </image>
+      </ImageView>
+      <MenuBar layoutX="11.0" layoutY="59.0" prefHeight="65.0" prefWidth="67.0" styleClass="buttonTransaparente">
+         <menus>
+            <Menu mnemonicParsing="false">
+               <items>
+                  <MenuItem fx:id="btnMenuPrincipal" mnemonicParsing="false" onAction="#Principal" text="Menu Principal" />
+                  <MenuItem mnemonicParsing="false" onAction="#tipoProducto" text="Tipo Producto " />
+                  <MenuItem mnemonicParsing="false" onAction="#Proveedor" text="Proveedor" />
+               </items>
+               <graphic>
+                  <ImageView fx:id="imgInicio" fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Inicio.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <Button fx:id="btnSalir" layoutX="26.0" layoutY="384.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="46.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
+         <graphic>
+            <ImageView fitHeight="34.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/salida.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TableView fx:id="tvlDetalleFactura" layoutX="192.0" layoutY="147.0" onMouseClicked="#selecionarElementos" prefHeight="406.0" prefWidth="811.0">
+        <columns>
+          <TableColumn fx:id="colCodigoDetalleFactura" prefWidth="147.33338928222656" text="ID Detalle Factura" />
+          <TableColumn fx:id="colPrecioUnitario" minWidth="0.0" prefWidth="136.0" text="Precio Unitario" />
+            <TableColumn fx:id="colCantidad" minWidth="3.3333740234375" prefWidth="157.99996948242188" text="Cantidad" />
+            <TableColumn fx:id="colNumeroFactura" minWidth="3.3333740234375" prefWidth="165.333251953125" text="No. Factura" />
+            <TableColumn fx:id="colCodigoProducto" minWidth="3.3333740234375" prefWidth="194.666748046875" text="Codigo Producto" />
+        </columns>
+      </TableView>
    </children>
+   <stylesheets>
+      <URL value="@../resource/EstilosMenuPrincipal.css" />
+      <URL value="@../resource/EstilosDeEscenarios.css" />
+   </stylesheets>
 </AnchorPane>

@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,6 +23,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+
+import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
 import org.rammiromorales.bean.Clientes;
 import org.rammiromorales.database.Conexion;
@@ -38,6 +41,8 @@ public class ClienteController implements Initializable {
 
     private Principal escenarioPrincipal;
     private ObservableList<Clientes> listaClientes;
+    private Button controlDeButton;
+    private String accion;
 
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
@@ -45,6 +50,19 @@ public class ClienteController implements Initializable {
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
 
 // Tabla y columnas de la misma 
+    @FXML
+    private Button btnMultiple;
+    @FXML
+    private ImageView imgMinimizer;
+
+    @FXML
+    private Button btnCancelar;
+
+    @FXML
+    private Button btnSalir;
+    @FXML
+    private MenuItem btnMenuPrincipal;
+
     @FXML
     private TableView tvClientes;
 
@@ -90,16 +108,18 @@ public class ClienteController implements Initializable {
 
     @FXML
     private TextField txtNitC;
+    @FXML
+    private Button btnAgregar;
+
+    @FXML
+    private Button btnEliminar;
+
+    @FXML
+    private Button btnEditar;
+    @FXML
+    private AnchorPane ancherPane;
 
 // Botones que sirven para retorno o cumplir siertas acciones 
-    @FXML
-    private Button btnAgregarC;
-    @FXML
-    private Button btnEliminarC;
-    @FXML
-    private Button btnEditarC;
-    @FXML
-    private Button btnListarC;
     @FXML
     private MenuItem btnMenu;
     @FXML
@@ -160,11 +180,12 @@ public class ClienteController implements Initializable {
     public void Agregar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
+                btnMultiple.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                 activarControles();
-                btnAgregarC.setText("Guardar");
-                btnEliminarC.setText("Cancelar");
-                btnEditarC.setDisable(true);
-                btnListarC.setDisable(true);
                 tipoDeOperaciones = operaciones.ACTUALIZAR;
 
                 break;
@@ -173,10 +194,7 @@ public class ClienteController implements Initializable {
                 cargarDatos();
                 desactivarControles();
                 limpiarControles();
-                btnAgregarC.setText("Agregar");
-                btnEliminarC.setText("Eliminar");
-                btnEditarC.setDisable(false);
-                btnListarC.setDisable(false);
+                btnMultiple.setStyle("");
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
         }
@@ -211,10 +229,6 @@ public class ClienteController implements Initializable {
             case ACTUALIZAR:
                 desactivarControles();
                 limpiarControles();
-                btnAgregarC.setText("Agregar");
-                btnEliminarC.setText("Eliminar");
-                btnEditarC.setDisable(false);
-                btnListarC.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
             default:
@@ -242,11 +256,13 @@ public class ClienteController implements Initializable {
     public void editar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
+                btnMultiple.setStyle("");
                 if (tvClientes.getSelectionModel().getSelectedItem() != null) {
-                    btnEditarC.setText(" Actualizar ");
-                    btnListarC.setText("Cancelar ");
-                    btnAgregarC.setDisable(true);
-                    btnEliminarC.setDisable(true);
+                    btnMultiple.setStyle("    -fx-border-color: black;\n"
+                            + "    -fx-background-radius: 10;\n"
+                            + "    -fx-border-radius: 10;\n"
+                            + "    -fx-background-radius: #FFFFFF;\n"
+                            + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                     activarControles();
                     txtCodigoC.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
@@ -255,11 +271,8 @@ public class ClienteController implements Initializable {
                 }
                 break;
             case ACTUALIZAR:
+                btnMultiple.setStyle("");
                 actualizar();
-                btnEditarC.setText(" Editar ");
-                btnListarC.setText("Reporte ");
-                btnAgregarC.setDisable(true);
-                btnEliminarC.setDisable(true);
                 desactivarControles();
                 limpiarControles();
                 tipoDeOperaciones = operaciones.NINGUNO;
@@ -300,12 +313,6 @@ public class ClienteController implements Initializable {
             case ACTUALIZAR:
                 desactivarControles();
                 limpiarControles();
-                btnEditarC.setText("Actualizar");
-                btnListarC.setText("Cancelar");
-                btnAgregarC.setDisable(false);
-                btnEliminarC.setDisable(false);
-                btnEditarC.setText("Editar");
-                btnListarC.setText("Reporte");
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
         }
@@ -351,11 +358,117 @@ public class ClienteController implements Initializable {
         this.escenarioPrincipal = escenarioPrincipal;
     }
 
-    public void handleButtonAction(ActionEvent event) {
-        if (event.getSource() == btnMenu) {
-            escenarioPrincipal.ventanaMenuPrincipal();
-        } else if (event.getSource() == btnClientes) {
-            escenarioPrincipal.ventanaProgramador();
+    public void actionExit(MouseEvent event) {
+        javafx.application.Platform.exit();
+    }
+
+    public void actionEvent(MouseEvent event) {
+        escenarioPrincipal.metodoMinimizar(imgMinimizer);
+    }
+
+    public void agregados() {
+        visibilidadDePanel(btnAgregar);
+    }
+
+    public void eliminados() {
+        visibilidadDePanel(btnEliminar);
+    }
+
+    public void editados() {
+        visibilidadDePanel(btnEditar);
+    }
+
+    public void visibilidadDePanel(Button button) {
+        if (controlDeButton == button) {
+            tvClientes.setPrefHeight(419);
+            tvClientes.setLayoutY(131);
+            ancherPane.setVisible(true);
+            controlDeButton = null;
+        } else {
+            tvClientes.setPrefHeight(224);
+            tvClientes.setLayoutY(326);
+            ancherPane.setVisible(false);
+            if (button == btnAgregar) {
+                btnMultiple.setText("GUARDAR");
+                accion = "Agregar";
+            } else if (button == btnEliminar) {
+                btnMultiple.setText("ELIMINAR");
+                accion = "Eliminar";
+            } else if (button == btnEditar) {
+                btnMultiple.setText("EDITAR");
+                accion = "Actualizar";
+            }
+            controlDeButton = button;
         }
     }
+
+    public void multipleAcciones() {
+        switch (accion) {
+            case "Agregar":
+                Agregar();
+                break;
+            case "Eliminar":
+                eliminar();
+                break;
+            case "Actualizar":
+                editar();
+                break;
+        }
+    }
+
+    public void cancelar() {
+        switch (accion) {
+            case "Agregar":
+                cancelarAgregar();
+                break;
+            case "Actualizar":
+                cancelarEditar();
+                break;
+        }
+    }
+
+    public void cancelarAgregar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Agregar un cliente", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarControles();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Agregando");
+                    tipoDeOperaciones = operaciones.NINGUNO;
+                }
+                break;
+        }
+    }
+
+    public void cancelarEditar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Editar un cliente", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarControles();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Editando");
+                    tipoDeOperaciones = operaciones.ACTUALIZAR;
+                }
+                break;
+        }
+    }
+
+    public void inicio() {
+        escenarioPrincipal.ventanaMenuPrincipal();
+    }
+
+    public void tipoProducto() {
+        escenarioPrincipal.ventanaTipoProducto();
+    }
+
+    public void Proveedor() {
+        escenarioPrincipal.ventanaProveedores();
+    }
+
+    public void Principal() {
+        escenarioPrincipal.ventanaMenuPrincipal();
+    }
+
 }

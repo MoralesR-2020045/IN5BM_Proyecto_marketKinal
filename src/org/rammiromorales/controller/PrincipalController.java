@@ -19,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -76,6 +77,9 @@ public class PrincipalController implements Initializable {
     private Button btnDetalleFacturaIcon;
     @FXML
     private VBox panelInicio;
+    
+    @FXML
+    private ImageView imgMinimizer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -105,7 +109,6 @@ public class PrincipalController implements Initializable {
         } else if (event.getSource() == btnCompras) {
             escenarioPrincipal.ventanaCompras();
         } else if (event.getSource() == btnCantidadDeProdutoProveedorController) {
-            escenarioPrincipal.cantidadProductoProveedor();
         } else if (event.getSource() == btnEmpleados) {
             escenarioPrincipal.ventanaEmpleados();
         } else if (event.getSource() == btnEmailProveedores) {
@@ -145,27 +148,66 @@ public class PrincipalController implements Initializable {
                 break;
         }
     }
+    public void actionExit(MouseEvent event) {
+        javafx.application.Platform.exit();
+    }
+
+    public void actionEvent(MouseEvent event) {
+        escenarioPrincipal.metodoMinimizar(imgMinimizer);
+    }
 
     public void factura() {
         escenarioPrincipal.ventanaFactura();
     }
 
-    public void Producto() {
+    public void producto() {
         escenarioPrincipal.ventanaProducto();
     }
 
-    public void DetalleCompra() {
+    public void detalleCompra() {
         escenarioPrincipal.ventanaDetalleProducto();
     }
 
-    public void DetalleFactura() {
+    public void detalleFactura() {
         escenarioPrincipal.ventanaDetalleFactura();
     }
-    public void TipoDeProducto(){
+    public void tipoDeProducto(){
         escenarioPrincipal.ventanaTipoProducto();
     }
     
-    public void ProductoProveedor(){
+    public void productoProveedor(){
         escenarioPrincipal.ventanaProductoProveedor();
+    }
+    
+    public void compras(){
+        escenarioPrincipal.ventanaCompras();
+    }
+    
+    public void clientes(){
+        escenarioPrincipal.ventanaMenuClientes();
+    }
+    
+    public void empleados(){
+        escenarioPrincipal.ventanaEmpleados();
+    }
+    
+    public void cargoEmpleados(){
+        escenarioPrincipal.ventanaCargoEmpleado();
+    }
+    
+    public void telefonoProveedor(){
+        escenarioPrincipal.ventanaTelefonoProveedor();
+    }
+    
+    public void emailProveedor(){
+        escenarioPrincipal.ventanaEmailProveedor();
+    }
+    
+    public void proveedores(){
+        escenarioPrincipal.ventanaProveedores();
+    }
+    
+    public void programador(){
+        escenarioPrincipal.ventanaProgramador();
     }
 }

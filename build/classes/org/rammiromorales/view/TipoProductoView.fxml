@@ -4,6 +4,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -14,59 +17,71 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="469.0" maxWidth="697.0" minHeight="469.0" minWidth="697.0" prefHeight="469.0" prefWidth="697.0" styleClass="fondoDos" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rammiromorales.controller.TipoProductoViewController">
+<AnchorPane id="AnchorPane" maxHeight="580.0" maxWidth="1082.0" minHeight="469.0" minWidth="697.0" prefHeight="580.0" prefWidth="1082.0" styleClass="fondoDos" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rammiromorales.controller.TipoProductoViewController">
    <children>
-      <AnchorPane layoutY="101.0" prefHeight="97.0" prefWidth="697.0" styleClass="vBoxOscuro">
+      <AnchorPane layoutY="101.0" prefHeight="120.0" prefWidth="1084.0" styleClass="vBoxOscuro">
          <children>
-            <HBox layoutX="107.0" layoutY="22.0" prefHeight="17.0" prefWidth="281.0">
+            <HBox layoutX="211.0" layoutY="22.0" prefHeight="29.0" prefWidth="361.0">
                <children>
-                  <Label maxHeight="17.0" maxWidth="120.0" minHeight="17.0" minWidth="120.0" prefHeight="17.0" prefWidth="120.0" text="ID Tipo Producto " textFill="WHITE">
+                  <Label maxHeight="41.0" maxWidth="174.0" minHeight="17.0" minWidth="119.0" prefHeight="17.0" prefWidth="174.0" text="ID Tipo Producto " textFill="WHITE">
                      <padding>
                         <Insets right="10.0" />
                      </padding>
                      <HBox.margin>
                         <Insets top="2.0" />
                      </HBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
                   </Label>
-                  <TextField fx:id="txtCodigoTipoProducto" maxHeight="25.0" maxWidth="145.0" minHeight="18.0" minWidth="100.0" prefHeight="19.0" prefWidth="145.0" promptText="ID" styleClass="txtTransaperencia" stylesheets="@../resource/EstilosDeEscenarios.css" />
+                  <TextField fx:id="txtCodigoTipoProducto" maxHeight="32.0" maxWidth="192.0" minHeight="18.0" minWidth="100.0" prefHeight="32.0" prefWidth="189.0" promptText="ID" styleClass="txtTransaperencia" stylesheets="@../resource/EstilosDeEscenarios.css">
+                     <font>
+                        <Font size="18.0" />
+                     </font></TextField>
                </children>
             </HBox>
-            <HBox layoutX="405.0" layoutY="19.0" prefHeight="25.0" prefWidth="253.0">
+            <HBox layoutX="595.0" layoutY="21.0" prefHeight="30.0" prefWidth="363.0">
                <children>
-                  <Label maxHeight="17.0" maxWidth="120.0" minHeight="17.0" minWidth="97.0" prefHeight="17.0" prefWidth="97.0" text=" Descripción" textFill="WHITE">
+                  <Label maxHeight="35.0" maxWidth="174.0" minHeight="17.0" minWidth="97.0" prefHeight="28.0" prefWidth="133.0" text=" Descripción" textFill="WHITE">
                      <HBox.margin>
                         <Insets top="2.0" />
                      </HBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
                   </Label>
-                  <TextField fx:id="txtDescripcion" maxHeight="25.0" maxWidth="147.0" minHeight="0.0" minWidth="120.0" prefHeight="0.0" prefWidth="147.0" promptText="Descripción" styleClass="txtTransaperencia">
+                  <TextField fx:id="txtDescripcion" maxHeight="52.0" maxWidth="203.0" minHeight="0.0" minWidth="120.0" prefHeight="29.0" prefWidth="203.0" promptText="Descripción" styleClass="txtTransaperencia">
                      <stylesheets>
                         <URL value="@../resource/KinalExpres.css" />
                         <URL value="@../resource/EstilosDeEscenarios.css" />
                      </stylesheets>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
                   </TextField>
                </children>
             </HBox>
-            <Line endX="81.3333511352539" endY="176.3333282470703" layoutX="145.0" layoutY="-135.0" startX="229.00003051757812" startY="176.3333282470703" stroke="WHITE" />
-            <Line endX="81.3333511352539" endY="176.3333282470703" layoutX="420.0" layoutY="-135.0" startX="229.00003051757812" startY="176.3333282470703" stroke="WHITE" />
-            <Button fx:id="btnEliminar1" alignment="CENTER" layoutX="229.0" layoutY="61.0" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="Guardar" textFill="WHITE">
+            <Line endX="81.3333511352539" endY="176.3333282470703" layoutX="310.0" layoutY="-126.0" startX="251.4444580078125" startY="176.3333282470703" stroke="WHITE" />
+            <Button fx:id="btnMultiple" alignment="CENTER" layoutX="404.0" layoutY="70.0" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#multipleAcciones" prefHeight="27.0" prefWidth="141.0" styleClass="botonDeUtilidades" text="Guardar" textFill="WHITE">
                <font>
-                  <Font name="Century Gothic" size="10.0" />
+                  <Font name="Century Gothic" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnEliminar2" alignment="CENTER" layoutX="405.0" layoutY="61.0" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="Cancelar" textFill="WHITE">
+            <Button fx:id="btnCancelar" alignment="CENTER" layoutX="629.0" layoutY="70.0" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#cancelar" prefHeight="27.0" prefWidth="141.0" styleClass="botonDeUtilidades" text="Cancelar" textFill="WHITE">
                <font>
-                  <Font name="Century Gothic" size="10.0" />
+                  <Font name="Century Gothic" size="14.0" />
                </font>
             </Button>
+            <Line endX="81.3333511352539" endY="176.3333282470703" layoutX="650.0" layoutY="-126.0" startX="258.11114501953125" startY="176.3333282470703" stroke="WHITE" />
          </children>
       </AnchorPane>
-      <HBox layoutX="54.0" layoutY="46.0" prefHeight="51.0" prefWidth="646.0" styleClass="vBoxOscuro" stylesheets="@../resource/EstilosDeEscenarios.css">
+      <HBox layoutX="54.0" layoutY="46.0" prefHeight="51.0" prefWidth="1034.0" styleClass="vBoxOscuro" stylesheets="@../resource/EstilosDeEscenarios.css">
          <children>
-            <HBox prefHeight="36.0" prefWidth="120.0">
+            <HBox prefHeight="51.0" prefWidth="148.0">
                <children>
-                  <Button fx:id="btnAgregar" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#agregarTipoProducto" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="AGREGAR" textFill="WHITE">
+                  <Button fx:id="btnAgregar" alignment="CENTER" maxHeight="35.0" maxWidth="215.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#agregados" prefHeight="35.0" prefWidth="215.0" styleClass="botonDeUtilidades" text="AGREGAR" textFill="WHITE">
                      <font>
-                        <Font name="Century Gothic" size="10.0" />
+                        <Font name="Century Gothic" size="16.0" />
                      </font>
                      <HBox.margin>
                         <Insets top="7.0" />
@@ -74,14 +89,14 @@
                   </Button>
                </children>
                <HBox.margin>
-                  <Insets left="110.0" />
+                  <Insets left="210.0" />
                </HBox.margin>
             </HBox>
-            <HBox prefHeight="36.0" prefWidth="120.0">
+            <HBox prefHeight="51.0" prefWidth="145.0">
                <children>
-                  <Button fx:id="btnEliminar" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="EDITAR" textFill="WHITE">
+                  <Button fx:id="btnEliminar" alignment="CENTER" maxHeight="35.0" maxWidth="215.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#eliminados" prefHeight="35.0" prefWidth="215.0" styleClass="botonDeUtilidades" text="ELIMINAR" textFill="WHITE">
                      <font>
-                        <Font name="Century Gothic" size="10.0" />
+                        <Font name="Century Gothic" size="16.0" />
                      </font>
                      <HBox.margin>
                         <Insets top="7.0" />
@@ -89,14 +104,14 @@
                   </Button>
                </children>
                <HBox.margin>
-                  <Insets left="30.0" right="30.0" />
+                  <Insets left="80.0" right="80.0" />
                </HBox.margin>
             </HBox>
-            <HBox prefHeight="36.0" prefWidth="120.0">
+            <HBox maxHeight="51.0" maxWidth="145.0" prefHeight="51.0" prefWidth="145.0">
                <children>
-                  <Button fx:id="btnActualizar" alignment="CENTER" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="ELIMINAR" textFill="WHITE">
+                  <Button fx:id="btnActualizar" alignment="CENTER" maxHeight="35.0" maxWidth="215.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#editados" prefHeight="35.0" prefWidth="215.0" styleClass="botonDeUtilidades" text="ACTUALIZAR" textFill="WHITE">
                      <font>
-                        <Font name="Century Gothic" size="10.0" />
+                        <Font name="Century Gothic" size="16.0" />
                      </font>
                      <HBox.margin>
                         <Insets top="7.0" />
@@ -109,56 +124,24 @@
             </HBox>
          </children>
       </HBox>
-      <TableView fx:id="tvlTipoProducto" layoutX="156.0" layoutY="208.0" prefHeight="225.0" prefWidth="420.0">
-        <columns>
-          <TableColumn fx:id="colCodigoTipoProducto" prefWidth="200.0" text="ID Tipo Producto" />
-          <TableColumn fx:id="colDescripcion" minWidth="5.3333740234375" prefWidth="200.0" text="Descripcion" />
-        </columns>
-      </TableView>
-      <ImageView fitHeight="361.0" fitWidth="96.0" layoutX="-39.0" layoutY="25.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+      <AnchorPane fx:id="ancherPane" layoutX="28.0" layoutY="99.0" prefHeight="223.0" prefWidth="1067.0" styleClass="fondoDos" />
+      <ImageView fitHeight="464.0" fitWidth="189.0" layoutX="-39.0" layoutY="25.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/panel%20.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnInicio" layoutX="4.0" layoutY="69.0" mnemonicParsing="false" onAction="#inicio" prefHeight="30.0" prefWidth="30.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
+      <Button layoutX="23.0" layoutY="425.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="49.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
          <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/Inicio.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button layoutX="2.0" layoutY="155.0" maxHeight="30.0" maxWidth="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
-         <graphic>
-            <ImageView fitHeight="36.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/productoIcon.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button layoutX="5.0" layoutY="212.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="42.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/ProveedoresIcon.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button layoutX="14.0" layoutY="334.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="50.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/salida.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <AnchorPane layoutX="281.0" layoutY="11.0" prefHeight="28.0" prefWidth="313.0" styleClass="buscar">
+      <AnchorPane layoutX="506.0" layoutY="9.0" prefHeight="28.0" prefWidth="411.0" styleClass="buscar" stylesheets="@../resource/EstilosDeEscenarios.css">
          <children>
-            <Button layoutX="244.0" layoutY="4.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="65.0" styleClass="busquedad" text="BUSCAR" textFill="WHITE">
+            <Button fx:id="btnBuscar" layoutX="341.0" layoutY="4.0" mnemonicParsing="false" onAction="#buttonBuscador" prefHeight="20.0" prefWidth="65.0" styleClass="busquedad" text="BUSCAR" textFill="WHITE">
                <font>
                   <Font size="8.0" />
                </font>
@@ -168,8 +151,51 @@
                   <Image url="@../images/buscar%20icon.png" />
                </image>
             </ImageView>
+            <TextField fx:id="txtBuscar" editable="false" layoutX="34.0" layoutY="1.0" onKeyReleased="#buscar" prefHeight="20.0" prefWidth="306.0" promptText="Busca" styleClass="date-picker" />
          </children>
       </AnchorPane>
+      <Button layoutX="18.0" layoutY="276.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="65.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css" />
+      <MenuBar layoutX="5.0" layoutY="46.0" prefHeight="65.0" prefWidth="67.0" styleClass="buttonTransaparente">
+         <menus>
+            <Menu mnemonicParsing="false">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#inicio" text="Inicio" />
+                  <MenuItem mnemonicParsing="false" text="Tipo Producto " />
+                  <MenuItem mnemonicParsing="false" text="Proveedor" />
+               </items>
+               <graphic>
+                  <ImageView fx:id="imgInicio" fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Inicio.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <HBox layoutX="1042.0" layoutY="1.0" prefHeight="26.0" prefWidth="53.0" styleClass="cajaMinimizer">
+         <children>
+            <ImageView fx:id="imgMinimizer" fitHeight="21.0" fitWidth="23.0" onMouseClicked="#actionEvent" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/minimizar%20(1).png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="21.0" fitWidth="23.0" onMouseClicked="#actionExit" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/cerrar.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="3.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
+      <TableView fx:id="tvlTipoProducto" layoutX="225.0" layoutY="113.0" onMouseClicked="#seleccionarElementos" prefHeight="435.0" prefWidth="731.0">
+        <columns>
+          <TableColumn fx:id="colCodigoTipoProducto" prefWidth="377.3333282470703" text="ID Tipo Producto" />
+          <TableColumn fx:id="colDescripcion" minWidth="5.3333740234375" prefWidth="335.3333740234375" text="Descripcion" />
+        </columns>
+      </TableView>
    </children>
    <stylesheets>
       <URL value="@../resource/EstilosDeEscenarios.css" />

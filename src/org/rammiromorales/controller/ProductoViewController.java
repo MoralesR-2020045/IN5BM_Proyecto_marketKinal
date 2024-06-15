@@ -54,15 +54,12 @@ public class ProductoViewController implements Initializable {
     private Button controlDeButton;
     private String accion;
 
-    private enum visibilidad {
-        VISIBLE, INVISIBLE, NULL
-    }
 
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
 
     }
-    private visibilidad mostrar = visibilidad.VISIBLE;
+
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
 
     @FXML
@@ -189,14 +186,54 @@ public class ProductoViewController implements Initializable {
         colCodigoTipoProducto.setCellValueFactory(new PropertyValueFactory<Producto, Integer>("codigoTipoProducto"));
         colCodigoProveedor.setCellValueFactory(new PropertyValueFactory<Producto, Integer>("codigoProveedor"));
     }
+        public ObservableList<Producto> getProducto() {
+        ArrayList<Producto> lista = new ArrayList<Producto>();
+        try {
+            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("call sp_listarProductos()");
+            ResultSet resultado = procedimiento.executeQuery();
+            while (resultado.next()) {
+                lista.add(new Producto(resultado.getString("codigoProducto"),
+                        resultado.getString("descripcionProducto"),
+                        resultado.getDouble("precioUnitario"),
+                        resultado.getDouble("precioDocena"),
+                        resultado.getDouble("precioMayor"),
+                        resultado.getInt("existencia"),
+                        resultado.getInt("idProductoProveedor"),
+                        resultado.getInt("codigoTipoProducto"),
+                        resultado.getInt("codigoProveedor")
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaProducto = FXCollections.observableArrayList(lista);
+    }
+    public ObservableList<Proveedores> listaDeProveedores() {
+        ArrayList<Proveedores> listado = new ArrayList<>();
+        try {
+            PreparedStatement consulta = Conexion.getInstancia().getConexion().prepareCall("{call sp_listarProveedores()}");
+            ResultSet resultado = consulta.executeQuery();
+            while (resultado.next()) {
+                listado.add(new Proveedores(resultado.getInt("codigoProveedor"),
+                        resultado.getString("NITProveedor"),
+                        resultado.getString("nombresProveedor"),
+                        resultado.getString("apellidosProveedor"),
+                        resultado.getString("direccionProveedor"),
+                        resultado.getString("razonSocial"),
+                        resultado.getString("contactoPrincipal"),
+                        resultado.getString("paginaWeb")
+                ));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        return listaDeProveedores = FXCollections.observableList(listado);
+    }
 
     public void selecionarElementos() {
         txtCodigoProducto.setText(((Producto) tblProductos.getSelectionModel().getSelectedItem()).getCodigoProducto());
         txtDescripcionProducto.setText(((Producto) tblProductos.getSelectionModel().getSelectedItem()).getDescripcionProducto());
-        txtPrecioUnitario.setText(String.valueOf(((Producto) tblProductos.getSelectionModel().getSelectedItem()).getPrecioUnitario()));
-        txtPrecioDocena.setText(String.valueOf(((Producto) tblProductos.getSelectionModel().getSelectedItem()).getPrecioDocena()));
-        txtPrecioMayor.setText(String.valueOf(((Producto) tblProductos.getSelectionModel().getSelectedItem()).getPrecioMayor()));
-        txtExistencia.setText(String.valueOf(((Producto) tblProductos.getSelectionModel().getSelectedItem()).getExistencia()));
         cmbProducto.getSelectionModel().select(buscarTipoProducto(((Producto) tblProductos.getSelectionModel().getSelectedItem()).getCodigoTipoProducto()));
         cmbProveedor.getSelectionModel().select(buscarProveedor(((Producto) tblProductos.getSelectionModel().getSelectedItem()).getCodigoProveedor()));
         cmbNombreProducto.getSelectionModel().select(buscarNombreProveedor(((Producto) tblProductos.getSelectionModel().getSelectedItem()).getIdProductoProveedor()));
@@ -267,53 +304,6 @@ public class ProductoViewController implements Initializable {
         return resultado;
     }
 
-// cargar lista getProducto
-    public ObservableList<Producto> getProducto() {
-        ArrayList<Producto> lista = new ArrayList<Producto>();
-        try {
-            PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("call sp_listarProductos()");
-            ResultSet resultado = procedimiento.executeQuery();
-            while (resultado.next()) {
-                lista.add(new Producto(resultado.getString("codigoProducto"),
-                        resultado.getString("descripcionProducto"),
-                        resultado.getDouble("precioUnitario"),
-                        resultado.getDouble("precioDocena"),
-                        resultado.getDouble("precioMayor"),
-                        resultado.getInt("existencia"),
-                        resultado.getInt("idProductoProveedor"),
-                        resultado.getInt("codigoTipoProducto"),
-                        resultado.getInt("codigoProveedor")
-                ));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listaProducto = FXCollections.observableArrayList(lista);
-    }
-
-// cargar ListaProveedores
-    public ObservableList<Proveedores> listaDeProveedores() {
-        ArrayList<Proveedores> listado = new ArrayList<>();
-        try {
-            PreparedStatement consulta = Conexion.getInstancia().getConexion().prepareCall("{call sp_listarProveedores()}");
-            ResultSet resultado = consulta.executeQuery();
-            while (resultado.next()) {
-                listado.add(new Proveedores(resultado.getInt("codigoProveedor"),
-                        resultado.getString("NITProveedor"),
-                        resultado.getString("nombresProveedor"),
-                        resultado.getString("apellidosProveedor"),
-                        resultado.getString("direccionProveedor"),
-                        resultado.getString("razonSocial"),
-                        resultado.getString("contactoPrincipal"),
-                        resultado.getString("paginaWeb")
-                ));
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-        return listaDeProveedores = FXCollections.observableList(listado);
-    }
 
 // Cargar lista 
     public ObservableList<TipoProducto> listaDeTipoProducto() {
@@ -355,71 +345,19 @@ public class ProductoViewController implements Initializable {
         return listaProductoProveedor = FXCollections.observableList(listado);
     }
 
-    public void agregados() {
-        visibilidadDePanel(btnAgregar);
-    }
-
-    public void eliminados() {
-        visibilidadDePanel(btnEliminar);
-    }
-    
-    public void editados(){
-       visibilidadDePanel(btnEditar);
-    }
-
-    public void visibilidadDePanel(Button button) {
-        if (controlDeButton == button) {
-            tblProductos.setPrefHeight(406);
-            tblProductos.setLayoutY(140);
-            ancherPane.setVisible(true);
-            controlDeButton = null;
-        } else {
-            tblProductos.setPrefHeight(247);
-            tblProductos.setLayoutY(293);
-            ancherPane.setVisible(false);
-            if (button == btnAgregar) {
-                btnMultiple.setText("GUARDARS");
-                accion = "Agregar";
-            } else if (button == btnEliminar) {
-                btnMultiple.setText("Eliminar");
-                accion = "Eliminar";
-            }
-            controlDeButton = button;
-        }
-    }
-
-    public void multipleAcciones() {
-        switch (accion) {
-            case "Agregar":
-                agregar();
-                break;
-            case "Eliminar":
-                eliminarProductos();
-                break;
-        }
-    }
-
-    public void cancelar() {
-        switch (tipoDeOperaciones) {
-            case ACTUALIZAR:
-                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Agregar un Producto", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (Confirma == JOptionPane.YES_NO_OPTION) {
-                    limpiarControles();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Agregando");
-                    tipoDeOperaciones = operaciones.NINGUNO;
-                }
-                break;
-        }
-    }
-
     public void agregar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
+                btnMultiple.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                 activarControles();
                 tipoDeOperaciones = operaciones.ACTUALIZAR;
                 break;
             case ACTUALIZAR:
+                btnMultiple.setStyle("");
                 guardar();
                 desactivarControles();
                 limpiarControles();
@@ -465,10 +403,6 @@ public class ProductoViewController implements Initializable {
             case ACTUALIZAR:
                 desactivarControles();
                 limpiarControles();
-                btnAgregar.setText("Agregar");
-                btnEliminar.setText("Eliminar");
-                btnEditar.setDisable(false);
-                btnListar.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
             default:
@@ -502,10 +436,12 @@ public class ProductoViewController implements Initializable {
         switch (tipoDeOperaciones) {
             case NINGUNO:
                 if (tblProductos.getSelectionModel().getSelectedItem() != null) {
-                    btnEditar.setText(" Actualizar ");
-                    btnListar.setText("Cancelar ");
-                    btnAgregar.setDisable(true);
-                    btnEliminar.setDisable(true);
+                    
+                btnMultiple.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                     activarControles();
                     txtCodigoProducto.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
@@ -514,11 +450,8 @@ public class ProductoViewController implements Initializable {
                 }
                 break;
             case ACTUALIZAR:
+                btnMultiple.setStyle("");
                 actualizarProceso();
-                btnEditar.setText(" Editar ");
-                btnListar.setText("Reporte ");
-                btnAgregar.setDisable(false);
-                btnEliminar.setDisable(false);
                 desactivarControles();
                 limpiarControles();
                 tipoDeOperaciones = operaciones.NINGUNO;
@@ -596,6 +529,8 @@ public class ProductoViewController implements Initializable {
     public void limpiarControles() {
         txtCodigoProducto.clear();
         txtDescripcionProducto.clear();
+        cmbNombreProducto.getSelectionModel().getSelectedItem();
+        cmbProveedor.getSelectionModel().getSelectedItem();
     }
 
     public void actionExit(MouseEvent event) {
@@ -606,17 +541,109 @@ public class ProductoViewController implements Initializable {
         escenarioPrincipal.metodoMinimizar(imgMinimizer);
     }
 
+    public void agregados() {
+        visibilidadDePanel(btnAgregar);
+    }
+
+    public void eliminados() {
+        visibilidadDePanel(btnEliminar);
+    }
+
+    public void editados() {
+        visibilidadDePanel(btnEditar);
+    }
+
+    public void visibilidadDePanel(Button button) {
+        if (controlDeButton == button) {
+            tblProductos.setPrefHeight(406);
+            tblProductos.setLayoutY(140);
+            ancherPane.setVisible(true);
+            controlDeButton = null;
+        } else {
+            tblProductos.setPrefHeight(247);
+            tblProductos.setLayoutY(293);
+            ancherPane.setVisible(false);
+            if (button == btnAgregar) {
+                btnMultiple.setText("GUARDAR");
+                accion = "Agregar";
+            } else if (button == btnEliminar) {
+                btnMultiple.setText("ELIMINAR");
+                accion = "Eliminar";
+            } else if (button == btnEditar) {
+                btnMultiple.setText("EDITAR");
+                accion = "Actualizar";
+            }
+            controlDeButton = button;
+        }
+    }
+
+    public void multipleAcciones() {
+        switch (accion) {
+            case "Agregar":
+                agregar();
+                break;
+            case "Eliminar":
+                eliminarProductos();
+                break;
+            case "Actualizar":
+                editar();
+                break;
+        }
+    }
+
+    public void cancelar() {
+        switch (accion) {
+            case "Agregar":
+                cancelarAgregar();
+                break;
+            case "Actualizar":
+                cancelarEditar();
+                break;
+        }
+    }
+
+    public void cancelarAgregar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Agregar un Producto", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarControles();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Agregando");
+                    tipoDeOperaciones = operaciones.NINGUNO;
+                }
+                break;
+        }
+    }
+
+    public void cancelarEditar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Editar un Producto", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarControles();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Editando");
+                    tipoDeOperaciones = operaciones.ACTUALIZAR;
+                }
+                break;
+        }
+    }
+
     public void inicio() {
         escenarioPrincipal.ventanaMenuPrincipal();
     }
 
-    public void handleButtonAction(ActionEvent event) {
-        if (event.getSource() == btnMenuPrincipal) {
-            escenarioPrincipal.ventanaMenuPrincipal();
-        } else if (event.getSource() == btnClientes) {
-            escenarioPrincipal.ventanaMenuClientes();
-        } else if (event.getSource() == btnProgramador) {
-            escenarioPrincipal.ventanaProgramador();
-        }
+    public void tipoProducto() {
+        escenarioPrincipal.ventanaTipoProducto();
     }
+
+    public void Proveedor() {
+        escenarioPrincipal.ventanaProveedores();
+    }
+    
+    public void Principal(){
+        escenarioPrincipal.ventanaMenuPrincipal();
+    }
+
 }

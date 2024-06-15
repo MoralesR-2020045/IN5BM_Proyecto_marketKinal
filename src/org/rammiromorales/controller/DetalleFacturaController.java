@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -23,12 +22,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javax.swing.JOptionPane;
 import org.rammiromorales.bean.DetalleFactura;
 import org.rammiromorales.bean.Factura;
 import org.rammiromorales.bean.Producto;
 import org.rammiromorales.database.Conexion;
 import org.rammiromorales.system.Principal;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+
 
 /**
  * FXML Controller class
@@ -40,6 +43,8 @@ public class DetalleFacturaController implements Initializable {
     private ObservableList<DetalleFactura> listaDetalleFactura;
     private ObservableList<Factura> listaDeFactura;
     private ObservableList<Producto> listaProducto;
+    private Button controlDeButton;
+    private String accion;
 
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
@@ -47,6 +52,12 @@ public class DetalleFacturaController implements Initializable {
     }
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
     private Principal escenarioPrincipal;
+    @FXML
+    private ImageView imgMinimizer;
+    @FXML
+    private AnchorPane ancherPane;
+    @FXML
+    private Button btnMultiple;
     @FXML
     private Button btnAgregar;
 
@@ -181,7 +192,6 @@ public class DetalleFacturaController implements Initializable {
 
     public void selecionarElementos() {
         txtCodigoDetalleFactura.setText(String.valueOf(((DetalleFactura) tvlDetalleFactura.getSelectionModel().getSelectedItem()).getCodigoDetalleFactura()));
-        txtPrecioUnitario.setText(String.valueOf(((DetalleFactura) tvlDetalleFactura.getSelectionModel().getSelectedItem()).getPrecioUnitario()));
         txtCantidad.setText(String.valueOf(((DetalleFactura) tvlDetalleFactura.getSelectionModel().getSelectedItem()).getCantidad()));
         cmbNumeroFactura.getSelectionModel().select(buscarFactura(((DetalleFactura) tvlDetalleFactura.getSelectionModel().getSelectedItem()).getNumeroFactura()));
         cmbCodigoProducto.getSelectionModel().select(buscarProducto(((DetalleFactura) tvlDetalleFactura.getSelectionModel().getSelectedItem()).getCodigoProducto()));
@@ -237,20 +247,18 @@ public class DetalleFacturaController implements Initializable {
         switch (tipoDeOperaciones) {
             case NINGUNO:
                 activarControles();
-                btnAgregar.setText("Guardar");
-                btnEliminar.setText("Cancelar");
-                btnEditar.setDisable(true);
-                btnListar.setDisable(true);
+                btnMultiple.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                 tipoDeOperaciones = operaciones.ACTUALIZAR;
                 break;
             case ACTUALIZAR:
+                btnMultiple.setStyle("");
                 guardar();
                 desactivarControles();
                 limpiarControles();
-                btnAgregar.setText("Agregar");
-                btnEliminar.setText("Eliminar");
-                btnEditar.setDisable(false);
-                btnListar.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 cargaDatos();
                 break;
@@ -258,16 +266,16 @@ public class DetalleFacturaController implements Initializable {
     }
 
     public void guardar() {
+        double cero = 0.0;
         DetalleFactura registro = new DetalleFactura();
         registro.setCodigoDetalleFactura(Integer.parseInt(txtCodigoDetalleFactura.getText()));
-        registro.setPrecioUnitario(Double.parseDouble(txtPrecioUnitario.getText()));
         registro.setCantidad(Integer.parseInt(txtCantidad.getText()));
         registro.setNumeroFactura(((Factura) cmbNumeroFactura.getSelectionModel().getSelectedItem()).getNumeroFactura());
         registro.setCodigoProducto(((Producto) cmbCodigoProducto.getSelectionModel().getSelectedItem()).getCodigoProducto());
         try {
             PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_agregarDetalleFactura(?, ?, ?, ?, ?)}");
             procedimiento.setInt(1, registro.getCodigoDetalleFactura());
-            procedimiento.setDouble(2, registro.getPrecioUnitario());
+            procedimiento.setDouble(2, cero);
             procedimiento.setInt(3, registro.getCantidad());
             procedimiento.setInt(4, registro.getNumeroFactura());
             procedimiento.setString(5, registro.getCodigoProducto());
@@ -283,12 +291,9 @@ public class DetalleFacturaController implements Initializable {
     public void eliminar() {
         switch (tipoDeOperaciones) {
             case ACTUALIZAR:
+                btnAgregar.setText("Agregar");
                 desactivarControles();
                 limpiarControles();
-                btnAgregar.setText("Agregar");
-                btnEliminar.setText("Eliminar");
-                btnEditar.setDisable(false);
-                btnListar.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
             default:
@@ -323,10 +328,11 @@ public class DetalleFacturaController implements Initializable {
         switch (tipoDeOperaciones) {
             case NINGUNO:
                 if (tvlDetalleFactura.getSelectionModel().getSelectedItem() != null) {
-                    btnEditar.setText(" Actualizar ");
-                    btnListar.setText("Cancelar ");
-                    btnAgregar.setDisable(true);
-                    btnEliminar.setDisable(true);
+                    btnMultiple.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                     activarControles();
                     txtCodigoDetalleFactura.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
@@ -335,11 +341,8 @@ public class DetalleFacturaController implements Initializable {
                 }
                 break;
             case ACTUALIZAR:
+                btnMultiple.setStyle("");
                 actualizarProceso();
-                btnEditar.setText(" Editar ");
-                btnListar.setText("Reporte ");
-                btnAgregar.setDisable(false);
-                btnEliminar.setDisable(false);
                 desactivarControles();
                 limpiarControles();
                 tipoDeOperaciones = operaciones.NINGUNO;
@@ -350,17 +353,17 @@ public class DetalleFacturaController implements Initializable {
 
     public void actualizarProceso() {
         try {
+            double cero = 0.0;
             PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_actualizarDetalleFactura(?, ?, ?, ?, ?)}");
             DetalleFactura registro = ((DetalleFactura) tvlDetalleFactura.getSelectionModel().getSelectedItem());
 
             registro.setCodigoDetalleFactura(Integer.parseInt(txtCodigoDetalleFactura.getText()));
-            registro.setPrecioUnitario(Double.parseDouble(txtPrecioUnitario.getText()));
             registro.setCantidad(Integer.parseInt(txtCantidad.getText()));
             registro.setNumeroFactura(((Factura) cmbNumeroFactura.getSelectionModel().getSelectedItem()).getNumeroFactura());
             registro.setCodigoProducto(((Producto) cmbCodigoProducto.getSelectionModel().getSelectedItem()).getCodigoProducto());
 
             procedimiento.setInt(1, registro.getCodigoDetalleFactura());
-            procedimiento.setDouble(2, registro.getPrecioUnitario());
+            procedimiento.setDouble(2,cero );
             procedimiento.setInt(3, registro.getCantidad());
             procedimiento.setInt(4, registro.getNumeroFactura());
             procedimiento.setString(5, registro.getCodigoProducto());
@@ -370,8 +373,8 @@ public class DetalleFacturaController implements Initializable {
             e.printStackTrace();
         }
     }
-    
-        public void reportes() {
+
+    public void reportes() {
         switch (tipoDeOperaciones) {
             case ACTUALIZAR:
                 desactivarControles();
@@ -397,7 +400,6 @@ public class DetalleFacturaController implements Initializable {
 
     public void desactivarControles() {
         txtCodigoDetalleFactura.setEditable(false);
-        txtPrecioUnitario.setEditable(false);
         txtCantidad.setEditable(false);
         cmbCodigoProducto.setDisable(true);
         cmbNumeroFactura.setDisable(true);
@@ -405,7 +407,6 @@ public class DetalleFacturaController implements Initializable {
 
     public void activarControles() {
         txtCodigoDetalleFactura.setEditable(true);
-        txtPrecioUnitario.setEditable(true);
         txtCantidad.setEditable(true);
         cmbCodigoProducto.setDisable(false);
         cmbNumeroFactura.setDisable(false);
@@ -413,19 +414,121 @@ public class DetalleFacturaController implements Initializable {
 
     public void limpiarControles() {
         txtCodigoDetalleFactura.clear();
-        txtPrecioUnitario.clear();
         txtCantidad.clear();
         cmbCodigoProducto.getSelectionModel().clearSelection();
         cmbNumeroFactura.getSelectionModel().clearSelection();
     }
 
-    public void handleButtonAction(ActionEvent event) {
-        if (event.getSource() == btnPrincipal) {
-            escenarioPrincipal.ventanaMenuPrincipal();
-        } else if (event.getSource() == btnClientes) {
-            escenarioPrincipal.ventanaMenuClientes();
-        } else if (event.getSource() == btnProgramador) {
-            escenarioPrincipal.ventanaProgramador();
+    public void actionExit(MouseEvent event) {
+        javafx.application.Platform.exit();
+    }
+
+    public void actionEvent(MouseEvent event) {
+        escenarioPrincipal.metodoMinimizar(imgMinimizer);
+    }
+
+    public void agregados() {
+        visibilidadDePanel(btnAgregar);
+    }
+
+    public void eliminados() {
+        visibilidadDePanel(btnEliminar);
+    }
+
+    public void editados() {
+        visibilidadDePanel(btnEditar);
+    }
+
+    public void visibilidadDePanel(Button button) {
+        if (controlDeButton == button) {
+            tvlDetalleFactura.setPrefHeight(406);
+            tvlDetalleFactura.setLayoutY(147);
+            ancherPane.setVisible(true);
+            controlDeButton = null;
+        } else {
+            tvlDetalleFactura.setPrefHeight(240);
+            tvlDetalleFactura.setLayoutY(313);
+            ancherPane.setVisible(false);
+            if (button == btnAgregar) {
+                btnMultiple.setText("GUARDAR");
+                accion = "Agregar";
+            } else if (button == btnEliminar) {
+                btnMultiple.setText("ELIMINAR");
+                accion = "Eliminar";
+            } else if (button == btnEditar) {
+                btnMultiple.setText("EDITAR");
+                accion = "Actualizar";
+            }
+            controlDeButton = button;
         }
+    }
+
+    public void multipleAcciones() {
+        switch (accion) {
+            case "Agregar":
+                agregar();
+                break;
+            case "Eliminar":
+                eliminar();
+                break;
+            case "Actualizar":
+                editar();
+                break;
+        }
+    }
+
+    public void cancelar() {
+        switch (accion) {
+            case "Agregar":
+                cancelarAgregar();
+                break;
+            case "Actualizar":
+                cancelarEditar();
+                break;
+        }
+    }
+
+    public void cancelarAgregar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Agregar un Detalle de Factura", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarControles();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Agregando");
+                    tipoDeOperaciones = operaciones.NINGUNO;
+                }
+                break;
+        }
+    }
+
+    public void cancelarEditar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Editar un Detalle de Factura", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarControles();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Editando");
+                    tipoDeOperaciones = operaciones.ACTUALIZAR;
+                }
+                break;
+        }
+    }
+
+    public void inicio() {
+        escenarioPrincipal.ventanaMenuPrincipal();
+    }
+
+    public void tipoProducto() {
+        escenarioPrincipal.ventanaTipoProducto();
+    }
+
+    public void Proveedor() {
+        escenarioPrincipal.ventanaProveedores();
+    }
+    
+    public void Principal(){
+        escenarioPrincipal.ventanaMenuPrincipal();
     }
 }

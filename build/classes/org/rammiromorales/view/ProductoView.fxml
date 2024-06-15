@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -25,7 +24,7 @@
    <children>
       <AnchorPane layoutX="32.0" layoutY="109.0" prefHeight="153.0" prefWidth="1052.0" styleClass="vBoxOscuro">
          <children>
-            <GridPane layoutX="126.0" layoutY="21.0" prefHeight="111.0" prefWidth="400.0">
+            <GridPane layoutX="126.0" layoutY="14.0" prefHeight="111.0" prefWidth="400.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="233.33331298828125" minWidth="10.0" prefWidth="197.77774047851562" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.22225952148438" minWidth="10.0" prefWidth="188.22225952148438" />
@@ -40,7 +39,7 @@
                      <font>
                         <Font size="20.0" />
                      </font></Label>
-                  <Label text="Descripcion Empaque" textFill="WHITE" GridPane.rowIndex="2">
+                  <Label text="Descripcion Producto" textFill="WHITE" GridPane.rowIndex="2">
                      <font>
                         <Font size="20.0" />
                      </font></Label>
@@ -74,10 +73,10 @@
                   </Line>
                </children>
             </GridPane>
-            <GridPane layoutX="568.0" layoutY="21.0" prefHeight="77.0" prefWidth="403.0">
+            <GridPane layoutX="581.0" layoutY="14.0" prefHeight="77.0" prefWidth="413.0">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.33341471354166" minWidth="10.0" prefWidth="235.33341471354166" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="107.33325195312497" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.33341471354166" minWidth="10.0" prefWidth="197.33331298828125" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="220.66668701171875" minWidth="10.0" prefWidth="220.66668701171875" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -92,53 +91,39 @@
                      <font>
                         <Font size="20.0" />
                      </font></Label>
-                  <ComboBox fx:id="cmbProducto" opacity="0.5" prefWidth="150.0" promptText=" Tipo Producto" styleClass="custom-combo-box" GridPane.columnIndex="1" />
-                  <ComboBox fx:id="cmbProveedor" opacity="0.5" prefWidth="150.0" promptText="ID Proveedores" styleClass="custom-combo-box" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Line endX="81.3333511352539" endY="176.3333282470703" startX="244.62631225585938" startY="176.12615966796875" stroke="WHITE" GridPane.columnIndex="1">
+                  <ComboBox fx:id="cmbProducto" opacity="0.5" prefHeight="37.0" prefWidth="189.0" promptText="Tipo Producto" styleClass="custom-combo-box" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="cmbProveedor" opacity="0.5" prefHeight="37.0" prefWidth="189.0" promptText="ID Proveedores" styleClass="custom-combo-box" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Line endX="81.3333511352539" endY="176.3333282470703" startX="267.6261901855469" startY="177.20716857910156" stroke="WHITE" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets top="27.0" />
                      </GridPane.margin>
                   </Line>
-                  <Line endX="81.3333511352539" endY="176.3333282470703" startX="247.29293823242188" startY="175.5648193359375" stroke="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Line endX="81.3333511352539" endY="176.3333282470703" startX="268.9595642089844" startY="177.10183715820312" stroke="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets top="27.0" />
                      </GridPane.margin>
                   </Line>
                </children>
             </GridPane>
-            <Button fx:id="btnMultiple" alignment="CENTER" layoutX="575.0" layoutY="115.0" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#multipleAcciones" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="GUARDAR" textFill="WHITE">
+            <Button fx:id="btnMultiple" alignment="CENTER" layoutX="590.0" layoutY="111.0" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#multipleAcciones" prefHeight="27.0" prefWidth="141.0" styleClass="botonDeUtilidades" text="GUARDAR" textFill="WHITE">
                <font>
-                  <Font name="Century Gothic" size="10.0" />
+                  <Font name="Century Gothic" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btnCancelar" alignment="CENTER" layoutX="806.0" layoutY="115.0" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#cancelar" prefHeight="21.0" prefWidth="120.0" styleClass="botonDeUtilidades" text="CANCELAR" textFill="WHITE">
+            <Button fx:id="btnCancelar" alignment="CENTER" layoutX="788.0" layoutY="111.0" maxHeight="35.0" maxWidth="175.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#cancelar" prefHeight="27.0" prefWidth="142.0" styleClass="botonDeUtilidades" text="CANCELAR" textFill="WHITE">
                <font>
-                  <Font name="Century Gothic" size="10.0" />
+                  <Font name="Century Gothic" size="14.0" />
                </font>
             </Button>
          </children>
       </AnchorPane>
-      <SplitMenuButton layoutX="26.0" layoutY="475.0" mnemonicParsing="false" text="SplitMenuButton">
-        <items>
-            <Menu mnemonicParsing="false" text="Modulo ">
-              <items>
-                  <MenuItem fx:id="btnClientes" mnemonicParsing="false" onAction="#handleButtonAction" text="Clientes" />
-              </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Acerca de">
-              <items>
-                <MenuItem fx:id="btnProgramador" mnemonicParsing="false" onAction="#handleButtonAction" text="Programador" />
-              </items>
-            </Menu>
-        </items>
-      </SplitMenuButton>
       <HBox layoutX="64.0" layoutY="56.0" prefHeight="51.0" prefWidth="1020.0" styleClass="vBoxOscuro" stylesheets="@../resource/EstilosDeEscenarios.css">
          <children>
             <HBox prefHeight="51.0" prefWidth="145.0">
                <children>
                   <Button fx:id="btnAgregar" alignment="CENTER" maxHeight="35.0" maxWidth="215.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#agregados" prefHeight="35.0" prefWidth="215.0" styleClass="botonDeUtilidades" text="AGREGAR" textFill="WHITE">
                      <font>
-                        <Font name="Century Gothic" size="10.0" />
+                        <Font name="Century Gothic" size="16.0" />
                      </font>
                      <HBox.margin>
                         <Insets top="7.0" />
@@ -153,7 +138,7 @@
                <children>
                   <Button fx:id="btnEliminar" alignment="CENTER" maxHeight="35.0" maxWidth="215.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#eliminados" prefHeight="35.0" prefWidth="215.0" styleClass="botonDeUtilidades" text="ELIMINAR" textFill="WHITE">
                      <font>
-                        <Font name="Century Gothic" size="10.0" />
+                        <Font name="Century Gothic" size="16.0" />
                      </font>
                      <HBox.margin>
                         <Insets top="7.0" />
@@ -166,9 +151,9 @@
             </HBox>
             <HBox prefHeight="45.0" prefWidth="141.0">
                <children>
-                  <Button fx:id="btnEditar" alignment="CENTER" maxHeight="35.0" maxWidth="215.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#editar" prefHeight="35.0" prefWidth="215.0" styleClass="botonDeUtilidades" text="ACTUALIZAR" textFill="WHITE">
+                  <Button fx:id="btnEditar" alignment="CENTER" maxHeight="35.0" maxWidth="215.0" minHeight="21.0" minWidth="42.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#editados" prefHeight="35.0" prefWidth="215.0" styleClass="botonDeUtilidades" text="ACTUALIZAR" textFill="WHITE">
                      <font>
-                        <Font name="Century Gothic" size="10.0" />
+                        <Font name="Century Gothic" size="16.0" />
                      </font>
                      <HBox.margin>
                         <Insets top="7.0" />
@@ -213,7 +198,7 @@
             </ImageView>
          </children>
       </HBox>
-      <AnchorPane fx:id="ancherPane" layoutX="8.0" layoutY="108.0" prefHeight="186.0" prefWidth="1084.0" styleClass="fondoDos" />
+      <AnchorPane fx:id="ancherPane" layoutX="18.0" layoutY="110.0" prefHeight="202.0" prefWidth="1067.0" styleClass="fondoDos" />
       <ImageView fitHeight="406.0" fitWidth="157.0" layoutX="-29.0" layoutY="35.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/panel%20.png" />
@@ -232,9 +217,9 @@
         <menus>
           <Menu mnemonicParsing="false">
             <items>
-                  <MenuItem fx:id="btnMenuPrincipal" mnemonicParsing="false" onAction="#handleButtonAction" text="Menu Principal" />
-                  <MenuItem mnemonicParsing="false" text="Tipo Producto " />
-                  <MenuItem mnemonicParsing="false" text="Proveedor" />
+                  <MenuItem fx:id="btnMenuPrincipal" mnemonicParsing="false" onAction="#Principal" text="Menu Principal" />
+                  <MenuItem mnemonicParsing="false" onAction="#tipoProducto" text="Tipo Producto " />
+                  <MenuItem mnemonicParsing="false" onAction="#Proveedor" text="Proveedor" />
             </items>
                <graphic>
                   <ImageView fx:id="imgInicio" fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
@@ -246,7 +231,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TableView fx:id="tblProductos" layoutX="142.0" layoutY="146.0" onMouseClicked="#selecionarElementos" prefHeight="396.0" prefWidth="845.0">
+      <TableView fx:id="tblProductos" layoutX="155.0" layoutY="140.0" onMouseClicked="#selecionarElementos" prefHeight="404.0" prefWidth="845.0">
         <columns>
           <TableColumn fx:id="colCodigoProducto" prefWidth="75.0" text="ID Producto" />
             <TableColumn fx:id="colNombreProducto" prefWidth="72.0" text="Nombre " />
@@ -256,7 +241,7 @@
             <TableColumn fx:id="colPrecioMayor" prefWidth="90.66668701171875" text="Precio Mayor" />
             <TableColumn fx:id="colExistencia" prefWidth="71.3333740234375" text="Existencia" />
             <TableColumn fx:id="colCodigoTipoProducto" prefWidth="100.0" text="Tipo Producto" />
-            <TableColumn fx:id="colCodigoProveedor" prefWidth="105.99993896484375" text="Proveedores" />
+            <TableColumn fx:id="colCodigoProveedor" prefWidth="116.6666259765625" text="Proveedores" />
         </columns>
       </TableView>
    </children>

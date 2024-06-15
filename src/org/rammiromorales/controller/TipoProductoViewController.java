@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,11 +18,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
 import org.rammiromorales.bean.TipoProducto;
 import org.rammiromorales.database.Conexion;
@@ -36,11 +42,20 @@ public class TipoProductoViewController implements Initializable {
 
     private Principal escenarioPrincipal;
     private ObservableList<TipoProducto> listaDeTipoProducto;
+    ObservableList<String> observableSuggestions;
+    private Button controlDeButton;
+    private String accion;
 
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
     }
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
+    @FXML
+    private ImageView imgMinimizer;
+    @FXML
+    private AnchorPane ancherPane;
+    @FXML
+    private Button btnMultiple;
 
     @FXML
     private Button btnAgregar;
@@ -64,23 +79,25 @@ public class TipoProductoViewController implements Initializable {
     private TableView tvlTipoProducto;
 
     @FXML
-    private TableColumn  colCodigoTipoProducto;
+    private TableColumn colCodigoTipoProducto;
 
     @FXML
-    private TableColumn  colDescripcion;
+    private TableColumn colDescripcion;
 
     @FXML
-    private Button btnInicio;
+    private Button btnBuscar;
 
     @FXML
     private MenuItem btnClientes;
 
     @FXML
     private MenuItem btnProgramador;
+    @FXML 
+    private TextField txtBuscar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       cargarDatosTable();
+        cargarDatosTable();
     }
 
     public Principal getEscenarioPrincipal() {
@@ -93,6 +110,12 @@ public class TipoProductoViewController implements Initializable {
         colDescripcion.setCellValueFactory(new PropertyValueFactory<TipoProducto, String>("descripcion"));
     }
 
+    public void seleccionarElementos() {
+        txtCodigoTipoProducto.setText(String.valueOf(((TipoProducto) tvlTipoProducto.getSelectionModel().getSelectedItem()).getCodigoTipoProducto()));
+        txtDescripcion.setText(((TipoProducto) tvlTipoProducto.getSelectionModel().getSelectedItem()).getDescripcion());
+    }
+
+    
     public ObservableList<TipoProducto> listaDeTipoProducto() {
         ArrayList<TipoProducto> listador = new ArrayList<>();
         try {
@@ -109,25 +132,74 @@ public class TipoProductoViewController implements Initializable {
         }
         return listaDeTipoProducto = FXCollections.observableList(listador);
     }
+    public void activarBuscador(){
+    txtBuscar.setEditable(true);
+    }
+    public void desactivarBuscador(){
+        txtBuscar.setEditable( false);
+    }
+    
+    public void lipiarBuscador(){
+        txtBuscar.clear();
+        tvlTipoProducto.setItems(listaDeTipoProducto);
+    }
+    
+    public void buttonBuscador() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                activarBuscador();
+                btnBuscar.setText("CANCELAR");
+                tipoDeOperaciones = operaciones.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                desactivarBuscador();
+                lipiarBuscador();
+                txtBuscar.setText("");
+                btnBuscar.setText("BUSCAR");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+    
+    @FXML
+    private void buscar(KeyEvent event) {
+        String filtro = txtBuscar.getText().toLowerCase().trim();
+        filtrarDatos(filtro);
+    }
+
+    private void filtrarDatos(String filtro) {
+        ObservableList<TipoProducto> listaFiltrada = FXCollections.observableArrayList();
+        if (filtro.isEmpty()) {
+            listaFiltrada.addAll(listaDeTipoProducto);
+        } else {
+            for (TipoProducto tipoProducto : listaDeTipoProducto) {
+                if (String.valueOf(tipoProducto.getCodigoTipoProducto()).toLowerCase().contains(filtro)
+                        || tipoProducto.getDescripcion().toLowerCase().contains(filtro)) {
+                    listaFiltrada.add(tipoProducto);
+                }
+            }
+        }
+        tvlTipoProducto.setItems(listaFiltrada);
+    }
 
     // Metodos de Crud
     public void agregarTipoProducto() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
+                btnMultiple.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                 activarTextField();
-                btnAgregar.setText("Guardar");
-                btnEliminar.setText("Cancelar");
-                btnActualizar.setDisable(true);
                 tipoDeOperaciones = operaciones.ACTUALIZAR;
                 break;
             case ACTUALIZAR:
+                btnMultiple.setStyle("");
                 guardar();
                 cargarDatosTable();
                 desactivarTextField();
                 limpiarTextField();
-                btnAgregar.setText("AGREGAR");
-                btnEliminar.setText("EDITAR");
-                btnActualizar.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
         }
@@ -151,10 +223,6 @@ public class TipoProductoViewController implements Initializable {
             case ACTUALIZAR:
                 desactivarTextField();
                 limpiarTextField();
-                btnAgregar.setText("Agregar");
-                btnEliminar.setText("Eliminar");
-                btnActualizar.setDisable(false);
-                btnListar.setDisable(false);
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
             default:
@@ -188,10 +256,11 @@ public class TipoProductoViewController implements Initializable {
         switch (tipoDeOperaciones) {
             case NINGUNO:
                 if (tvlTipoProducto.getSelectionModel().getSelectedItem() != null) {
-                    btnActualizar.setText(" Actualizar ");
-                    btnListar.setText("Cancelar ");
-                    btnAgregar.setDisable(true);
-                    btnEliminar.setDisable(true);
+                    btnMultiple.setStyle("    -fx-border-color: black;\n"
+                            + "    -fx-background-radius: 10;\n"
+                            + "    -fx-border-radius: 10;\n"
+                            + "    -fx-background-radius: #FFFFFF;\n"
+                            + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                     activarTextField();
                     txtCodigoTipoProducto.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
@@ -200,11 +269,8 @@ public class TipoProductoViewController implements Initializable {
                 }
                 break;
             case ACTUALIZAR:
+                btnMultiple.setStyle("");
                 actualizarProceso();
-                btnActualizar.setText(" Editar ");
-                btnListar.setText("Reporte ");
-                btnAgregar.setDisable(false);
-                btnEliminar.setDisable(false);
                 desactivarTextField();
                 limpiarTextField();
                 tipoDeOperaciones = operaciones.NINGUNO;
@@ -232,12 +298,6 @@ public class TipoProductoViewController implements Initializable {
             case ACTUALIZAR:
                 desactivarTextField();
                 limpiarTextField();
-                btnActualizar.setText("Actualizar");
-                btnListar.setText("Cancelar");
-                btnAgregar.setDisable(false);
-                btnEliminar.setDisable(false);
-                btnActualizar.setText("Editar");
-                btnListar.setText("Reporte");
                 tipoDeOperaciones = operaciones.NINGUNO;
 
                 break;
@@ -262,25 +322,109 @@ public class TipoProductoViewController implements Initializable {
         txtDescripcion.clear();
     }
 
-
     public void setEscenarioPrincipal(Principal escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
     }
 
-    public void handleButtonAction(ActionEvent event) {
-        if  (event.getSource() == btnClientes) {
-            escenarioPrincipal.ventanaMenuClientes();
-        } else if (event.getSource() == btnProgramador) {
-            escenarioPrincipal.ventanaProgramador();
+    public void actionExit(MouseEvent event) {
+        javafx.application.Platform.exit();
+    }
+
+    public void actionEvent(MouseEvent event) {
+        escenarioPrincipal.metodoMinimizar(imgMinimizer);
+    }
+
+    public void agregados() {
+        visibilidadDePanel(btnAgregar);
+    }
+
+    public void eliminados() {
+        visibilidadDePanel(btnEliminar);
+    }
+
+    public void editados() {
+        visibilidadDePanel(btnActualizar);
+    }
+
+    public void visibilidadDePanel(Button button) {
+        if (controlDeButton == button) {
+            tvlTipoProducto.setPrefHeight(435);
+            tvlTipoProducto.setLayoutY(113);
+            ancherPane.setVisible(true);
+            controlDeButton = null;
+        } else {
+            tvlTipoProducto.setPrefHeight(305);
+            tvlTipoProducto.setLayoutY(240);
+            ancherPane.setVisible(false);
+            if (button == btnAgregar) {
+                btnMultiple.setText("GUARDAR");
+                accion = "Agregar";
+            } else if (button == btnEliminar) {
+                btnMultiple.setText("ELIMINAR");
+                accion = "Eliminar";
+            } else if (button == btnActualizar) {
+                btnMultiple.setText("EDITAR");
+                accion = "Actualizar";
+            }
+            controlDeButton = button;
         }
     }
-    
-    public void inicio(){
-        escenarioPrincipal.ventanaMenuPrincipal();
+
+    public void multipleAcciones() {
+        switch (accion) {
+            case "Agregar":
+                agregarTipoProducto();
+                break;
+            case "Eliminar":
+                eliminarTipoProducto();
+                break;
+            case "Actualizar":
+                editarTipoProducto();
+                break;
+        }
     }
-    
-    public void ventanaEmergente(){
-    escenarioPrincipal.ventanaEmergenteTiporProducto();
+
+    public void cancelar() {
+        switch (accion) {
+            case "Agregar":
+                cancelarAgregar();
+                break;
+            case "Actualizar":
+                cancelarEditar();
+                break;
+        }
+    }
+
+    public void cancelarAgregar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Agregar un Tipo Producto", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarTextField();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Agregando");
+                    tipoDeOperaciones = operaciones.NINGUNO;
+                }
+                break;
+        }
+    }
+
+    public void cancelarEditar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                int Confirma = JOptionPane.showConfirmDialog(null, "Desea Cancelar el proceso de Editar un Tipo Producto", " Cancerlar ", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (Confirma == JOptionPane.YES_NO_OPTION) {
+                    limpiarTextField();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado puedes seguir Editando");
+                    tipoDeOperaciones = operaciones.ACTUALIZAR;
+                }
+                break;
+        }
+    }
+
+    public void inicio() {
+        escenarioPrincipal.ventanaMenuPrincipal();
     }
 
 }

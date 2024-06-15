@@ -37,10 +37,14 @@ public class TipoProducto {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-        @Override
+
+    @Override
     public String toString() {
-        return getCodigoTipoProducto() + " | " + getDescripcion() ;
+        return getCodigoTipoProducto() + " | " + getDescripcion();
     }
-    
+
+    public String toStringBusquedad() {
+        return "ID: " + getCodigoTipoProducto() + " - " + getDescripcion();
+    }
+
 }

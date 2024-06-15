@@ -55,14 +55,25 @@
 }
 
 .custom-combo-box .text-field .text {
-    -fx-fill: white; /* Color del texto del prompt text */
+    -fx-fill: white;
     -fx-font-size:16;
 }
 
 .custom-combo-box .text {
-    -fx-prompt-text-fill: white; /* Color del prompt text */
+    -fx-prompt-text-fill: white; 
     -fx-font-size:16;
 }
+.custom-combo-box .list-cell {
+    -fx-background-color: #3B3B3B; 
+}
+
+.custom-combo-box .list-cell:hover {
+
+    -fx-border-color: #19b699;
+    -fx-background-radius: #19b699;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #00ffb6, #04425b);
+}
+
 .table-view {
     -fx-background-color: #ffffff;
     -fx-border-color: #3B3B3B;
@@ -113,3 +124,16 @@
         -fx-background-color: transparent;
 
 }
+
+.prueba{
+    -fx-border-color: black;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-background-radius: #FFFFFF;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);
+}
+
+.date-picker {
+    -fx-background-color: transparent;
+}
+
