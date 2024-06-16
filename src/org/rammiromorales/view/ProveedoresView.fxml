@@ -256,7 +256,7 @@
             <Image url="@../images/panel%20.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnSalir" layoutX="26.0" layoutY="384.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="46.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
+      <Button fx:id="btnSalir" layoutX="26.0" layoutY="384.0" mnemonicParsing="false" onAction="#login" prefHeight="46.0" prefWidth="46.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
          <graphic>
             <ImageView fitHeight="34.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -269,9 +269,11 @@
          <menus>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem fx:id="btnMenuPrincipal" mnemonicParsing="false" onAction="#Principal" text="Menu Principal" />
-                  <MenuItem mnemonicParsing="false" text="Tipo Producto " />
-                  <MenuItem mnemonicParsing="false" text="Proveedor" />
+                  <MenuItem fx:id="btnMenuPrincipal" mnemonicParsing="false" onAction="#principal" text="Menu Principal" />
+                  <MenuItem mnemonicParsing="false" onAction="#tipoProducto" text="Tipo Producto " />
+                  <MenuItem mnemonicParsing="false" onAction="#productos" text="Productos" />
+                  <MenuItem mnemonicParsing="false" onAction="#telefono" text="Telefono Proveedor" />
+                  <MenuItem mnemonicParsing="false" onAction="#email" text="Email Proveedor " />
                </items>
                <graphic>
                   <ImageView fx:id="imgInicio" fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">

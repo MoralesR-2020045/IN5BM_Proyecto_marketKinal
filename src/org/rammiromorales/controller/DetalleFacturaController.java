@@ -585,15 +585,19 @@ public class DetalleFacturaController implements Initializable {
         escenarioPrincipal.ventanaMenuPrincipal();
     }
 
-    public void tipoProducto() {
+    public void producto() {
         escenarioPrincipal.ventanaTipoProducto();
     }
 
-    public void Proveedor() {
+    public void factura() {
         escenarioPrincipal.ventanaProveedores();
     }
 
-    public void Principal() {
+    public void principal() {
         escenarioPrincipal.ventanaMenuPrincipal();
+    }
+    
+    public void login(){
+        escenarioPrincipal.ventanaLoginPrincipal();
     }
 }

@@ -179,9 +179,9 @@
          <menus>
             <Menu mnemonicParsing="false">
                <items>
-                  <MenuItem fx:id="btnMenuPrincipal1" mnemonicParsing="false" onAction="#Principal" text="Menu Principal" />
-                  <MenuItem mnemonicParsing="false" text="Tipo Producto " />
-                  <MenuItem mnemonicParsing="false" text="Proveedor" />
+                  <MenuItem fx:id="btnMenuPrincipal1" mnemonicParsing="false" onAction="#principal" text="Menu Principal" />
+                  <MenuItem mnemonicParsing="false" onAction="#producto" text="Producto" />
+                  <MenuItem mnemonicParsing="false" text="Compras" />
                </items>
                <graphic>
                   <ImageView fx:id="imgInicio" fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
@@ -193,7 +193,7 @@
             </Menu>
          </menus>
       </MenuBar>
-      <Button fx:id="btnSalir" layoutX="26.0" layoutY="384.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="46.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
+      <Button fx:id="btnSalir" layoutX="26.0" layoutY="384.0" mnemonicParsing="false" onAction="#login" prefHeight="46.0" prefWidth="46.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
          <graphic>
             <ImageView fitHeight="34.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>

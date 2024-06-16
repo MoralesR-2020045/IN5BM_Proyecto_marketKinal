@@ -578,4 +578,12 @@ public class EmpleadosViewController implements Initializable {
     public void Principal() {
         escenarioPrincipal.ventanaMenuPrincipal();
     }
+    
+    public void login(){
+        escenarioPrincipal.ventanaLoginPrincipal();
+    }
+    
+    public void cargoEmpleado(){
+        escenarioPrincipal.ventanaCargoEmpleado();
+    }
 }

@@ -521,16 +521,16 @@ public class ClienteController implements Initializable {
         escenarioPrincipal.ventanaMenuPrincipal();
     }
 
-    public void tipoProducto() {
-        escenarioPrincipal.ventanaTipoProducto();
+    public void factura() {
+        escenarioPrincipal.ventanaFactura();
     }
 
-    public void Proveedor() {
-        escenarioPrincipal.ventanaProveedores();
-    }
-
-    public void Principal() {
+    public void principal() {
         escenarioPrincipal.ventanaMenuPrincipal();
+    }
+    
+    public void login(){
+        escenarioPrincipal.ventanaLoginPrincipal();
     }
 
 }

@@ -707,12 +707,19 @@ public class ProductoViewController implements Initializable {
         escenarioPrincipal.ventanaTipoProducto();
     }
 
-    public void Proveedor() {
+    public void proveedor() {
         escenarioPrincipal.ventanaProveedores();
     }
 
-    public void Principal() {
+    public void principal() {
         escenarioPrincipal.ventanaMenuPrincipal();
     }
+    
+    public void productoProveedores(){
+        escenarioPrincipal.ventanaProductoProveedor();
+    }
 
+    public void login(){
+        escenarioPrincipal.ventanaLoginPrincipal();
+    }
 }

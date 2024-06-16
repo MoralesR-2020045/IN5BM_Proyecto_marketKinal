@@ -550,7 +550,27 @@ public class ProveedoresViewController implements Initializable {
         }
     }
 
-    public void Principal() {
+    public void principal() {
         escenarioPrincipal.ventanaMenuPrincipal();
+    }
+    
+    public void productos(){
+        escenarioPrincipal.ventanaProducto();
+    }
+    
+    public void tipoProducto(){
+        escenarioPrincipal.ventanaTipoProducto();
+    }
+    
+    public void telefono(){
+        escenarioPrincipal.ventanaTelefonoProveedor();
+    }
+        public void email(){
+        escenarioPrincipal.ventanaEmailProveedor();
+    }
+
+    
+    public void login(){
+        escenarioPrincipal.ventanaLoginPrincipal();
     }
 }

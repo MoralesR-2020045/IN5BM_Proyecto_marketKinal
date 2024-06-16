@@ -365,13 +365,6 @@ Delimiter $$
 Delimiter ;
 
 Delimiter $$
-	create procedure sp_buscarEmailProveedor(in codigoEmailProveedor int)
-		begin
-			select*from EmailProveedor where EmailProveedor.codigoEmailProveedor = codigoEmailProveedor;
-		end $$
-Delimiter ;
-
-Delimiter $$
 	create procedure sp_actualizarEmailProveedor(in codigoEmailProveedor int, in emailProveedor varchar(50), in descripcion varchar(100), in codigoProveedor int)
 		begin
 			update EmailProveedor

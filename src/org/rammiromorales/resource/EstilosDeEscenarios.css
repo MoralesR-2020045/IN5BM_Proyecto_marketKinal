@@ -137,9 +137,22 @@
     -fx-background-color: transparent;
 }
 
+.buttonRegistrarse{
+    -fx-background-color:  #C2172F;
+    -fx-background-radius: 20 20 20 20;
+}
+
+.buttonRegistrarse:hover{
+    -fx-background-color: #C14657;
+    -fx-font-color: #3B3B3B;
+}
 
 
-
-
+.textField{
+    -fx-background-color: null;
+    -fx-border-color: transparent transparent black transparent;
+    -fx-border-width: 0 0 2 0;
+    -fx-font: Helvetica;
+}
 
 

@@ -433,5 +433,17 @@ public class TipoProductoViewController implements Initializable {
     public void inicio() {
         escenarioPrincipal.ventanaMenuPrincipal();
     }
+    
+    public void proveedores(){
+        escenarioPrincipal.ventanaProveedores();
+    }
+    
+    public void Productos(){
+        escenarioPrincipal.ventanaProducto();
+    }
+    
+    public void login(){
+        escenarioPrincipal.ventanaLoginPrincipal();
+    }
 
 }

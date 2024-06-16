@@ -525,7 +525,14 @@ public class TelefonoProveedorController implements Initializable {
         }
     }
 
-    public void Principal() {
+    
+    public void principal() {
         escenarioPrincipal.ventanaMenuPrincipal();
+    }
+    public void proveedor(){
+        escenarioPrincipal.ventanaProveedores();
+    }
+    public void login(){
+        escenarioPrincipal.ventanaLoginPrincipal();
     }
 }

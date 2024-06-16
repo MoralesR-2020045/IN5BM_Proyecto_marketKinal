@@ -130,7 +130,7 @@
             <Image url="@../images/panel%20.png" />
          </image>
       </ImageView>
-      <Button layoutX="23.0" layoutY="425.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="49.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
+      <Button layoutX="23.0" layoutY="425.0" mnemonicParsing="false" onAction="#login" prefHeight="45.0" prefWidth="49.0" styleClass="buttonTransaparente" stylesheets="@../resource/EstilosDeEscenarios.css">
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -160,8 +160,8 @@
             <Menu mnemonicParsing="false">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#inicio" text="Inicio" />
-                  <MenuItem mnemonicParsing="false" text="Tipo Producto " />
-                  <MenuItem mnemonicParsing="false" text="Proveedor" />
+                  <MenuItem mnemonicParsing="false" onAction="#Productos" text="Producto " />
+                  <MenuItem mnemonicParsing="false" onAction="#proveedores" text="Proveedor" />
                </items>
                <graphic>
                   <ImageView fx:id="imgInicio" fitHeight="49.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">

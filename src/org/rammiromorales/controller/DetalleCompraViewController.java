@@ -574,8 +574,20 @@ public class DetalleCompraViewController implements Initializable {
         }
     }
 
-    public void Principal() {
+    public void principal() {
         escenarioPrincipal.ventanaMenuPrincipal();
+    }
+    
+    public void login(){
+        escenarioPrincipal.ventanaLoginPrincipal();
+    }
+    
+    public void producto(){
+        escenarioPrincipal.ventanaProducto();
+    }
+    
+    public void compras(){
+        escenarioPrincipal.ventanaCompras();
     }
 
 }

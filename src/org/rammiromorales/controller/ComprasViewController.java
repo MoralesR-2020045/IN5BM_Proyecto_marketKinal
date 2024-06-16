@@ -483,12 +483,16 @@ public class ComprasViewController implements Initializable {
         escenarioPrincipal.ventanaTipoProducto();
     }
 
-    public void Proveedor() {
-        escenarioPrincipal.ventanaProveedores();
+    public void detalleCompra() {
+        escenarioPrincipal.ventanaDetalleProducto();
     }
 
-    public void Principal() {
+    public void principal() {
         escenarioPrincipal.ventanaMenuPrincipal();
+    }
+    
+    public void login(){
+        escenarioPrincipal.ventanaLoginPrincipal();
     }
 
 }

@@ -940,18 +940,28 @@ Delimiter ;
 
 
 -- Producto Proveedor 
-call sp_agregarTipoProducto("xd");
+call sp_agregarTipoProducto("Cocina");
+CALL sp_agregarTipoProducto('Arroz');
+CALL sp_agregarTipoProducto('Frijoles');
+CALL sp_agregarTipoProducto('Aceite de cocina');
+CALL sp_agregarTipoProducto('Harina de maíz');
+CALL sp_agregarTipoProducto('Azúcar');
+CALL sp_agregarTipoProducto('Sal');
+CALL sp_agregarTipoProducto('Café');
+CALL sp_agregarTipoProducto('Té');
+CALL sp_agregarTipoProducto('Leche en polvo');
+CALL sp_agregarTipoProducto('Cereal');
 
-call sp_agregarCompras("2020-12-10","Legos", 12.00);
+call sp_agregarCompras("2020-12-10","Lavanda", 12.00);
 
 call sp_agregarProveedores("123412sK2","Jose Mario", "Larios Cante", "Zona 1", "Todo Publico","5025 4241", "kinal.com" );
 
 call sp_agregarCliente("1209DF123","Ramiro Jose","Morales López"," 9av 13-70 zona 3","5327 6129","rmorales215327@gmail.com");
 
-call sp_agregarCargoEmpleado("Administrador", "llevar informe");
+call sp_agregarCargoEmpleado("Administrador", "Cuentas Monetarias");
 
 
-call sp_agregarEmpleados(1,'Marlon','Carrilo','80.0','5 Calle','H',1);
+call sp_agregarEmpleados(1,'Marlon','Carrilo','800.0','5 Calle','H',1);
 
 call sp_agregarEmailProveedor(1,'kinal@kinal','antigua',1);
 

@@ -470,7 +470,7 @@ public class FacturaViewController implements Initializable {
         Map parametros = new HashMap();
         int numeroFactura = (Integer.valueOf(((Factura) tvlFactura.getSelectionModel().getSelectedItem()).getNumeroFactura()));
         parametros.put("numeroFactura", numeroFactura);
-        GenerarReportes.mostrarReportes("factura.jasper", "factura", parametros);
+        GenerarReportes.mostrarReportes("facturaGeneradora.jasper", "facturaRNueva", parametros);
     }
 
     public Principal getEscenarioPrincipal() {
@@ -601,7 +601,19 @@ public class FacturaViewController implements Initializable {
         }
     }
 
-    public void Principal() {
+    public void principal() {
         escenarioPrincipal.ventanaMenuPrincipal();
+    }
+    
+    public void clientes(){
+        escenarioPrincipal.ventanaMenuClientes();
+    }
+    
+    public void empleados(){
+        escenarioPrincipal.ventanaEmpleados();
+    }
+    
+    public void login(){
+        escenarioPrincipal.ventanaLoginPrincipal();
     }
 }

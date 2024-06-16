@@ -31,6 +31,7 @@ import org.rammiromorales.controller.DetalleFacturaController;
 import org.rammiromorales.controller.EmailProveedorController;
 import org.rammiromorales.controller.EmpleadosViewController;
 import org.rammiromorales.controller.FacturaViewController;
+import org.rammiromorales.controller.LoginViewController;
 import org.rammiromorales.controller.PrincipalController;
 import org.rammiromorales.controller.ProductoProveedorController;
 import org.rammiromorales.controller.ProductoViewController;
@@ -38,6 +39,7 @@ import org.rammiromorales.controller.ProgramadorController;
 import org.rammiromorales.controller.ProveedoresViewController;
 import org.rammiromorales.controller.TelefonoProveedorController;
 import org.rammiromorales.controller.TipoProductoViewController;
+import org.rammiromorales.controller.UsuarioController;
 
 /**
  *
@@ -55,8 +57,9 @@ public class Principal extends Application {
         this.escenarioPrincipal = escenarioPrincipal;
         this.escenarioPrincipal.setTitle(" Kinal Express");
         escenarioPrincipal.getIcons().add(new Image("/org/rammiromorales/images/logo.png"));
-        escenarioPrincipal.initStyle(StageStyle.UNDECORATED);
-        ventanaMenuPrincipal();
+        escenarioPrincipal.initStyle(StageStyle.TRANSPARENT);
+        escenarioPrincipal.centerOnScreen();
+        ventanaLoginPrincipal();
        
         escenarioPrincipal.show();
     }
@@ -108,7 +111,25 @@ public class Principal extends Application {
         escenarioPrincipal = (Stage) imagen.getScene().getWindow();
         escenarioPrincipal.setIconified(true);
     }
-            
+    
+
+        public void ventanaLoginPrincipal(){
+        try{
+        LoginViewController vistaLogin = (LoginViewController) cambiarEscena("LoginView.fxml",875,576, false);
+        vistaLogin.setEscenarioPrincipal(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void ventanaUsuarioPrincipal(){
+        try{
+        UsuarioController vistaUsuario = (UsuarioController) cambiarEscena("Usuario.fxml",875,576, false);
+        vistaUsuario.setEscenarioPrincipal(this);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
     public void ventanaMenuPrincipal() {
         try {

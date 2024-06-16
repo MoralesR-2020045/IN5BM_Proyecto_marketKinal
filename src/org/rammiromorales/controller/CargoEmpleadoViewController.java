@@ -457,19 +457,16 @@ public class CargoEmpleadoViewController implements Initializable {
         }
     }
 
-    public void inicio() {
+    public void empleados() {
+        escenarioPrincipal.ventanaEmpleados();
+    }
+
+    public void principal() {
         escenarioPrincipal.ventanaMenuPrincipal();
     }
-
-    public void tipoProducto() {
-        escenarioPrincipal.ventanaTipoProducto();
+    
+    public void login(){
+        escenarioPrincipal.ventanaLoginPrincipal();
     }
-
-    public void Proveedor() {
-        escenarioPrincipal.ventanaProveedores();
-    }
-
-    public void Principal() {
-        escenarioPrincipal.ventanaMenuPrincipal();
-    }
+    
 }
