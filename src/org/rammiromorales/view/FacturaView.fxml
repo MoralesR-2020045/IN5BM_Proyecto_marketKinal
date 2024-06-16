@@ -41,20 +41,6 @@
             </ImageView>
          </children>
       </HBox>
-      <AnchorPane layoutX="526.0" layoutY="29.0" prefHeight="28.0" prefWidth="411.0" styleClass="buscar" stylesheets="@../resource/EstilosDeEscenarios.css">
-         <children>
-            <Button layoutX="344.0" layoutY="4.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="62.0" styleClass="busquedad" text="BUSCAR" textFill="WHITE">
-               <font>
-                  <Font size="8.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="20.0" fitWidth="28.0" layoutX="-586.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" x="600.0">
-               <image>
-                  <Image url="@../images/buscar%20icon.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
       <HBox layoutX="74.0" layoutY="66.0" prefHeight="51.0" prefWidth="1020.0" styleClass="vBoxOscuro" stylesheets="@../resource/EstilosDeEscenarios.css">
          <children>
             <HBox prefHeight="51.0" prefWidth="145.0">
@@ -244,6 +230,35 @@
             <TableColumn fx:id="colCodigoEmpleado" minWidth="3.3333740234375" prefWidth="179.33331298828125" text="Codigo Empleado" />
         </columns>
       </TableView>
+      <AnchorPane layoutX="516.0" layoutY="19.0" prefHeight="28.0" prefWidth="411.0" styleClass="buscar" stylesheets="@../resource/EstilosDeEscenarios.css">
+         <children>
+            <Button fx:id="btnBuscar" layoutX="341.0" layoutY="4.0" mnemonicParsing="false" onAction="#buttonBuscador" prefHeight="20.0" prefWidth="65.0" styleClass="busquedad" text="BUSCAR" textFill="WHITE">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="20.0" fitWidth="28.0" layoutX="-586.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" x="600.0">
+               <image>
+                  <Image url="@../images/buscar%20icon.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="txtBuscar" editable="false" layoutX="34.0" layoutY="1.0" onKeyReleased="#buscar" prefHeight="20.0" prefWidth="306.0" promptText="Busca" styleClass="date-picker" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="150.0" layoutY="12.0" prefHeight="59.0" prefWidth="240.0">
+         <children>
+            <Label layoutY="-20.0" prefHeight="65.0" prefWidth="240.0" text="Factura " textFill="#c6bfbf">
+               <font>
+                  <Font name="Bauhaus 93" size="32.0" />
+               </font>
+            </Label>
+            <Label layoutY="-14.0" prefHeight="65.0" prefWidth="240.0" text="Factura ">
+               <font>
+                  <Font name="Bauhaus 93" size="32.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
    <stylesheets>
       <URL value="@../resource/EstilosMenuPrincipal.css" />

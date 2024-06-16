@@ -173,7 +173,7 @@
             </Menu>
          </menus>
       </MenuBar>
-      <HBox layoutX="1042.0" layoutY="1.0" prefHeight="26.0" prefWidth="53.0" styleClass="cajaMinimizer">
+      <HBox layoutX="1034.0" layoutY="1.0" prefHeight="26.0" prefWidth="53.0" styleClass="cajaMinimizer">
          <children>
             <ImageView fx:id="imgMinimizer" fitHeight="21.0" fitWidth="23.0" onMouseClicked="#actionEvent" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -196,6 +196,20 @@
           <TableColumn fx:id="colDescripcion" minWidth="5.3333740234375" prefWidth="335.3333740234375" text="Descripcion" />
         </columns>
       </TableView>
+      <AnchorPane layoutX="150.0" layoutY="6.0" prefHeight="65.0" prefWidth="240.0">
+         <children>
+            <Label layoutY="-20.0" prefHeight="65.0" prefWidth="240.0" text="Tipo Producto" textFill="#c6bfbf">
+               <font>
+                  <Font name="Bauhaus 93" size="32.0" />
+               </font>
+            </Label>
+            <Label layoutY="-14.0" prefHeight="65.0" prefWidth="240.0" text="Tipo Producto">
+               <font>
+                  <Font name="Bauhaus 93" size="32.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
    <stylesheets>
       <URL value="@../resource/EstilosDeEscenarios.css" />

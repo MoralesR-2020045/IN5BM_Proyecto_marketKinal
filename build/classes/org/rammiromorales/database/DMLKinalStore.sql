@@ -357,6 +357,12 @@ Delimiter $$
 			select * from EmailProveedor;
 		end $$
 Delimiter ;
+Delimiter $$
+	create procedure sp_buscarEmailProveedor(in codigoEmailProveedor int)
+		begin
+			select*from EmailProveedor where EmailProveedor.codigoEmailProveedor = codigoEmailProveedor;
+		end $$
+Delimiter ;
 
 Delimiter $$
 	create procedure sp_buscarEmailProveedor(in codigoEmailProveedor int)
@@ -668,11 +674,23 @@ Delimiter ;
 Delimiter $$
 	create procedure sp_agregarDetalleCompra(in spCodigoDetalleCompra int, in spCostoUnitario decimal(10,2), in spCantidad int, in spCodigoProducto varchar(15), in spNumeroDocumento int)
 		begin
-			declare total decimal(10,2);
-			set total = calculoDePrecio(spCodigoProducto);
+			
+            declare idPProveedor int ;
+            declare precio decimal(10,2);
+            declare cantidad decimal(10,2);
+            declare total decimal(10,2);
+            declare porcentaje decimal(10,2);
+            declare totales decimal(10,2);
+            
+			select idProductoProveedor into idPProveedor from Productos where codigoProducto = spCodigoProducto  ;
+            select  precioProveedor into precio from ProductoProveedor where idProductoProveedor = idPProveedor  ;
+			select  cantidadDeProducto into cantidad from ProductoProveedor where idProductoProveedor = idPProveedor ;
+            set total = (precio/cantidad);
+            set porcentaje = total*0.4;
+			set totales = total + porcentaje;
 		
 			insert into DetalleCompra(codigoDetalleCompra, costoUnitario, cantidad, codigoProducto,numeroDocumento)
-			values (spCodigoDetalleCompra, total, spCantidad, spCodigoProducto, spNumeroDocumento);
+			values (spCodigoDetalleCompra, totales, spCantidad, spCodigoProducto, spNumeroDocumento);
 		end $$
 Delimiter ;
 
@@ -733,13 +751,6 @@ Delimiter $$
 					precioMayor = precio * 0.25 * 24
 				where Productos.codigoProducto = new.codigoProducto;
                 
-				update Productos
-					set Productos.existencia = totales
-				where Productos.codigoProducto = new.codigoProducto;
-                
-                update ProductoProveedor
-                set ProductoProveedor.existenciaTotalDelProducto = totales
-                where idProductoProveedor = idPProveedor;
 			end $$
 Delimiter ;
 
@@ -760,14 +771,6 @@ Delimiter $$
 					precioDocena  = precio * 0.35 * 12,
 					precioMayor = precio * 0.25 * 24
 				where Productos.codigoProducto = new.codigoProducto;
-                
-				update Productos
-					set Productos.existencia = totales
-				where Productos.codigoProducto = new.codigoProducto;
-                
-                update ProductoProveedor
-                set ProductoProveedor.existenciaTotalDelProducto = totales
-                where idProductoProveedor = idPProveedor;
 			end $$
 Delimiter ;
 

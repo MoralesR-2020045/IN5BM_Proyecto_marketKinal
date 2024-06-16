@@ -118,6 +118,23 @@ public class FacturaViewController implements Initializable {
 
     @FXML
     private ComboBox cmbCodigoCliente;
+    @FXML
+    private TextField txtBuscar;
+    @FXML
+    private Button btnBuscar;
+
+    public void activarBuscador() {
+        txtBuscar.setEditable(true);
+    }
+
+    public void desactivarBuscador() {
+        txtBuscar.setEditable(false);
+    }
+
+    public void lipiarBuscador() {
+        txtBuscar.clear();
+        tvlFactura.setItems(listaDeFactura);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -205,9 +222,7 @@ public class FacturaViewController implements Initializable {
         dateFactura.setValue(((Factura) tvlFactura.getSelectionModel().getSelectedItem()).getFechaFactura().toLocalDate());
         cmbCodigoCliente.getSelectionModel().select(buscarCliente(((Factura) tvlFactura.getSelectionModel().getSelectedItem()).getCodigoCliente()));
         cmbCodigoEmpleado.getSelectionModel().select(buscarEmpleado(((Factura) tvlFactura.getSelectionModel().getSelectedItem()).getCodigoEmpleado()));
-        
-        
-        
+
     }
 
     public Clientes buscarCliente(int codigoClientes) {
@@ -253,6 +268,54 @@ public class FacturaViewController implements Initializable {
             e.printStackTrace();
         }
         return resultado;
+    }
+
+    public void buttonBuscador() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                activarBuscador();
+                btnBuscar.setText("CANCELAR");
+                btnBuscar.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+
+                tipoDeOperaciones = operaciones.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                btnBuscar.setStyle(" ");
+                desactivarBuscador();
+                lipiarBuscador();
+                txtBuscar.setText("");
+                btnBuscar.setText("BUSCAR");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+
+    public void buscar() {
+        String criterio = txtBuscar.getText().trim();
+        if (!criterio.isEmpty()) {
+            filtrarDatos(criterio);
+        } else {
+            cargaDatos(); 
+        }
+    }
+    
+    public void filtrarDatos(String criterio) {
+        ObservableList<Factura> facturasFiltradas = FXCollections.observableArrayList();
+        for (Factura factura : listaDeFactura) {
+            if (String.valueOf(factura.getNumeroFactura()).contains(criterio)
+                    || factura.getEstado().contains(criterio)
+                    || String.valueOf(factura.getTotalFactura()).contains(criterio)
+                    || factura.getFechaFactura().toString().contains(criterio)
+                    || String.valueOf(factura.getCodigoCliente()).contains(criterio)
+                    || String.valueOf(factura.getCodigoEmpleado()).contains(criterio)) {
+                facturasFiltradas.add(factura);
+            }
+        }
+        tvlFactura.setItems(facturasFiltradas);
     }
 
     public void agregar() {
@@ -342,11 +405,11 @@ public class FacturaViewController implements Initializable {
         switch (tipoDeOperaciones) {
             case NINGUNO:
                 if (tvlFactura.getSelectionModel().getSelectedItem() != null) {
-                btnMultiple.setStyle("    -fx-border-color: black;\n"
-                        + "    -fx-background-radius: 10;\n"
-                        + "    -fx-border-radius: 10;\n"
-                        + "    -fx-background-radius: #FFFFFF;\n"
-                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+                    btnMultiple.setStyle("    -fx-border-color: black;\n"
+                            + "    -fx-background-radius: 10;\n"
+                            + "    -fx-border-radius: 10;\n"
+                            + "    -fx-background-radius: #FFFFFF;\n"
+                            + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                     activarControles();
                     txtNumeroFactura.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
@@ -368,7 +431,7 @@ public class FacturaViewController implements Initializable {
     public void actualizarProceso() {
         try {
             PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("{call sp_actualizarFactura(?, ?, ?, ?, ?, ?)}");
-            
+
             double cero = 0.0;
             Factura registro = ((Factura) tvlFactura.getSelectionModel().getSelectedItem());
 
@@ -538,7 +601,7 @@ public class FacturaViewController implements Initializable {
         }
     }
 
-    public void Principal(){
+    public void Principal() {
         escenarioPrincipal.ventanaMenuPrincipal();
     }
 }

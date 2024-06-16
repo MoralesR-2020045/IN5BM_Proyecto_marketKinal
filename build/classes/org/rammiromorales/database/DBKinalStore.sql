@@ -80,7 +80,7 @@ create table Clientes (
 );
 
 create table CargoEmpleado (
-	codigoCargoEmpleado int auto_increment,
+	codigoCargoEmpleado int auto_increment ,
     nombreCargo varchar (45),
     descripcionCargo varchar (45),
     primary key PK_codigoCargoEmpleado (codigoCargoEmpleado)
@@ -98,7 +98,7 @@ create table TipoProducto(
 );
 
 create table Productos(
-	codigoProducto varchar(15),
+	codigoProducto varchar(15) not null,
     descripcionProducto varchar(45),
 	precioUnitario decimal(10,2),
 	precioDocena decimal(10,2),

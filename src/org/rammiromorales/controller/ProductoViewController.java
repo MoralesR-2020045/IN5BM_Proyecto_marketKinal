@@ -54,7 +54,6 @@ public class ProductoViewController implements Initializable {
     private Button controlDeButton;
     private String accion;
 
-
     private enum operaciones {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
 
@@ -156,6 +155,23 @@ public class ProductoViewController implements Initializable {
     private Button btnSalir;
     @FXML
     private Button btnMultiple;
+    @FXML
+    private TextField txtBuscar;
+    @FXML
+    private Button btnBuscar;
+
+    public void activarBuscador() {
+        txtBuscar.setEditable(true);
+    }
+
+    public void desactivarBuscador() {
+        txtBuscar.setEditable(false);
+    }
+
+    public void lipiarBuscador() {
+        txtBuscar.clear();
+        tblProductos.setItems(listaProducto);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -186,7 +202,8 @@ public class ProductoViewController implements Initializable {
         colCodigoTipoProducto.setCellValueFactory(new PropertyValueFactory<Producto, Integer>("codigoTipoProducto"));
         colCodigoProveedor.setCellValueFactory(new PropertyValueFactory<Producto, Integer>("codigoProveedor"));
     }
-        public ObservableList<Producto> getProducto() {
+
+    public ObservableList<Producto> getProducto() {
         ArrayList<Producto> lista = new ArrayList<Producto>();
         try {
             PreparedStatement procedimiento = Conexion.getInstancia().getConexion().prepareCall("call sp_listarProductos()");
@@ -208,6 +225,7 @@ public class ProductoViewController implements Initializable {
         }
         return listaProducto = FXCollections.observableArrayList(lista);
     }
+
     public ObservableList<Proveedores> listaDeProveedores() {
         ArrayList<Proveedores> listado = new ArrayList<>();
         try {
@@ -304,7 +322,6 @@ public class ProductoViewController implements Initializable {
         return resultado;
     }
 
-
 // Cargar lista 
     public ObservableList<TipoProducto> listaDeTipoProducto() {
         ArrayList<TipoProducto> listador = new ArrayList<>();
@@ -343,6 +360,58 @@ public class ProductoViewController implements Initializable {
         }
 
         return listaProductoProveedor = FXCollections.observableList(listado);
+    }
+
+    public void buttonBuscador() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                activarBuscador();
+                btnBuscar.setText("CANCELAR");
+                btnBuscar.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+
+                tipoDeOperaciones = operaciones.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                btnBuscar.setStyle(" ");
+                desactivarBuscador();
+                lipiarBuscador();
+                txtBuscar.setText("");
+                btnBuscar.setText("BUSCAR");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+
+    public void buscar() {
+        String criterio = txtBuscar.getText().trim();
+        if (!criterio.isEmpty()) {
+            filtrarDatos(criterio);
+        } else {
+            cargaDatos(); // Si no hay criterio, se cargan todos los datos
+        }
+    }
+
+    // Método para filtrar los datos de la tabla
+    public void filtrarDatos(String criterio) {
+        ObservableList<Producto> productosFiltrados = FXCollections.observableArrayList();
+        for (Producto producto : listaProducto) {
+            if (producto.getCodigoProducto().contains(criterio)
+                    || producto.getDescripcionProducto().contains(criterio)
+                    || String.valueOf(producto.getPrecioUnitario()).contains(criterio)
+                    || String.valueOf(producto.getPrecioDocena()).contains(criterio)
+                    || String.valueOf(producto.getPrecioMayor()).contains(criterio)
+                    || String.valueOf(producto.getExistencia()).contains(criterio)
+                    || String.valueOf(producto.getIdProductoProveedor()).contains(criterio)
+                    || String.valueOf(producto.getCodigoTipoProducto()).contains(criterio)
+                    || String.valueOf(producto.getCodigoProveedor()).contains(criterio)) {
+                productosFiltrados.add(producto);
+            }
+        }
+        tblProductos.setItems(productosFiltrados);
     }
 
     public void agregar() {
@@ -436,12 +505,12 @@ public class ProductoViewController implements Initializable {
         switch (tipoDeOperaciones) {
             case NINGUNO:
                 if (tblProductos.getSelectionModel().getSelectedItem() != null) {
-                    
-                btnMultiple.setStyle("    -fx-border-color: black;\n"
-                        + "    -fx-background-radius: 10;\n"
-                        + "    -fx-border-radius: 10;\n"
-                        + "    -fx-background-radius: #FFFFFF;\n"
-                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+
+                    btnMultiple.setStyle("    -fx-border-color: black;\n"
+                            + "    -fx-background-radius: 10;\n"
+                            + "    -fx-border-radius: 10;\n"
+                            + "    -fx-background-radius: #FFFFFF;\n"
+                            + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                     activarControles();
                     txtCodigoProducto.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
@@ -641,8 +710,8 @@ public class ProductoViewController implements Initializable {
     public void Proveedor() {
         escenarioPrincipal.ventanaProveedores();
     }
-    
-    public void Principal(){
+
+    public void Principal() {
         escenarioPrincipal.ventanaMenuPrincipal();
     }
 

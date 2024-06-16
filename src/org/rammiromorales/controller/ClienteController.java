@@ -24,6 +24,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import javafx.scene.layout.AnchorPane;
@@ -118,12 +119,23 @@ public class ClienteController implements Initializable {
     private Button btnEditar;
     @FXML
     private AnchorPane ancherPane;
+    @FXML
+    private TextField txtBuscar;
+    @FXML
+    private Button btnBuscar;
 
-// Botones que sirven para retorno o cumplir siertas acciones 
-    @FXML
-    private MenuItem btnMenu;
-    @FXML
-    private MenuItem btnClientes;
+    public void activarBuscador() {
+        txtBuscar.setEditable(true);
+    }
+
+    public void desactivarBuscador() {
+        txtBuscar.setEditable(false);
+    }
+
+    public void lipiarBuscador() {
+        txtBuscar.clear();
+        tvClientes.setItems(listaClientes);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -175,6 +187,56 @@ public class ClienteController implements Initializable {
             e.printStackTrace();
         }
         return listaClientes = FXCollections.observableList(lista);
+    }
+
+    public void buttonBuscador() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                activarBuscador();
+                btnBuscar.setText("CANCELAR");
+                btnBuscar.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+        
+                tipoDeOperaciones = operaciones.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                btnBuscar.setStyle(" ");
+                desactivarBuscador();
+                lipiarBuscador();
+                txtBuscar.setText("");
+                btnBuscar.setText("BUSCAR");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+    
+    @FXML
+    private void buscar(KeyEvent event) {
+        String filtro = txtBuscar.getText().toLowerCase().trim();
+        filtrarDatos(filtro);
+    }
+
+    private void filtrarDatos(String filtro) {
+        ObservableList<Clientes> listaFiltrada = FXCollections.observableArrayList();
+        if (filtro.isEmpty()) {
+            listaFiltrada.addAll(listaClientes);
+        } else {
+            for (Clientes cliente : listaClientes) {
+                if (String.valueOf(cliente.getCodigoCliente()).toLowerCase().contains(filtro)
+                        || cliente.getNombresCliente().toLowerCase().contains(filtro)
+                        || cliente.getApellidosCliente().toLowerCase().contains(filtro)
+                        || cliente.getDireccionCliente().toLowerCase().contains(filtro)
+                        || cliente.getNITCliente().toLowerCase().contains(filtro)
+                        || cliente.getTelefonoCliente().toLowerCase().contains(filtro)
+                        || cliente.getCorreoCliente().toLowerCase().contains(filtro)) {
+                    listaFiltrada.add(cliente);
+                }
+            }
+        }
+        tvClientes.setItems(listaFiltrada);
     }
 
     public void Agregar() {

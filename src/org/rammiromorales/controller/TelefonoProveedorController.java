@@ -25,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
@@ -41,6 +42,7 @@ import org.rammiromorales.system.Principal;
  */
 public class TelefonoProveedorController implements Initializable {
 
+    private ObservableList<TelefonoProveedor> listaTelefono;
     private Principal escenarioPrincipal;
     private ObservableList<TelefonoProveedor> listaTelefonos;
     private ObservableList<Proveedores> listaDeProveedores;
@@ -111,6 +113,23 @@ public class TelefonoProveedorController implements Initializable {
 
     @FXML
     private TextField txtObservaciones;
+    @FXML
+    private TextField txtBuscar;
+    @FXML
+    private Button btnBuscar;
+
+    public void activarBuscador() {
+        txtBuscar.setEditable(true);
+    }
+
+    public void desactivarBuscador() {
+        txtBuscar.setEditable(false);
+    }
+
+    public void lipiarBuscador() {
+        txtBuscar.clear();
+        tvlTelefonoProveedor.setItems(listaTelefonos);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -167,6 +186,54 @@ public class TelefonoProveedorController implements Initializable {
             e.printStackTrace();
         }
         return listaDeProveedores = FXCollections.observableList(listado);
+    }
+
+    public void buttonBuscador() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                activarBuscador();
+                btnBuscar.setText("CANCELAR");
+                btnBuscar.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+
+                tipoDeOperaciones = operaciones.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                btnBuscar.setStyle(" ");
+                desactivarBuscador();
+                lipiarBuscador();
+                txtBuscar.setText("");
+                btnBuscar.setText("BUSCAR");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+
+    @FXML
+    private void buscar(KeyEvent event) {
+        String filtro = txtBuscar.getText().toLowerCase().trim();
+        filtrarDatos(filtro);
+    }
+
+    private void filtrarDatos(String filtro) {
+        listaTelefono = FXCollections.observableArrayList();
+        if (filtro.isEmpty()) {
+            listaTelefono.addAll(listaTelefonos);
+        } else {
+            for (TelefonoProveedor telefonoProveedor : listaTelefonos) {
+                if (String.valueOf(telefonoProveedor.getCodigoTelefonoProveedor()).toLowerCase().contains(filtro)
+                        || telefonoProveedor.getNumeroPrincipal().toLowerCase().contains(filtro)
+                        || telefonoProveedor.getNumeroSecundario().toLowerCase().contains(filtro)
+                        || telefonoProveedor.getObservaciones().toLowerCase().contains(filtro)
+                        || String.valueOf(telefonoProveedor.getCodigoProveedor()).toLowerCase().contains(filtro)) {
+                    listaTelefono.add(telefonoProveedor);
+                }
+            }
+        }
+        tvlTelefonoProveedor.setItems(listaTelefono);
     }
 
     public void selecionarElementos() {

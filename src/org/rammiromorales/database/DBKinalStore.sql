@@ -80,7 +80,7 @@ create table Clientes (
 );
 
 create table CargoEmpleado (
-	codigoCargoEmpleado int auto_increment,
+	codigoCargoEmpleado int auto_increment ,
     nombreCargo varchar (45),
     descripcionCargo varchar (45),
     primary key PK_codigoCargoEmpleado (codigoCargoEmpleado)
@@ -98,7 +98,7 @@ create table TipoProducto(
 );
 
 create table Productos(
-	codigoProducto varchar(15),
+	codigoProducto varchar(15) not null,
     descripcionProducto varchar(45),
 	precioUnitario decimal(10,2),
 	precioDocena decimal(10,2),
@@ -175,4 +175,42 @@ create table DetalleFactura(
 	constraint FK_DetalleFactura foreign key DetalleFactura(codigoProducto)
 		references Productos(codigoProducto) on delete cascade
 );
+
+Create Table Usuarios(
+	codigoUsuario int not null auto_increment,
+    nombreUsuario varchar(100) not null,
+    apellidoUsuario varchar(100) not null,
+    usuarioLogin varchar(50) not null,
+    contrasena varchar(50) not null,
+    primary key PK_codigoUsuario (codigoUsuario)
+);
+
+Create Table Login{
+	usuarioMaster varchar(50) not null,
+    passwordLogin varchar(50) not null,
+    primary key PK_usuarioMaster (usuarioMaster)
+}
+
+-- Listar y agregar
+Delimiter $$
+	Create procedure sp_AgregarUsuario(in nombreUsuarioA varchar(100), in apellidoUsuarioA varchar(100),
+		in usuarioLoginA varchar(50), in contrasenaA varchar(50))
+        Begin
+			Insert into Usuarios(nombreUsuario, apellidoUsuario, usuarioLogin, contrasena)
+				values(nombreUsuarioA, apellidoUsuarioA, usuarioLoginA, contrasenaA);
+        End$$
+Delimiter ;
+
+Delimiter $$
+	Create procedure sp_ListarUsuarios()
+		Begin
+			Select
+				U.codigoUsuario,
+                U.nombreUsuario,
+                U.apellidoUsuario,
+                U.usuarioLogin,
+                U.contrasena
+                from Usuarios as U;
+        End$$
+Delimiter ;
 

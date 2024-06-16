@@ -127,6 +127,23 @@ public class DetalleCompraViewController implements Initializable {
 
     @FXML
     private AnchorPane ancherPane;
+    @FXML
+    private TextField txtBuscar;
+    @FXML
+    private Button btnBuscar;
+
+    public void activarBuscador() {
+        txtBuscar.setEditable(true);
+    }
+
+    public void desactivarBuscador() {
+        txtBuscar.setEditable(false);
+    }
+
+    public void lipiarBuscador() {
+        txtBuscar.clear();
+        tblDetalleProducto.setItems(listaDetalleCompra);
+    }
 
     public Principal getEscenarioPrincipal() {
         return escenarioPrincipal;
@@ -261,6 +278,53 @@ public class DetalleCompraViewController implements Initializable {
             e.printStackTrace();
         }
         return listadoDeCompras = FXCollections.observableList(listado);
+    }
+
+    public void buttonBuscador() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                activarBuscador();
+                btnBuscar.setText("CANCELAR");
+                btnBuscar.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+
+                tipoDeOperaciones = operaciones.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                btnBuscar.setStyle(" ");
+                desactivarBuscador();
+                lipiarBuscador();
+                txtBuscar.setText("");
+                btnBuscar.setText("BUSCAR");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+
+    public void buscar() {
+        String criterio = txtBuscar.getText().trim();
+        if (!criterio.isEmpty()) {
+            filtrarDatos(criterio);
+        } else {
+            cargaDatos();
+        }
+    }
+
+    public void filtrarDatos(String criterio) {
+        ObservableList<DetalleCompra> detallesFiltrados = FXCollections.observableArrayList();
+        for (DetalleCompra detalle : listaDetalleCompra) {
+            if (String.valueOf(detalle.getCodigoDetalleCompra()).contains(criterio)
+                    || String.valueOf(detalle.getCostoUnitario()).contains(criterio)
+                    || String.valueOf(detalle.getCantidad()).contains(criterio)
+                    || detalle.getCodigoProducto().contains(criterio)
+                    || String.valueOf(detalle.getNumeroDocumento()).contains(criterio)) {
+                detallesFiltrados.add(detalle);
+            }
+        }
+        tblDetalleProducto.setItems(detallesFiltrados);
     }
 
     public void agregar() {

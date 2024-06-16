@@ -23,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
@@ -118,6 +119,24 @@ public class ProductoProveedorController implements Initializable {
     @FXML
     private TextField txtCantidadPProveedor;
 
+    @FXML
+    private TextField txtBuscar;
+    @FXML
+    private Button btnBuscar;
+
+    public void activarBuscador() {
+        txtBuscar.setEditable(true);
+    }
+
+    public void desactivarBuscador() {
+        txtBuscar.setEditable(false);
+    }
+
+    public void lipiarBuscador() {
+        txtBuscar.clear();
+        tvlProductoProveedor.setItems(listadoProductoProveedor);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarDatosTable();
@@ -173,6 +192,56 @@ public class ProductoProveedorController implements Initializable {
         }
 
         return listadoProductoProveedor = FXCollections.observableList(listado);
+    }
+
+    public void buttonBuscador() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                activarBuscador();
+                btnBuscar.setText("CANCELAR");
+                btnBuscar.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+
+                tipoDeOperaciones = operaciones.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                btnBuscar.setStyle(" ");
+                desactivarBuscador();
+                lipiarBuscador();
+                txtBuscar.setText("");
+                btnBuscar.setText("BUSCAR");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+
+    @FXML
+    private void buscar(KeyEvent event) {
+        String filtro = txtBuscar.getText().toLowerCase().trim();
+        filtrarDatos(filtro);
+    }
+
+    private void filtrarDatos(String filtro) {
+        ObservableList<ProductoProveedor> listaFiltrada = FXCollections.observableArrayList();
+        if (filtro.isEmpty()) {
+            listaFiltrada.addAll(listadoProductoProveedor);
+        } else {
+            for (ProductoProveedor productoProveedor : listadoProductoProveedor) {
+                if (String.valueOf(productoProveedor.getIdProductoProveedor()).toLowerCase().contains(filtro)
+                        || productoProveedor.getNombreProductoProveedor().toLowerCase().contains(filtro)
+                        || productoProveedor.getDescripcionProducto().toLowerCase().contains(filtro)
+                        || String.valueOf(productoProveedor.getPrecioProveedor()).toLowerCase().contains(filtro)
+                        || String.valueOf(productoProveedor.getCantidadDeProducto()).toLowerCase().contains(filtro)
+                        || String.valueOf(productoProveedor.getExistenciaPorDescripcion()).toLowerCase().contains(filtro)
+                        || String.valueOf(productoProveedor.getExistenciaTotalDelProducto()).toLowerCase().contains(filtro)) {
+                    listaFiltrada.add(productoProveedor);
+                }
+            }
+        }
+        tvlProductoProveedor.setItems(listaFiltrada);
     }
 
     public void agregarProductoProveedor() {

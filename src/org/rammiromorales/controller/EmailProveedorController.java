@@ -24,6 +24,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
@@ -105,6 +106,23 @@ public class EmailProveedorController implements Initializable {
 
     @FXML
     private ComboBox cmbCodigoProveedor;
+    @FXML
+    private TextField txtBuscar;
+    @FXML
+    private Button btnBuscar;
+
+    public void activarBuscador() {
+        txtBuscar.setEditable(true);
+    }
+
+    public void desactivarBuscador() {
+        txtBuscar.setEditable(false);
+    }
+
+    public void lipiarBuscador() {
+        txtBuscar.clear();
+        tvlEmailProveedor.setItems(listaProveedorEmail);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -192,6 +210,54 @@ public class EmailProveedorController implements Initializable {
 
         return resultado;
     }
+
+    public void buttonBuscador() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                activarBuscador();
+                btnBuscar.setText("CANCELAR");
+                btnBuscar.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+
+                tipoDeOperaciones = operaciones.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                btnBuscar.setStyle(" ");
+                desactivarBuscador();
+                lipiarBuscador();
+                txtBuscar.setText("");
+                btnBuscar.setText("BUSCAR");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+    
+        @FXML
+    private void buscar(KeyEvent event) {
+        String filtro = txtBuscar.getText().toLowerCase().trim();
+        filtrarDatos(filtro);
+    }
+
+    private void filtrarDatos(String filtro) {
+        ObservableList<EmailProveedor> listaFiltrada = FXCollections.observableArrayList();
+        if (filtro.isEmpty()) {
+            listaFiltrada.addAll(listaProveedorEmail);
+        } else {
+            for (EmailProveedor emailProveedor : listaProveedorEmail) {
+                if (String.valueOf(emailProveedor.getCodigoEmailProveedor()).toLowerCase().contains(filtro)
+                        || emailProveedor.getEmailProveedor().toLowerCase().contains(filtro)
+                        || emailProveedor.getDescripcion().toLowerCase().contains(filtro)
+                        || String.valueOf(emailProveedor.getCodigoProveedor()).toLowerCase().contains(filtro)) {
+                    listaFiltrada.add(emailProveedor);
+                }
+            }
+        }
+        tvlEmailProveedor.setItems(listaFiltrada);
+    }
+
 
     public void agregar() {
         switch (tipoDeOperaciones) {

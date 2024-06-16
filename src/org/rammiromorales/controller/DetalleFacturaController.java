@@ -32,7 +32,6 @@ import org.rammiromorales.system.Principal;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-
 /**
  * FXML Controller class
  *
@@ -111,6 +110,24 @@ public class DetalleFacturaController implements Initializable {
 
     @FXML
     private ComboBox cmbNumeroFactura;
+
+    @FXML
+    private TextField txtBuscar;
+    @FXML
+    private Button btnBuscar;
+
+    public void activarBuscador() {
+        txtBuscar.setEditable(true);
+    }
+
+    public void desactivarBuscador() {
+        txtBuscar.setEditable(false);
+    }
+
+    public void lipiarBuscador() {
+        txtBuscar.clear();
+        tvlDetalleFactura.setItems(listaDetalleFactura);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -243,6 +260,54 @@ public class DetalleFacturaController implements Initializable {
         return resultado;
     }
 
+    public void buttonBuscador() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                activarBuscador();
+                btnBuscar.setText("CANCELAR");
+                btnBuscar.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+
+                tipoDeOperaciones = operaciones.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                btnBuscar.setStyle(" ");
+                desactivarBuscador();
+                lipiarBuscador();
+                txtBuscar.setText("");
+                btnBuscar.setText("BUSCAR");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+
+    public void buscar() {
+        String criterio = txtBuscar.getText().trim();
+        if (!criterio.isEmpty()) {
+            filtrarDatos(criterio);
+        } else {
+            cargaDatos(); // Si no hay criterio, se cargan todos los datos
+        }
+    }
+
+    // Método para filtrar los datos de la tabla
+    public void filtrarDatos(String criterio) {
+        ObservableList<DetalleFactura> detallesFiltrados = FXCollections.observableArrayList();
+        for (DetalleFactura detalle : listaDetalleFactura) {
+            if (String.valueOf(detalle.getCodigoDetalleFactura()).contains(criterio)
+                    || String.valueOf(detalle.getPrecioUnitario()).contains(criterio)
+                    || String.valueOf(detalle.getCantidad()).contains(criterio)
+                    || String.valueOf(detalle.getNumeroFactura()).contains(criterio)
+                    || detalle.getCodigoProducto().contains(criterio)) {
+                detallesFiltrados.add(detalle);
+            }
+        }
+        tvlDetalleFactura.setItems(detallesFiltrados);
+    }
+
     public void agregar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
@@ -329,10 +394,10 @@ public class DetalleFacturaController implements Initializable {
             case NINGUNO:
                 if (tvlDetalleFactura.getSelectionModel().getSelectedItem() != null) {
                     btnMultiple.setStyle("    -fx-border-color: black;\n"
-                        + "    -fx-background-radius: 10;\n"
-                        + "    -fx-border-radius: 10;\n"
-                        + "    -fx-background-radius: #FFFFFF;\n"
-                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+                            + "    -fx-background-radius: 10;\n"
+                            + "    -fx-border-radius: 10;\n"
+                            + "    -fx-background-radius: #FFFFFF;\n"
+                            + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                     activarControles();
                     txtCodigoDetalleFactura.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
@@ -363,7 +428,7 @@ public class DetalleFacturaController implements Initializable {
             registro.setCodigoProducto(((Producto) cmbCodigoProducto.getSelectionModel().getSelectedItem()).getCodigoProducto());
 
             procedimiento.setInt(1, registro.getCodigoDetalleFactura());
-            procedimiento.setDouble(2,cero );
+            procedimiento.setDouble(2, cero);
             procedimiento.setInt(3, registro.getCantidad());
             procedimiento.setInt(4, registro.getNumeroFactura());
             procedimiento.setString(5, registro.getCodigoProducto());
@@ -527,8 +592,8 @@ public class DetalleFacturaController implements Initializable {
     public void Proveedor() {
         escenarioPrincipal.ventanaProveedores();
     }
-    
-    public void Principal(){
+
+    public void Principal() {
         escenarioPrincipal.ventanaMenuPrincipal();
     }
 }

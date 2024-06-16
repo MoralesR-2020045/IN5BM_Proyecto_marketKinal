@@ -138,3 +138,9 @@ and open the template in the editor.
 .botonRecuadro:hover{
         -fx-text-fill: #34c0d8; /* Cambia el color del texto al pasar el mouse */
 }
+
+.Buscador{
+    -fx-background-color: #334B65;
+    -fx-background-radius: 3;
+    -fx-border-radius: 3;
+}

@@ -23,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
@@ -46,7 +47,7 @@ public class CargoEmpleadoViewController implements Initializable {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
     }
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
-        @FXML
+    @FXML
     private AnchorPane ancherPane;
     @FXML
     private ImageView imgMinimizer;
@@ -55,7 +56,7 @@ public class CargoEmpleadoViewController implements Initializable {
 
     @FXML
     private Button btnCancelar;
-    
+
     @FXML
     private Button btnAgregar;
 
@@ -98,6 +99,24 @@ public class CargoEmpleadoViewController implements Initializable {
     @FXML
     private TableColumn colDescripcionCargo;
 
+    @FXML
+    private TextField txtBuscar;
+    @FXML
+    private Button btnBuscar;
+
+    public void activarBuscador() {
+        txtBuscar.setEditable(true);
+    }
+
+    public void desactivarBuscador() {
+        txtBuscar.setEditable(false);
+    }
+
+    public void lipiarBuscador() {
+        txtBuscar.clear();
+        tvlCargoEmpleado.setItems(listaDeCargo);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarDatosTable();
@@ -106,7 +125,8 @@ public class CargoEmpleadoViewController implements Initializable {
     public Principal getEscenarioPrincipal() {
         return escenarioPrincipal;
     }
-        public void seleccionarElementos() {
+
+    public void seleccionarElementos() {
         txtIdCargoEmpleado.setText(String.valueOf(((CargoEmpleado) tvlCargoEmpleado.getSelectionModel().getSelectedItem()).getCodigoCargoEmpleado()));
         txtNombreCargo.setText(((CargoEmpleado) tvlCargoEmpleado.getSelectionModel().getSelectedItem()).getNombreCargo());
         txtDescripcionCargo.setText(((CargoEmpleado) tvlCargoEmpleado.getSelectionModel().getSelectedItem()).getDescripcionCargo());
@@ -135,6 +155,52 @@ public class CargoEmpleadoViewController implements Initializable {
             e.printStackTrace();
         }
         return listaDeCargo = FXCollections.observableList(listado);
+    }
+
+    public void buttonBuscador() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                activarBuscador();
+                btnBuscar.setText("CANCELAR");
+                btnBuscar.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+
+                tipoDeOperaciones = operaciones.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                btnBuscar.setStyle(" ");
+                desactivarBuscador();
+                lipiarBuscador();
+                txtBuscar.setText("");
+                btnBuscar.setText("BUSCAR");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+
+    @FXML
+    private void buscar(KeyEvent event) {
+        String filtro = txtBuscar.getText().toLowerCase().trim();
+        filtrarDatos(filtro);
+    }
+
+    private void filtrarDatos(String filtro) {
+        ObservableList<CargoEmpleado> listaFiltrada = FXCollections.observableArrayList();
+        if (filtro.isEmpty()) {
+            listaFiltrada.addAll(listaDeCargo);
+        } else {
+            for (CargoEmpleado cargo : listaDeCargo) {
+                if (String.valueOf(cargo.getCodigoCargoEmpleado()).toLowerCase().contains(filtro)
+                        || cargo.getNombreCargo().toLowerCase().contains(filtro)
+                        || cargo.getDescripcionCargo().toLowerCase().contains(filtro)) {
+                    listaFiltrada.add(cargo);
+                }
+            }
+        }
+        tvlCargoEmpleado.setItems(listaFiltrada);
     }
 
     // Metodos de Crud
@@ -214,10 +280,10 @@ public class CargoEmpleadoViewController implements Initializable {
             case NINGUNO:
                 if (tvlCargoEmpleado.getSelectionModel().getSelectedItem() != null) {
                     btnMultiple.setStyle("    -fx-border-color: black;\n"
-                        + "    -fx-background-radius: 10;\n"
-                        + "    -fx-border-radius: 10;\n"
-                        + "    -fx-background-radius: #FFFFFF;\n"
-                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+                            + "    -fx-background-radius: 10;\n"
+                            + "    -fx-border-radius: 10;\n"
+                            + "    -fx-background-radius: #FFFFFF;\n"
+                            + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
                     activarTextField();
                     txtIdCargoEmpleado.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
@@ -293,7 +359,6 @@ public class CargoEmpleadoViewController implements Initializable {
     public void setEscenarioPrincipal(Principal escenarioPrincipal) {
         this.escenarioPrincipal = escenarioPrincipal;
     }
-
 
     public void actionExit(MouseEvent event) {
         javafx.application.Platform.exit();
@@ -403,8 +468,8 @@ public class CargoEmpleadoViewController implements Initializable {
     public void Proveedor() {
         escenarioPrincipal.ventanaProveedores();
     }
-    
-    public void Principal(){
+
+    public void Principal() {
         escenarioPrincipal.ventanaMenuPrincipal();
     }
 }

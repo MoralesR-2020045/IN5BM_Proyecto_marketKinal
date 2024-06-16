@@ -26,6 +26,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
@@ -126,6 +127,23 @@ public class EmpleadosViewController implements Initializable {
 
     @FXML
     private ComboBox cmbCodigoCargoEmpleado;
+    @FXML
+    private TextField txtBuscar;
+    @FXML
+    private Button btnBuscar;
+
+    public void activarBuscador() {
+        txtBuscar.setEditable(true);
+    }
+
+    public void desactivarBuscador() {
+        txtBuscar.setEditable(false);
+    }
+
+    public void lipiarBuscador() {
+        txtBuscar.clear();
+        tvlEmpleados.setItems(listaEmpleado);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -211,6 +229,56 @@ public class EmpleadosViewController implements Initializable {
             e.printStackTrace();
         }
         return listaDeCargo = FXCollections.observableList(listado);
+    }
+
+    public void buttonBuscador() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                activarBuscador();
+                btnBuscar.setText("CANCELAR");
+                btnBuscar.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+
+                tipoDeOperaciones = operaciones.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                btnBuscar.setStyle(" ");
+                desactivarBuscador();
+                lipiarBuscador();
+                txtBuscar.setText("");
+                btnBuscar.setText("BUSCAR");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+
+    @FXML
+    private void buscar(KeyEvent event) {
+        String filtro = txtBuscar.getText().toLowerCase().trim();
+        filtrarDatos(filtro);
+    }
+
+    private void filtrarDatos(String filtro) {
+        ObservableList<Empleado> listaFiltrada = FXCollections.observableArrayList();
+        if (filtro.isEmpty()) {
+            listaFiltrada.addAll(listaEmpleado);
+        } else {
+            for (Empleado empleado : listaEmpleado) {
+                if (String.valueOf(empleado.getCodigoEmpleado()).toLowerCase().contains(filtro)
+                        || empleado.getNombresEmpleado().toLowerCase().contains(filtro)
+                        || empleado.getApellidosEmpleado().toLowerCase().contains(filtro)
+                        || String.valueOf(empleado.getSueldo()).toLowerCase().contains(filtro)
+                        || empleado.getDireccion().toLowerCase().contains(filtro)
+                        || empleado.getTurno().toLowerCase().contains(filtro)
+                        || String.valueOf(empleado.getCodigoCargoEmpleado()).toLowerCase().contains(filtro)) {
+                    listaFiltrada.add(empleado);
+                }
+            }
+        }
+        tvlEmpleados.setItems(listaFiltrada);
     }
 
     public void agregar() {

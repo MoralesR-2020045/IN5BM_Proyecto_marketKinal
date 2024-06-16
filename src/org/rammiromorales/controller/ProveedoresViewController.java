@@ -25,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
@@ -130,6 +131,25 @@ public class ProveedoresViewController implements Initializable {
     @FXML
     private TextField txtDireccionProveedor;
 
+    @FXML
+    private TextField txtBuscar;
+
+    @FXML
+    private Button btnBuscar;
+
+    public void activarBuscador() {
+        txtBuscar.setEditable(true);
+    }
+
+    public void desactivarBuscador() {
+        txtBuscar.setEditable(false);
+    }
+
+    public void lipiarBuscador() {
+        txtBuscar.clear();
+        tvlProveedores.setItems(listaDeProveedores);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarDatosTable();
@@ -138,7 +158,8 @@ public class ProveedoresViewController implements Initializable {
     public Principal getEscenarioPrincipal() {
         return escenarioPrincipal;
     }
-        public void seleccionarElementos() {
+
+    public void seleccionarElementos() {
         txtCodigoProveedor.setText(String.valueOf(((Proveedores) tvlProveedores.getSelectionModel().getSelectedItem()).getCodigoProveedor()));
         txtNITProveedor.setText(((Proveedores) tvlProveedores.getSelectionModel().getSelectedItem()).getNITProveedor());
         txtNombresProveedor.setText(((Proveedores) tvlProveedores.getSelectionModel().getSelectedItem()).getNombresProveedor());
@@ -206,6 +227,58 @@ public class ProveedoresViewController implements Initializable {
                 tipoDeOperaciones = operaciones.NINGUNO;
                 break;
         }
+    }
+
+    public void buttonBuscador() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                activarBuscador();
+                btnBuscar.setText("CANCELAR");
+                btnBuscar.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+
+                tipoDeOperaciones = operaciones.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                btnBuscar.setStyle(" ");
+                desactivarBuscador();
+                lipiarBuscador();
+                txtBuscar.setText("");
+                btnBuscar.setText("BUSCAR");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+
+    @FXML
+    private void buscar(KeyEvent event) {
+        String filtro = txtBuscar.getText().toLowerCase().trim();
+        filtrarDatos(filtro);
+    }
+
+    // Método filtrarDatos para realizar la lógica de filtrado
+    private void filtrarDatos(String filtro) {
+        ObservableList<Proveedores> listaFiltrada = FXCollections.observableArrayList();
+        if (filtro.isEmpty()) {
+            listaFiltrada.addAll(listaDeProveedores);
+        } else {
+            for (Proveedores proveedor : listaDeProveedores) {
+                if (String.valueOf(proveedor.getCodigoProveedor()).toLowerCase().contains(filtro)
+                        || proveedor.getNITProveedor().toLowerCase().contains(filtro)
+                        || proveedor.getNombresProveedor().toLowerCase().contains(filtro)
+                        || proveedor.getApellidosProveedor().toLowerCase().contains(filtro)
+                        || proveedor.getDireccionProveedor().toLowerCase().contains(filtro)
+                        || proveedor.getRazonSocial().toLowerCase().contains(filtro)
+                        || proveedor.getContactoPrincipal().toLowerCase().contains(filtro)
+                        || proveedor.getPaginaWeb().toLowerCase().contains(filtro)) {
+                    listaFiltrada.add(proveedor);
+                }
+            }
+        }
+        tvlProveedores.setItems(listaFiltrada);
     }
 
     public void guardar() {

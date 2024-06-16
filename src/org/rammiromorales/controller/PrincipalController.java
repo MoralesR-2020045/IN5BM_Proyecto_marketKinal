@@ -7,18 +7,26 @@ package org.rammiromorales.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -35,6 +43,13 @@ public class PrincipalController implements Initializable {
         MOSTRAR, NINGUNO
 
     }
+
+    private enum operacionesDos {
+        AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
+
+    }
+    private operacionesDos tipoDeOperacionesdos = operacionesDos.NINGUNO;
+
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
 
     private Principal escenarioPrincipal;
@@ -77,13 +92,130 @@ public class PrincipalController implements Initializable {
     private Button btnDetalleFacturaIcon;
     @FXML
     private VBox panelInicio;
-    
+    private ObservableList<String> opciones;
+
+    @FXML
+    private ListView<String> listViewOpciones;
+
+    @FXML
+    private TextField txtSearch;
+
     @FXML
     private ImageView imgMinimizer;
 
+    @FXML
+    private Button btnBuscar;
+
+    public void activarBuscador() {
+        txtSearch.setEditable(true);
+    }
+
+    public void desactivarBuscador() {
+        txtSearch.setEditable(false);
+    }
+
+    public void lipiarBuscador() {
+        txtSearch.clear();
+    }
+    private ObservableList<String> lista;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        lista = FXCollections.observableArrayList(
+                "Tipo Producto", "Compras", "Proveedores", "Clientes",
+                "Cargo Empleado", "Empleados", "Email Proveedor", "Telefono Proveedor",
+                "Factura", "Productos", "Detalle Compra", "Detalle Factura", "Inventario");
+        listViewOpciones.setItems(lista);
+    }
 
+    @FXML
+    private void buscarDos(KeyEvent event) {
+        buscar();
+    }
+
+    private void buscar() {
+        String searchTerm = txtSearch.getText().toLowerCase();
+
+        ObservableList<String> filteredList = FXCollections.observableArrayList();
+        for (String item : lista) {
+            if (item.toLowerCase().contains(searchTerm)) {
+                filteredList.add(item);
+            }
+        }
+
+        listViewOpciones.setItems(filteredList);
+    }
+
+    public void buttonBuscador() {
+        switch (tipoDeOperacionesdos) {
+            case NINGUNO:
+                activarBuscador();
+                listViewOpciones.setVisible(true);
+                btnBuscar.setText("CANCELAR");
+                btnBuscar.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+
+                tipoDeOperacionesdos = operacionesDos.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                listViewOpciones.setVisible(false);
+                btnBuscar.setStyle(" ");
+                desactivarBuscador();
+                lipiarBuscador();
+                txtSearch.setText("");
+                btnBuscar.setText("BUSCAR");
+                tipoDeOperacionesdos = operacionesDos.NINGUNO;
+                break;
+        }
+    }
+
+    @FXML
+    private void clickBoton() {
+        String selectedItem = listViewOpciones.getSelectionModel().getSelectedItem();
+         switch (selectedItem) {
+                case "Tipo Producto":
+                    tipoDeProducto();
+                    break;
+                case "Compras":
+                    compras();
+                    break;
+                case "Proveedores":
+                    proveedores();
+                    break;
+                case "Clientes":
+                    clientes();
+                    break;
+                case "Cargo Empleado":
+                    cargoEmpleados();
+                    break;
+                case "Empleados":
+                    empleados();
+                    break;
+                case "Email Proveedor":
+                    emailProveedor();
+                    break;
+                case "Telefono Proveedor":
+                    telefonoProveedor();
+                    break;
+                case "Factura":
+                    factura();
+                    break;
+                case "Productos":
+                    producto();
+                    break;
+                case "Detalle Compra":
+                    detalleCompra();
+                    break;
+                case "Detalle Factura":
+                    detalleFactura();
+                    break;
+                case "Inventario":
+                    productoProveedor();
+                    break;
+        }
     }
 
     public Principal getEscenarioPrincipal() {
@@ -148,6 +280,7 @@ public class PrincipalController implements Initializable {
                 break;
         }
     }
+
     public void actionExit(MouseEvent event) {
         javafx.application.Platform.exit();
     }
@@ -171,43 +304,44 @@ public class PrincipalController implements Initializable {
     public void detalleFactura() {
         escenarioPrincipal.ventanaDetalleFactura();
     }
-    public void tipoDeProducto(){
+
+    public void tipoDeProducto() {
         escenarioPrincipal.ventanaTipoProducto();
     }
-    
-    public void productoProveedor(){
+
+    public void productoProveedor() {
         escenarioPrincipal.ventanaProductoProveedor();
     }
-    
-    public void compras(){
+
+    public void compras() {
         escenarioPrincipal.ventanaCompras();
     }
-    
-    public void clientes(){
+
+    public void clientes() {
         escenarioPrincipal.ventanaMenuClientes();
     }
-    
-    public void empleados(){
+
+    public void empleados() {
         escenarioPrincipal.ventanaEmpleados();
     }
-    
-    public void cargoEmpleados(){
+
+    public void cargoEmpleados() {
         escenarioPrincipal.ventanaCargoEmpleado();
     }
-    
-    public void telefonoProveedor(){
+
+    public void telefonoProveedor() {
         escenarioPrincipal.ventanaTelefonoProveedor();
     }
-    
-    public void emailProveedor(){
+
+    public void emailProveedor() {
         escenarioPrincipal.ventanaEmailProveedor();
     }
-    
-    public void proveedores(){
+
+    public void proveedores() {
         escenarioPrincipal.ventanaProveedores();
     }
-    
-    public void programador(){
+
+    public void programador() {
         escenarioPrincipal.ventanaProgramador();
     }
 }

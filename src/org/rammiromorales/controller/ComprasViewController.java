@@ -25,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
@@ -104,6 +105,23 @@ public class ComprasViewController implements Initializable {
 
     @FXML
     private AnchorPane ancherPane;
+    @FXML
+    private Button btnBuscar;
+    @FXML
+    private TextField txtBuscar;
+
+    public void activarBuscador() {
+        txtBuscar.setEditable(true);
+    }
+
+    public void desactivarBuscador() {
+        txtBuscar.setEditable(false);
+    }
+
+    public void lipiarBuscador() {
+        txtBuscar.clear();
+        tvlCompras.setItems(listadoDeCompras);
+    }
 
     public Principal getEscenarioPrincipal() {
         return escenarioPrincipal;
@@ -125,13 +143,13 @@ public class ComprasViewController implements Initializable {
         colDescripcion.setCellValueFactory(new PropertyValueFactory<Compras, String>("descripcion"));
         colTotalDocumento.setCellValueFactory(new PropertyValueFactory<Compras, String>("totalDocumento"));
     }
-    
-        public void seleccionarElementos() {
-      
-            txtNumeroDocumento.setText(String.valueOf(((Compras) tvlCompras.getSelectionModel().getSelectedItem()).getNumeroDocumento()));
-            dateDocumento.setValue(((Compras) tvlCompras.getSelectionModel().getSelectedItem()).getFechaDocumento().toLocalDate());
-            txtDescripcion.setText(((Compras) tvlCompras.getSelectionModel().getSelectedItem()).getDescripcion());
-            txtTotalDocumento.setText(String.valueOf(((Compras) tvlCompras.getSelectionModel().getSelectedItem()).getTotalDocumento()));
+
+    public void seleccionarElementos() {
+
+        txtNumeroDocumento.setText(String.valueOf(((Compras) tvlCompras.getSelectionModel().getSelectedItem()).getNumeroDocumento()));
+        dateDocumento.setValue(((Compras) tvlCompras.getSelectionModel().getSelectedItem()).getFechaDocumento().toLocalDate());
+        txtDescripcion.setText(((Compras) tvlCompras.getSelectionModel().getSelectedItem()).getDescripcion());
+        txtTotalDocumento.setText(String.valueOf(((Compras) tvlCompras.getSelectionModel().getSelectedItem()).getTotalDocumento()));
     }
 
     public ObservableList<Compras> listaDeCompras() {
@@ -151,6 +169,54 @@ public class ComprasViewController implements Initializable {
             e.printStackTrace();
         }
         return listadoDeCompras = FXCollections.observableList(listado);
+    }
+
+    public void buttonBuscador() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                activarBuscador();
+                btnBuscar.setText("CANCELAR");
+                btnBuscar.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+
+                tipoDeOperaciones = operaciones.ACTUALIZAR;
+                break;
+            case ACTUALIZAR:
+                btnBuscar.setStyle(" ");
+                desactivarBuscador();
+                lipiarBuscador();
+                txtBuscar.setText("");
+                btnBuscar.setText("BUSCAR");
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+        }
+    }
+
+    @FXML
+    private void buscar(KeyEvent event) {
+        String filtro = txtBuscar.getText().toLowerCase().trim();
+        filtrarDatos(filtro);
+    }
+
+    // Método filtrarDatos para realizar la lógica de filtrado
+    private void filtrarDatos(String filtro) {
+        ObservableList<Compras> listaFiltrada = FXCollections.observableArrayList();
+        if (filtro.isEmpty()) {
+            listaFiltrada.addAll(listadoDeCompras);
+        } else {
+            for (Compras compra : listadoDeCompras) {
+                if (String.valueOf(compra.getNumeroDocumento()).toLowerCase().contains(filtro)
+                        || compra.getDescripcion().toLowerCase().contains(filtro)
+                        || String.valueOf(compra.getTotalDocumento()).toLowerCase().contains(filtro)
+                        || compra.getFechaDocumento().toString().toLowerCase().contains(filtro)) {
+                    listaFiltrada.add(compra);
+                }
+            }
+        }
+        tvlCompras.setItems(listaFiltrada);
     }
 
     // Metodos de Crud

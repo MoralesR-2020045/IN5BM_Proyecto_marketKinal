@@ -85,15 +85,14 @@ public class TipoProductoViewController implements Initializable {
     private TableColumn colDescripcion;
 
     @FXML
-    private Button btnBuscar;
-
-    @FXML
     private MenuItem btnClientes;
 
     @FXML
     private MenuItem btnProgramador;
-    @FXML 
+    @FXML
     private TextField txtBuscar;
+    @FXML
+    private Button btnBuscar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -115,7 +114,6 @@ public class TipoProductoViewController implements Initializable {
         txtDescripcion.setText(((TipoProducto) tvlTipoProducto.getSelectionModel().getSelectedItem()).getDescripcion());
     }
 
-    
     public ObservableList<TipoProducto> listaDeTipoProducto() {
         ArrayList<TipoProducto> listador = new ArrayList<>();
         try {
@@ -132,26 +130,35 @@ public class TipoProductoViewController implements Initializable {
         }
         return listaDeTipoProducto = FXCollections.observableList(listador);
     }
-    public void activarBuscador(){
-    txtBuscar.setEditable(true);
+
+    public void activarBuscador() {
+        txtBuscar.setEditable(true);
     }
-    public void desactivarBuscador(){
-        txtBuscar.setEditable( false);
+
+    public void desactivarBuscador() {
+        txtBuscar.setEditable(false);
     }
-    
-    public void lipiarBuscador(){
+
+    public void lipiarBuscador() {
         txtBuscar.clear();
         tvlTipoProducto.setItems(listaDeTipoProducto);
     }
-    
+
     public void buttonBuscador() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
                 activarBuscador();
                 btnBuscar.setText("CANCELAR");
+                btnBuscar.setStyle("    -fx-border-color: black;\n"
+                        + "    -fx-background-radius: 10;\n"
+                        + "    -fx-border-radius: 10;\n"
+                        + "    -fx-background-radius: #FFFFFF;\n"
+                        + "    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #F28C0F, #FE492C);");
+
                 tipoDeOperaciones = operaciones.ACTUALIZAR;
                 break;
             case ACTUALIZAR:
+                btnBuscar.setStyle(" ");
                 desactivarBuscador();
                 lipiarBuscador();
                 txtBuscar.setText("");
@@ -160,7 +167,7 @@ public class TipoProductoViewController implements Initializable {
                 break;
         }
     }
-    
+
     @FXML
     private void buscar(KeyEvent event) {
         String filtro = txtBuscar.getText().toLowerCase().trim();
